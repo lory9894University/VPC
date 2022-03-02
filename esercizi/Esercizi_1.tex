@@ -9,7 +9,7 @@
 \usepackage[italian]{babel}
 \usepackage{thmtools}
 \newtheorem{theorem}{Theorem}
-\newtheorem*{definition}{Definition}
+\newtheorem*{definition}{Definizione}
 \newtheorem{example}{Example}
 
 \begin{document}
@@ -124,14 +124,91 @@ In simboli: $\forall a,b\in X,\ aRb\Rightarrow bRa$
 \begin{definition}[Relazione di equivalenza]Una relazione di equivalenza $R$ su $A$ è una relazione riflessiva, simmetrica e transitiva.
 \end{definition}
 \begin{definition}[Chiusura transitiva di una relazione]Data una relazione $R$ su $A\times A$ chiamiamo chiusura transitiva di $R$, e la indichiamo con $R^{+}$ la seguente relazione:\\
-	$ R^{+} = \{ x, y : 
+	$ R^{+} = \{ x, y | \exists z_1,.....,z_n \in A, n \geq 2, z_1 = x, z_n = y$ t.c $ y_iRy_{i+1}$ con $ i=1,....,n-1 \} $ 
 \end{definition}
-	Funzione
- Funzione  di arietà n,
- funzione iniettiva,
- funzione suriettiva,
- funzione biiettiva
+\begin{definition}[Funzione]Una funzione è una relazione tra due insiemi che associa ad ogni elemento di $A$ uno ed un solo elemento di $B$\\
+	$\forall a \in A \ \ \exists  ! \ b \in B \ \mbox{ tale che } \ f:a\to b$
+\end{definition}
+\begin{definition}[Funzione  di arietà n]L'arietà di una funzione è il numero di argomenti che la funzione richiede. posta una funzione $f : A^{n} \rightarrow A$ la sua arietà è $n$ 
+\end{definition}
+\begin{definition}[Funzione iniettiva]Una funzione $f : A \rightarrow B $è iniettiva se ad ogni elemento $a$ del dominio $A$ corrisponde attraverso $f$ al più un elemento $b$ del codominio $B$.\\
+In simboli: $\forall a\in A\ \ \exists! b\in B \mbox{ t.c. }f(a)=b$
+\end{definition}
+\begin{definition}[Funzione suriettiva]Una funzione $f : A \rightarrow B $è suriettiva se ogni elemento $b$ del codominio $B$ è immagine di almeno un elemento $a$ del dominio $A$.\\
+In simboli: $\forall b\in B\ \ \exists a\in A\ \mbox{ t.c. }f(a)=b$
+\end{definition}
+\begin{definition}[Funzione biiettiva]Una funzione $f$ che è contemporaneamente iniettiva e suriettiva.
+\end{definition}
+
 \subsubsection{Stringhe e linguaggi}
+
+\begin{definition}[Alfabeto]Alfabeto $\Sigma$: insieme non vuoto e finito di simboli.
+\end{definition}
+
+\begin{definition}[Lettera e stringa]Posto un alfabeto $\Sigma$, una lettera è un elemento $\in \Sigma$, una stringa è una sequenza ordinata e finita di lettere.
+\end{definition}
+
+\begin{definition}[String vuota]Stringa di lunghezza 0, si indica con $\epsilon$
+\end{definition}
+
+\begin{definition}[Concatenazione] Il concatenamento di due stringe $L_1$,$L_2$, indicato con "." o semplicemente senza alcun carattere, da origine alla stringa $L_1L_2$ di lunghezza $|L_1| + |L_2|$ che presenta ordinatamente i caratteri di $L_1$ seguiti da quelli di $L_2$.
+\end{definition}
+
+\begin{definition}[Prefisso e Suffisso]Data una stringa $S = t_1,...,t_n$ definiamo prefisso la stringa $S^' = t_1,...t_m$ con $ 0 < m < n$. Invece definiamo suffisso la stringa $S^' = t_m,...t_n$ con $ 0 < m < n$ 
+\end{definition}
+
+
 \subsubsection{Grafi}
+
+Per tutte le seguenti definizioni poniamo un grafo $G =(V, E)$, ove $V$ è l'insieme dei nodi (Vertex)ed $E$ l'insieme degli archi (Edges). In particolare $E \subseteq V\times V$  
+\begin{definition}[Direzione]
+\end{definition}
+
+\begin{definition}[Grafo bipartito]
+\end{definition}
+
+\begin{definition}[nodo sorgente/destinazione]
+\end{definition}
+
+\begin{definition}[in-degree, out-degree]
+\end{definition}
+
+\begin{definition}[Funzione di etichettatura]
+\end{definition}
+
+\begin{definition}[Cammino]Sia $G = (V$,$ E)$ un grafo: una n-upla di nodi $(v0, ..., vm)$ è un cammino quando: $(\forall i=1,...,m)(v_{i-1},v_{i})\in E$
+\end{definition}
+
+\begin{definition}[Ciclo]
+\end{definition}
+
+\begin{definition}[Lunghezza di un cammino]
+\end{definition}
+
+\begin{definition}[Grafo fortemente connesso]Un grafo orientato si dice fortemente connesso se esiste un cammino da v a w per ogni coppia v,w ∈ V
+\end{definition}
+
+\begin{definition}[Componente fortemente connessa terminale]
+\end{definition}
+
+\begin{definition}[Albero]Un albero è un grafo connesso ed aciclico, più precisamente un grafo non orientato nel quale due vertici qualsiasi sono connessi da un solo cammino.
+
+
+\end{definition}
+
 \subsubsection{Matrici}
+
+\begin{definition}[Matrici n-dimensionali]
+\end{definition}
+
+\begin{definition}[Somma di matrici]
+\end{definition}
+
+\begin{definition}[Prodotto di matrici
+\end{definition}
+
+\begin{definition}[Vettore per matrice]
+\end{definition}
+
+
 \end{document}
