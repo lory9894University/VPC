@@ -1,11 +1,17 @@
 \documentclass[a4paper]{article}
 \usepackage[T1]{fontenc}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{float}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage[italian]{babel}
+\usepackage{thmtools}
+\newtheorem{theorem}{Theorem}
+\newtheorem*{definition}{Definition}
+\newtheorem{example}{Example}
+
 \begin{document}
 
 \author{Lorenzo Dentis, lorenzo.dentis@edu.unito.it}
@@ -80,38 +86,51 @@ Which of the following formulas has the parse tree:\\
 Risposta 1: $ ( \lnot p \land q) \lor (p \land \lnot q) $
 
 \section{notazioni e definizioni}
-\subsection{notazioni}		
-notazione per Naturali $ \mathbb{N} $, Interi $ \mathbb{Z} $, Reali $ \mathbb{R} $
+\subsubsection{Insiemi}
+notazione per Naturali $ \mathbb{N} $, Interi $ \mathbb{Z} $, Reali $ \mathbb{R} $, elemento contenuto in un insieme $ \in $
 \newline
-Notazione per insiemi:
-intersezione $\cap$ ,unione $\cup$, differenza $\setminus$, insieme potenza (power set) $\mathcal{P}
-(A)$ , complemento $A^{C}$, Elemento contenuto in un insieme $ \in $, Sottinsieme $ \subset $ e sottinsieme stretto $ \subseteq $ ,
+\begin{definition}[Intersezione]L'intersezione ($\cap$) tra due insiemi $A$ e $B$ è l'insieme degli elementi che appartengono contemporaneamente sia ad $A$ che a $B$
+\end{definition}
+\begin{definition}[Unione]L'unione $\cup$ tra due insiemi $A$ e $B$ è l'insieme degli elementi che appartengono ad $A$, a $B$ o ad entrambi.
+\end{definition}
+\begin{definition}[Differenza]La differenza $\setminus$ tra due insiemi $A$ e $B$, indicata con $A \setminus B$ è l'isieme degli elementi di $A$ esclusi gli elementi che appartengono anche a $B$
+\end{definition}
+\begin{definition}[Power Set]L' insieme potenza (power set) $\mathcal{P}$($A$) è l'insieme di tutti i sottoinsiemi di $A$. $\mathcal{P}(A)=\{X : X \subseteq A\}$ 
+\end{definition}
+\begin{definition}[Complemento]L'insieme complemento di un inseme $A$, scritto $A^{C}$, è l'insieme ottenuto dalla differenza tra l'insieme Universo ed $A$. $A^{C} = U \setminus A$
+\end{definition}
+\begin{definition}[Sottoinsieme]Un sottinsieme $ \subset $ di $A$ è un insieme che contiene solamente elementi contenuti in $A$.
+\end{definition}
+\begin{definition}[Sottoinsieme stretto]Un sottinsieme stretto $ \subseteq $  di $A$ è un insieme che contiene solamente gli elementi contenuti in $A$, eventualmente tutti.
+\end{definition}
 
-\subsection{definizioni}
 \subsubsection{relazioni}
-\begin{itemize}
-	\item prodotto Cartesiano di due insiemi\\
-il prodotto cartesiano di due insiemi $A$ e $B$ è l'insieme delle coppie ordinate $(a,b)$ con $a \in A$ e $b \in B$ Formalmente:\\
+\begin{definition}[Prodotto Cartesiano]Il prodotto cartesiano di due insiemi $A$ e $B$ è l'insieme delle coppie ordinate $(a,b)$ con $a \in A$ e $b \in B$ Formalmente:\\
 $A\times B:=\{(a,b):a\in A\;{\mathrm  {e}}\;b\in B\}$ 
-	\item relazione binaria:\\
+\end{definition}
+\begin{definition}[Relazione binaria]
 Si definisce relazione binaria $R$ tra due insiemi non vuoti $A$ e $B$ un sottoinsieme di $ A \times B$. Due elementi $x$ e $y$ sono messi in relazione da $R$ se: 
 $(x,y)\in R\ $ ed in tal caso si scrive $xRy$.
-	\item proprietà riflessiva:\\
+\end{definition}
+\begin{definition}[Relazione riflessiva]
 Una relazione binaria $R$ in un insieme $X$ è detta riflessiva se ogni elemento di $X$ è in tale relazione con sé stesso.
-In simboli $R$ è riflessiva se: $ \forall a\in X,\ aRa.$
-	\item simmetrica:\\
-una relazione binaria $R$ in un insieme$ X $è simmetrica se e solo se, presi due elementi qualsiasi $a$ e $b$, vale che se $a$ è in relazione con $b$ allora anche $b$ è in relazione con $a$.\\
+In simboli: $R$ è riflessiva se: $ \forall a\in X,\ aRa.$
+\end{definition}
+\begin{definition}[Relazione simmetrica]Una relazione binaria $R$ in un insieme$ X $è simmetrica se e solo se, presi due elementi qualsiasi $a$ e $b$, vale che se $a$ è in relazione con $b$ allora anche $b$ è in relazione con $a$.\\
 In simboli: $\forall a,b\in X,\ aRb\Rightarrow bRa$
-	\item transitiva:\\
-
-	\item relazione di equivalenza:
-	\item chiusura transitiva di una relazione
-	\item Funzione
-	\item Funzione  di arietà n,
-	\item funzione iniettiva,
-	\item funzione suriettiva,
-	\item funzione biiettiva
-\end{itemize}
+\end{definition}
+\begin{definition}[Relazione transitiva]Una relazione transitiva $R$ in un insieme $X$ è transitiva se e solo se prendendo tre elementi qualsiasi $a$, $b$ e $c$ $ \in X$, tali che $aRb$ e $bRc$ allora $aRc$
+\end{definition}
+\begin{definition}[Relazione di equivalenza]Una relazione di equivalenza $R$ su $A$ è una relazione riflessiva, simmetrica e transitiva.
+\end{definition}
+\begin{definition}[Chiusura transitiva di una relazione]Data una relazione $R$ su $A\times A$ chiamiamo chiusura transitiva di $R$, e la indichiamo con $R^{+}$ la seguente relazione:\\
+	$ R^{+} = \{ x, y : 
+\end{definition}
+	Funzione
+ Funzione  di arietà n,
+ funzione iniettiva,
+ funzione suriettiva,
+ funzione biiettiva
 \subsubsection{Stringhe e linguaggi}
 \subsubsection{Grafi}
 \subsubsection{Matrici}
