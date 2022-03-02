@@ -1,0 +1,147 @@
+% \documentclass{article}
+% \usepackage[utf8]{inputenc}
+
+% \title{Esercizio 1 definizioni}
+% \author{susi }
+% \date{March 2022}
+
+% \begin{document}
+
+% \maketitle
+
+% \section{Introduction}
+
+% \end{document}
+\documentclass{article}
+%\usepackage{times}
+
+
+%\usepackage{amsthm}
+\usepackage{algorithm} % for pseudo-codes
+%\usepackage{enumerate}
+\usepackage{algpseudocode}
+%\usepackage{DotArrow}
+%\usepackage{subfig}
+%\usepackage{amsmath, environ}
+%\usepackage{amssymb}
+%\usepackage{amsthm}
+%%\usepackage{bm}
+%%\usepackage{mathtools}
+\usepackage{graphicx} 
+%\usepackage{wrapfig}
+%\usepackage{minibox}
+%\usepackage{multirow}
+%\usepackage{pifont} % \ding{}
+%\usepackage[percent]{overpic}
+%\usepackage{scrextend} % labeling environment
+%
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{definition}{Definition}
+%\newtheorem{example}{Example}
+%
+%\renewcommand{\textfraction}{0.05}
+%\renewcommand{\floatpagefraction}{0.75}
+
+\newcommand{\centerimage}[5][-7pt]{ % [vskip] | graphics-opt | imgname | label | caption
+\begin{figure}[!htb]%
+\centering%
+\vspace{#1}%
+\includegraphics[#2]{#3}%
+\caption{#5}\label{#4}\vspace{2mm}%
+%\vspace{-3pt}\caption{#5}\label{#4}\vspace{-2pt}%
+\end{figure}}
+
+%\includegraphics[trim=1cm 2cm 3cm 4cm, clip=true]{example.pdf}
+
+
+
+\begin{document}
+
+
+
+\title{Esercizio definizioni}
+
+
+\author{autore, email}
+
+\maketitle
+
+
+%========================================================================= 
+%%%%%%%                       INTRODUCTION                         %%%%%%%
+%========================================================================= 
+
+\section{Inizio}  \label{sec:inizio}
+
+%=========================================================================================================
+\subsection{Primo esercizio}  \label{ssec:primo}
+Primo esercizio
+
+\begin{equation} \label{eq:xii}
+	xi_i = (I - T_i)^{-1} \cdot
+			\sum^m_{j=i+1} (F_i \cdot xi_j) \qquad i \leq k
+\end{equation}%
+
+
+A CSLTA  property over the set $AP$ of atomic proposition is defined as
+\begin{equation} 
+  %	\text{\emph{(\CSLTA\ state formula)}\qquad}
+	\Phi ::= p ~|~ \neg\Phi ~|~ \Phi \wedge \Phi ~|~ 
+			 %\mathcal{S}_{\bowtie \lambda}(\Phi) ~|~ 
+			 \mathcal{S}_{\bowtie\lambda}(\Phi)  ~|~
+			 \mathcal{P}_{\bowtie\lambda}(\mathcal{A})  \qquad~
+\end{equation}
+
+
+
+La Figura~\ref{img:reteA}  
+
+%\centerimage{trim=1cm 10cm 3cm 4cm, clip=true}
+	\centerimage{width=\columnwidth}
+{ReteLettoriScrittori.pdf}{img:reteA}
+	{Una rete}
+
+
+
+%===================== TEST 2 FMS 
+\begin{table}
+	\centering
+	%\includegraphics[width=\columnwidth]{imgs/ztest2.pdf}
+	\caption{A table}
+	\label{tab:reteA}
+\end{table}
+%===================== 
+
+La Tabella~\ref{tab:reteA} 
+
+
+
+\begin{algorithm}
+  \begin{algorithmic}
+    \Function{ModelCheck}{$\{Z_j\}$ components of ${Z}$, $s_0$ : initial state}
+      \State $\pi^{(0)} : S\times Z \rightarrow {R}$
+         \Comment{sparse vector of state probabilities}
+      \For{each  $Z_j$,  taken in forward topological order} %, with $0 < j \leq K$}
+         \State $H_j =$ all the tuples $(s,z)$ with 
+                  $\pi^{(j-1)}[(s,z)] \neq 0 \,\wedge\, z \in Z_j$ 
+      \EndFor
+      \State\Return{$\pi^{(K)}[\top]$}
+    \EndFunction
+  \end{algorithmic}
+  \caption{Pseudocode of ......}\label{algo:fwd:otf}
+\end{algorithm}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
