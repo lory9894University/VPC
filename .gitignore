@@ -1,0 +1,5 @@
+greatspn/
+esercizi/*
+!esercizi/*.tex
+!esercizi/*.jpg
+!esercizi/*.sh
