@@ -87,7 +87,7 @@ Risposta 1: $ ( \lnot p \land q) \lor (p \land \lnot q) $
 
 \section{notazioni e definizioni}
 \subsubsection{Insiemi}
-notazione per Naturali $ \mathbb{N} $, Interi $ \mathbb{Z} $, Reali $ \mathbb{R} $, elemento contenuto in un insieme $ \in $
+notazione per Naturali $ \mathbb{N} $, Interi $ \mathbb{Z} $, Reali $ \mathbb{R} $,\\ elemento contenuto in un insieme $ \in $
 \newline
 \begin{definition}[Intersezione]L'intersezione ($\cap$) tra due insiemi $A$ e $B$ è l'insieme degli elementi che appartengono contemporaneamente sia ad $A$ che a $B$
 \end{definition}
@@ -154,41 +154,45 @@ In simboli: $\forall b\in B\ \ \exists a\in A\ \mbox{ t.c. }f(a)=b$
 \begin{definition}[Concatenazione] Il concatenamento di due stringe $L_1$,$L_2$, indicato con "." o semplicemente senza alcun carattere, da origine alla stringa $L_1L_2$ di lunghezza $|L_1| + |L_2|$ che presenta ordinatamente i caratteri di $L_1$ seguiti da quelli di $L_2$.
 \end{definition}
 
-\begin{definition}[Prefisso e Suffisso]Data una stringa $S = t_1,...,t_n$ definiamo prefisso la stringa $S^' = t_1,...t_m$ con $ 0 < m < n$. Invece definiamo suffisso la stringa $S^' = t_m,...t_n$ con $ 0 < m < n$ 
+\begin{definition}[Prefisso e Suffisso]Data una stringa $S = t_1,$...,$t_n$ definiamo prefisso la stringa $S^1 = t_1,$...,$t_m$ con $ 0 < m < n$. Invece definiamo suffisso la stringa $S^2 = t_m,$...,$t_n$ con $ 0 < m < n$ 
 \end{definition}
 
 
 \subsubsection{Grafi}
 
 Per tutte le seguenti definizioni poniamo un grafo $G =(V, E)$, ove $V$ è l'insieme dei nodi (Vertex)ed $E$ l'insieme degli archi (Edges). In particolare $E \subseteq V\times V$  
-\begin{definition}[Direzione]
+\begin{definition}[Direzione]Identifichiamo con $R$ la relazione che indica due nodi $a$,$b$$\in V$ connessi tra loro da un arco, diciamo che il grafo è non-orientato se $R$ è simmetrica, orientato altrimenti.
 \end{definition}
 
-\begin{definition}[Grafo bipartito]
+\begin{definition}[Grafo bipartito]Un grafo si dice bipartito quando l'insieme $V$ può essere bipartito in due sottoinsiemi disgiunti $V=V_1\cup V_2$ tali che ogni arco $\{v_1,v_2\} \in E$ rispetta la seguente forma: $v_1 \in V_1 \land v_2 \in V_2$
 \end{definition}
 
-\begin{definition}[nodo sorgente/destinazione]
+\begin{definition}[nodo sorgente/destinazione]Un nodo $v \in V$ è detto nodo sorgente se non ha archi entranti, nodo destinazione se non ha archi uscenti.\\
+In simboli: posta la relazione $R$ per cui $v_1Rv_2$ indica un arco diretto da $v_1 a v_2$ un nodo sorgente è $v t.c. \forall {v,u} \in E vRu$\\
+Un nodo destiazione è$v t.c. \forall {v,u} \in E uRv$
 \end{definition}
 
-\begin{definition}[in-degree, out-degree]
+\begin{definition}[in-degree, out-degree]Il grado (Degree) di un nodo $v \in V$ è il numero di archi $e = \{v,v_x\}\in E$, cioè il numero di archi connessi al nodo.\\
+Usando la relazione $R$ della precendente definizione: out-degree di $v$ è il numero di archi ${v,u} t.c. vRu$, in-degree di $v$ è il numero di archi ${v,u} t.c. uRv$
 \end{definition}
 
-\begin{definition}[Funzione di etichettatura]
+\begin{definition}[Funzione di etichettatura]Una funzione che attribuisce un valore numerico ad ogni nodo.\\
+Più formalmente un'etichettatura di vertice è una funzione $f: V \rightarrow \mathbb{N}$ 
 \end{definition}
 
-\begin{definition}[Cammino]Sia $G = (V$,$ E)$ un grafo: una n-upla di nodi $(v0, ..., vm)$ è un cammino quando: $(\forall i=1,...,m)(v_{i-1},v_{i})\in E$
+\begin{definition}[Cammino]Una n-upla di nodi $(v_0, ..., v_m)$ è un cammino quando: $(\forall i=1,...,m)(v_{i-1},v_{i})\in E$ con $v_0 \neq v_m$
 \end{definition}
 
-\begin{definition}[Ciclo]
+\begin{definition}[Ciclo]Una n-upla di nodi $(v_0, ..., v_m)$ è un cammino quando: $(\forall i=1,...,m)(v_{i-1},v_{i})\in E$ con $v_0 = v_m$
 \end{definition}
 
-\begin{definition}[Lunghezza di un cammino]
+\begin{definition}[Lunghezza di un cammino]Sia un cammino n-upla di nodi $c=(v_0, ..., v_m)$, la lunghezza del cammino $|c|$ è il numero di nodi $\in c$
 \end{definition}
 
-\begin{definition}[Grafo fortemente connesso]Un grafo orientato si dice fortemente connesso se esiste un cammino da v a w per ogni coppia v,w ∈ V
+\begin{definition}[Grafo fortemente connesso]Un grafo orientato si dice fortemente connesso se esiste un cammino da $v$ a $u$ per ogni coppia $v,u \in V$
 \end{definition}
 
-\begin{definition}[Componente fortemente connessa terminale]
+\begin{definition}[Componente fortemente connessa terminale]Una componente fortemente connessa di un grafo diretto G è un sottografo di G in cui esiste un cammino orientato tra ogni coppia di nodi ad esso appartenenti.La componente fortemente connessa terminale è la componente fortemente connessa massimale, quella che contiene più nodi possibili
 \end{definition}
 
 \begin{definition}[Albero]Un albero è un grafo connesso ed aciclico, più precisamente un grafo non orientato nel quale due vertici qualsiasi sono connessi da un solo cammino.
@@ -198,16 +202,16 @@ Per tutte le seguenti definizioni poniamo un grafo $G =(V, E)$, ove $V$ è l'ins
 
 \subsubsection{Matrici}
 
-\begin{definition}[Matrici n-dimensionali]
+\begin{definition}[Matrici n-dimensionali]una matrice è una funzione $ A\colon X_1 \times X_2 \times ... \times X_n \rightarrow K $ ove n è il numero di dimensioni della matrice.
 \end{definition}
 
-\begin{definition}[Somma di matrici]
+\begin{definition}[Somma di matrici]Date due matrici $A$ e $B$, entrambe di tipo $m \times n$, $A + B$ è una matrice $m \times n$ i cui elementi sono $[A+B]_{i,j}:=[A]_{i,j}+[B]_{i,j}$
 \end{definition}
 
-\begin{definition}[Prodotto di matrici
+\begin{definition}[Prodotto di matrici]Date due matrici $A$ e $B$ rispettivamente di tipo $m \times p$ e $p \times n$, il prodotto è una matrici di tipo $m \times n$ i cui elementi sono: $[C]_{i,j}=Row_{i}(A)\times Col_{j}(B)=[A]_{i,1}[B]_{1,j}+[A]_{i,2}[B]_{2,j}+\cdots +[A]_{i,p}[B]_{p,j}$
 \end{definition}
 
-\begin{definition}[Vettore per matrice]
+\begin{definition}[Vettore per matrice]Il prodotto di un vettore $V$, con $|V| = m$, per una matrice $M$ di tipo $m \times n$ è un vettore $V \times M$ di lunghezza $m$ i cui elementi sono: $[C]_{i}=[V]_{i} B[i,2] + [V]_{i} B[i,2] + ..... + [V]_{m} B[m,n]$
 \end{definition}
 
 
