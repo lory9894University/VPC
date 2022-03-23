@@ -1,0 +1,96 @@
+
+\documentclass{article}   
+\usepackage[utf8]{inputenc}
+
+\usepackage{color}
+\usepackage{graphicx} % in the STTT example
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{algorithm}
+\usepackage{multirow}
+\usepackage{color}
+%\usepackage{amsmath,amssymb,dsfont}
+\usepackage{multirow}
+\usepackage{algpseudocode}
+\usepackage{algorithmicx}
+\usepackage{dblfloatfix}
+
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.90}
+
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+\newcommand{\IGNORE}[1]{}
+
+\newcommand{\ttit}[1]{{\text{\it #1}}}
+\newcommand{\imgchar}[1]{{\bf\small({#1})}}
+%\newcommand{\rewrite}{Rewrite}
+\newcommand{\Sat}{\text{\it Sat}}
+\newcommand{\SatELTL}{\text{Sat{$\exists$}LTL}}
+\newcommand{\SatLTL}{\text{SatLTL}}
+\newcommand{\SatCTL}{\text{SatCTL}}
+\newcommand{\SatCTLstar}{\text{SatCTL*}}
+\newcommand{\satCTL}{\Call{satCTL}}
+\newcommand{\satLTL}{\Call{satLTL}}
+\newcommand{\satELTL}{\Call{sat{$\exists$}LTL}}
+\newcommand{\rewrite}{\Call{rewrite}}
+\newcommand{\tuple}[1]{{\langle{#1}\rangle}}
+\newcommand{\CTLstarMEDD}{{\small RGMEDD*}}
+\newcommand{\RGMEDD}{{\small RGMEDD3}}
+\newcommand{\ltsmin}{LTSmin}
+\newcommand{\greatspn}{GreatSPN}
+\newcommand{\meddly}{Meddly}
+\newcommand{\spot}{Spot}
+\newcommand{\Paths}{\mathbf{\cal P}}
+\newcommand{\place}[1]{#1}
+\newcommand{\trans}[1]{#1}
+\newcommand{\Lang}{\mathcal L}
+\newcommand{\AP}{AP}
+
+
+\newcommand{\PsiRule}{\boldsymbol\Psi}
+\newcommand{\phiRule}{\boldsymbol\phi}
+\newcommand{\varphiRule}{\boldsymbol\varphi}
+\newcommand{\doubleAmp}{\ensuremath{\mathop{\scalebox{0.80}{\&\!\&}}}}
+\newcommand{\doublePipe}{\ensuremath{\mathop{\scalebox{0.80}{$||$}}}}
+
+\begin{document}
+\title{Esercizio Reti di Petri Produttori e consumatori}
+\author{il vostro nome e matricola}
+
+
+
+   
+
+\date{\today}
+
+\maketitle
+
+\section{Primo setting: 1 produttore, 1 consumatore, 1 buffer a N posizioni}\label{SEC:primo}
+L'esercizio chiede di.....
+
+La rete in Figura~\ref{FIG:primo} mostra .....
+
+\begin{figure*}[h!]
+\centering
+%\includegraphics[width=\textwidth]{ReteIniziale.pdf}
+\caption{Una prima rete incompleta} \label{FIG:primo}
+\end{figure*}
+
+
+\section{Secondo  setting: 1 produttore, 2 consumatori,  1 buffer a N posizioni}\label{SEC:secondo}
+L'esercizio chiede di.....
+\subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
+La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \place{$P_0$} ......
+\subsection{Secondo  setting: replicazione di sottoreti}\label{SEC:secondo-replica}
+
+
+\section{Terzo  setting: $P$ produttori, $C$ consumatori,   1 buffer a N posizioni}\label{SEC:terzo}
+\subsection{Terzo  setting: scalatura di marcatura}\label{SEC:terzo-marking}
+\subsection{Terzo  setting: replicazione di sottoreti}\label{SEC:terzo-replica}
+
+
+\end{document}
