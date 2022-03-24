@@ -14,7 +14,9 @@
 \usepackage{multirow}
 \usepackage{algpseudocode}
 \usepackage{algorithmicx}
-\usepackage{dblfloatfix}
+\usepackage{float}
+\addtolength{\topmargin}{-100pt}
+\addtolength{\textheight}{160pt}
 
 \renewcommand{\textfraction}{0.05}
 \renewcommand{\floatpagefraction}{0.90}
@@ -58,34 +60,41 @@
 \newcommand{\doublePipe}{\ensuremath{\mathop{\scalebox{0.80}{$||$}}}}
 
 \begin{document}
-\title{Esercizio Reti di Petri Produttori e consumatori}
-\author{il vostro nome e matricola}
-
-
-
-   
+\title{Esercizio Reti di Petri Produttori e Consumatori}
+\author{Lorenzo Dentis}
 
 \date{\today}
 
 \maketitle
 
 \section{Primo setting: 1 produttore, 1 consumatore, 1 buffer a N posizioni}\label{SEC:primo}
-L'esercizio chiede di.....
-
-La rete in Figura~\ref{FIG:primo} mostra .....
-
-\begin{figure*}[h!]
+La Petri Net in Figura \ref{FIG:setting1} mostra una basilare rete "producer-consumer" divisibile in 3 sezioni.
+\begin{itemize}
+	\item Buffer: il buffer ad accesso casuale ad N posizioni è implementato tramite due posti, \emph{buffer} e \emph{buffer\_capacity}.Il primo svolge il ruolo di limite minimo, quanti prodotti sono presenti all'interno del buffer; il secondo fa da limite massimo, impedendo che il produttore inserisca più di N elementi.
+	\item Producer: Il produttore genera l'elemtento e lo inserisce nel buffer tramite la transizione \emph{place}, tale transizione non è abilitata se non sono presenti token nel posto \emph{buffer\_capacity}, cioè il buffer è pieno
+	\item Consumer: Il consumatore preleva un elemento dal buffer (solo se è presente un token nel posto \emph{buffer}) e lo "consuma".
+\end{itemize}
+Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.\begin{center}$markings = 4*N + 8$\end{center}
+\begin{figure*}[!h]
 \centering
-%\includegraphics[width=\textwidth]{ReteIniziale.pdf}
-\caption{Una prima rete incompleta} \label{FIG:primo}
+\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting1.png}
+\caption{Setting 1} \label{FIG:setting1}
 \end{figure*}
 
 
 \section{Secondo  setting: 1 produttore, 2 consumatori,  1 buffer a N posizioni}\label{SEC:secondo}
-L'esercizio chiede di.....
 \subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
-La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \place{$P_0$} ......
+La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \emph{Think\_C}, portando il numero di token a due.\\
+L'implementazione è triviale ed il numero di markings mantiene una relazione di linearità rispetto ad $N$. per quanto la costante di proporzionalità sia superiore rispetto al caso precedente non vi è un eccessivo incremento di markings anche con valori di $N$ alti. Ad esempio con $N = 1$ il reachability graph presenta 12 markings mentre con $N = 30$ ne sono presenti 182.\\
+La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente \ref{FIG:setting1}\\\begin{center}$markings = 6*N + 12$\end{center}
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting1.png}
+\caption{Setting 2 con scalatura di marking} \label{FIG:setting2_markdown}
+\end{figure*}
+
 \subsection{Secondo  setting: replicazione di sottoreti}\label{SEC:secondo-replica}
+La soluzione tramite la replicazione della sottorete consumatore 
 
 
 \section{Terzo  setting: $P$ produttori, $C$ consumatori,   1 buffer a N posizioni}\label{SEC:terzo}

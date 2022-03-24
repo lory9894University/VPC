@@ -3,3 +3,4 @@ esercizi/*
 !esercizi/*.tex
 !esercizi/*.jpg
 !esercizi/*.sh
+!esercizi/*_img*
