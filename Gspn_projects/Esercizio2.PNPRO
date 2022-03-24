@@ -1,269 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- This project file has been saved by the New GreatSPN Editor, v.100 --><project name="Esercizio2" version="121">
-  <gspn name="setting1" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
-    <nodes>
-      <place marking="1" name="think_P" x="4.0" y="7.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="23.0" y="14.0"/>
-      <place label-x="0.5" label-y="-1.5" marking="1" name="think_C" x="28.0" y="27.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="12.0" y="15.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="7.0"/>
-      <transition label-y="1.5" name="updateCapacity" nservers-x="0.5" type="EXP" x="11.55" y="23.0"/>
-      <place name="wait_P" x="11.0" y="7.0"/>
-      <place name="consume" x="5.0" y="23.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="11.55" y="27.0"/>
-      <transition name="aviable" nservers-x="0.5" type="EXP" x="14.55" y="9.0"/>
-      <place name="placeInBuffer" x="18.0" y="9.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="9.0"/>
-      <transition name="getProduct" nservers-x="0.5" type="EXP" x="28.55" y="23.0"/>
-      <place name="wait_C" x="24.0" y="23.0"/>
-      <transition label-x="3.5" label-y="0.0" name="hasProduct" nservers-x="0.5" type="EXP" x="21.55" y="19.0"/>
-      <place name="getFromBuffer" x="18.0" y="23.0"/>
-      <template name="n" type="INTEGER" x="2.0" y="1.0"/>
-    </nodes>
-    <edges>
-      <arc head="produce" kind="INPUT" tail="think_P"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="wait_P" kind="OUTPUT" tail="produce"/>
-      <arc head="consume" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="goToThink" kind="INPUT" tail="consume">
-        <point x="6.0" y="28.0"/>
-      </arc>
-      <arc head="think_C" kind="OUTPUT" tail="goToThink">
-        <point x="23.0" y="28.0"/>
-      </arc>
-      <arc head="aviable" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="aviable" kind="INPUT" tail="wait_P"/>
-      <arc head="placeInBuffer" kind="OUTPUT" tail="aviable"/>
-      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
-      <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="24.0" y="11.0"/>
-      </arc>
-      <arc head="getProduct" kind="INPUT" tail="think_C">
-        <point x="32.5" y="28.0"/>
-        <point x="32.5" y="24.0"/>
-      </arc>
-      <arc head="hasProduct" kind="INPUT" tail="wait_C"/>
-      <arc head="hasProduct" kind="INPUT" tail="buffer"/>
-      <arc head="think_P" kind="OUTPUT" tail="place">
-        <point x="27.5" y="10.0"/>
-        <point x="27.5" y="2.0"/>
-        <point x="5.0" y="2.0"/>
-      </arc>
-      <arc head="getFromBuffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="updateCapacity" kind="INPUT" tail="getFromBuffer"/>
-      <arc head="wait_C" kind="OUTPUT" tail="getProduct"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="aviable"/>
-      <arc head="buffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="updateCapacity" kind="INPUT" tail="buffer"/>
-    </edges>
-  </gspn>
-  <gspn name="setting2_replication" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
-    <nodes>
-      <place marking="1" name="think_P" x="4.0" y="8.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="23.0" y="15.0"/>
-      <place label-x="0.5" label-y="-1.5" marking="1" name="think_C1" x="28.0" y="28.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="12.0" y="16.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="8.0"/>
-      <transition label-y="1.5" name="updateCapacity_C1" nservers-x="0.5" type="EXP" x="9.55" y="24.0"/>
-      <place name="wait_P" x="11.0" y="8.0"/>
-      <place label-y="-2.0" name="consume_C1" x="2.0" y="24.0"/>
-      <transition label-y="2.0" name="goToThink_C1" nservers-x="0.5" type="EXP" x="9.55" y="28.0"/>
-      <transition name="aviable" nservers-x="0.5" type="EXP" x="14.55" y="10.0"/>
-      <place name="placeInBuffer" x="18.0" y="10.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="10.0"/>
-      <transition name="getProduct_C1" nservers-x="0.5" type="EXP" x="28.55" y="24.0"/>
-      <place name="wait_C1" x="24.0" y="24.0"/>
-      <transition label-x="3.5" label-y="0.0" name="hasProduct_C1" nservers-x="0.5" type="EXP" x="21.55" y="20.0"/>
-      <place name="getFromBuffer_C1" x="18.0" y="24.0"/>
-      <place label-x="4.0" label-y="0.0" marking="1" name="think_C2" x="50.0" y="3.0"/>
-      <transition label-x="-5.5" label-y="0.0" name="updateCapacity_C2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="46.55" y="22.0"/>
-      <place name="consume_C2" x="46.0" y="29.0"/>
-      <transition label-x="4.5" label-y="0.0" name="goToThink_C2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="50.55" y="22.0"/>
-      <transition label-x="-4.5" label-y="0.0" name="getProduct_C2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="46.55" y="3.0"/>
-      <place name="wait_C2" x="46.0" y="7.0"/>
-      <transition label-x="-3.5" label-y="1.5" name="hasProduct_C2" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="42.55" y="10.0"/>
-      <place name="getFromBuffer_C2" x="46.0" y="13.0"/>
-      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
-    </nodes>
-    <edges>
-      <arc head="produce" kind="INPUT" tail="think_P"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="updateCapacity_C1"/>
-      <arc head="wait_P" kind="OUTPUT" tail="produce"/>
-      <arc head="consume_C1" kind="OUTPUT" tail="updateCapacity_C1"/>
-      <arc head="goToThink_C1" kind="INPUT" tail="consume_C1">
-        <point x="3.0" y="29.0"/>
-      </arc>
-      <arc head="think_C1" kind="OUTPUT" tail="goToThink_C1">
-        <point x="23.0" y="29.0"/>
-      </arc>
-      <arc head="aviable" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="aviable" kind="INPUT" tail="wait_P"/>
-      <arc head="placeInBuffer" kind="OUTPUT" tail="aviable"/>
-      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
-      <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="24.0" y="12.0"/>
-      </arc>
-      <arc head="getProduct_C1" kind="INPUT" tail="think_C1">
-        <point x="32.5" y="29.0"/>
-        <point x="32.5" y="25.0"/>
-      </arc>
-      <arc head="hasProduct_C1" kind="INPUT" tail="wait_C1"/>
-      <arc head="hasProduct_C1" kind="INPUT" tail="buffer"/>
-      <arc head="think_P" kind="OUTPUT" tail="place">
-        <point x="27.5" y="11.0"/>
-        <point x="27.5" y="3.0"/>
-        <point x="5.0" y="3.0"/>
-      </arc>
-      <arc head="getFromBuffer_C1" kind="OUTPUT" tail="hasProduct_C1"/>
-      <arc head="updateCapacity_C1" kind="INPUT" tail="getFromBuffer_C1"/>
-      <arc head="wait_C1" kind="OUTPUT" tail="getProduct_C1"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="aviable"/>
-      <arc head="buffer" kind="OUTPUT" tail="hasProduct_C1"/>
-      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="updateCapacity_C1" kind="INPUT" tail="buffer"/>
-      <arc head="consume_C2" kind="OUTPUT" tail="updateCapacity_C2"/>
-      <arc head="goToThink_C2" kind="INPUT" tail="consume_C2">
-        <point x="51.0" y="30.0"/>
-      </arc>
-      <arc head="think_C2" kind="OUTPUT" tail="goToThink_C2">
-        <point x="51.0" y="10.0"/>
-      </arc>
-      <arc head="getProduct_C2" kind="INPUT" tail="think_C2">
-        <point x="51.0" y="0.5"/>
-        <point x="47.0" y="0.5"/>
-      </arc>
-      <arc head="hasProduct_C2" kind="INPUT" tail="wait_C2"/>
-      <arc head="getFromBuffer_C2" kind="OUTPUT" tail="hasProduct_C2"/>
-      <arc head="updateCapacity_C2" kind="INPUT" tail="getFromBuffer_C2"/>
-      <arc head="wait_C2" kind="OUTPUT" tail="getProduct_C2"/>
-      <arc head="hasProduct_C2" kind="INPUT" tail="buffer"/>
-      <arc head="buffer" kind="OUTPUT" tail="hasProduct_C2"/>
-      <arc head="updateCapacity_C2" kind="INPUT" tail="buffer"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="updateCapacity_C2"/>
-    </edges>
-  </gspn>
-  <gspn name="setting2_marking" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
-    <nodes>
-      <place marking="1" name="think_P" x="4.0" y="7.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="23.0" y="14.0"/>
-      <place label-x="0.5" label-y="-1.5" marking="2" name="think_C" x="28.0" y="27.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="12.0" y="15.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="7.0"/>
-      <transition label-y="1.5" name="updateCapacity" nservers-x="0.5" type="EXP" x="11.55" y="23.0"/>
-      <place name="wait_P" x="11.0" y="7.0"/>
-      <place name="consume" x="5.0" y="23.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="11.55" y="27.0"/>
-      <transition name="aviable" nservers-x="0.5" type="EXP" x="14.55" y="9.0"/>
-      <place name="placeInBuffer" x="18.0" y="9.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="9.0"/>
-      <transition name="getProduct" nservers-x="0.5" type="EXP" x="28.55" y="23.0"/>
-      <place name="wait_C" x="24.0" y="23.0"/>
-      <transition label-x="3.5" label-y="0.0" name="hasProduct" nservers-x="0.5" type="EXP" x="21.55" y="19.0"/>
-      <place name="getFromBuffer" x="18.0" y="23.0"/>
-      <template name="n" type="INTEGER" x="2.0" y="2.0"/>
-    </nodes>
-    <edges>
-      <arc head="produce" kind="INPUT" tail="think_P"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="wait_P" kind="OUTPUT" tail="produce"/>
-      <arc head="consume" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="goToThink" kind="INPUT" tail="consume">
-        <point x="6.0" y="28.0"/>
-      </arc>
-      <arc head="think_C" kind="OUTPUT" tail="goToThink">
-        <point x="23.0" y="28.0"/>
-      </arc>
-      <arc head="aviable" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="aviable" kind="INPUT" tail="wait_P"/>
-      <arc head="placeInBuffer" kind="OUTPUT" tail="aviable"/>
-      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
-      <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="24.0" y="11.0"/>
-      </arc>
-      <arc head="getProduct" kind="INPUT" tail="think_C">
-        <point x="32.5" y="28.0"/>
-        <point x="32.5" y="24.0"/>
-      </arc>
-      <arc head="hasProduct" kind="INPUT" tail="wait_C"/>
-      <arc head="hasProduct" kind="INPUT" tail="buffer"/>
-      <arc head="think_P" kind="OUTPUT" tail="place">
-        <point x="27.5" y="10.0"/>
-        <point x="27.5" y="2.0"/>
-        <point x="5.0" y="2.0"/>
-      </arc>
-      <arc head="getFromBuffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="updateCapacity" kind="INPUT" tail="getFromBuffer"/>
-      <arc head="wait_C" kind="OUTPUT" tail="getProduct"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="aviable"/>
-      <arc head="buffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="updateCapacity" kind="INPUT" tail="buffer"/>
-    </edges>
-  </gspn>
-  <gspn name="setting3_marking" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
-    <nodes>
-      <place marking="p" name="think_P" x="4.0" y="7.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="23.0" y="14.0"/>
-      <place label-x="0.5" label-y="-1.5" marking="c" name="think_C" x="28.0" y="27.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="12.0" y="15.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="7.0"/>
-      <transition label-y="1.5" name="updateCapacity" nservers-x="0.5" type="EXP" x="11.55" y="23.0"/>
-      <place name="wait_P" x="11.0" y="7.0"/>
-      <place name="consume" x="5.0" y="23.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="11.55" y="27.0"/>
-      <transition name="aviable" nservers-x="0.5" type="EXP" x="14.55" y="9.0"/>
-      <place name="placeInBuffer" x="18.0" y="9.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="9.0"/>
-      <transition name="getProduct" nservers-x="0.5" type="EXP" x="28.55" y="23.0"/>
-      <place name="wait_C" x="24.0" y="23.0"/>
-      <transition label-x="3.5" label-y="0.0" name="hasProduct" nservers-x="0.5" type="EXP" x="21.55" y="19.0"/>
-      <place name="getFromBuffer" x="18.0" y="23.0"/>
-      <template name="p" type="INTEGER" x="1.0" y="3.0"/>
-      <template name="c" type="INTEGER" x="1.0" y="2.0"/>
-      <template name="n" type="INTEGER" x="1.0" y="1.0"/>
-    </nodes>
-    <edges>
-      <arc head="produce" kind="INPUT" tail="think_P"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="wait_P" kind="OUTPUT" tail="produce"/>
-      <arc head="consume" kind="OUTPUT" tail="updateCapacity"/>
-      <arc head="goToThink" kind="INPUT" tail="consume">
-        <point x="6.0" y="28.0"/>
-      </arc>
-      <arc head="think_C" kind="OUTPUT" tail="goToThink">
-        <point x="23.0" y="28.0"/>
-      </arc>
-      <arc head="aviable" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="aviable" kind="INPUT" tail="wait_P"/>
-      <arc head="placeInBuffer" kind="OUTPUT" tail="aviable"/>
-      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
-      <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="24.0" y="11.0"/>
-      </arc>
-      <arc head="getProduct" kind="INPUT" tail="think_C">
-        <point x="32.5" y="28.0"/>
-        <point x="32.5" y="24.0"/>
-      </arc>
-      <arc head="hasProduct" kind="INPUT" tail="wait_C"/>
-      <arc head="hasProduct" kind="INPUT" tail="buffer"/>
-      <arc head="think_P" kind="OUTPUT" tail="place">
-        <point x="27.5" y="10.0"/>
-        <point x="27.5" y="2.0"/>
-        <point x="5.0" y="2.0"/>
-      </arc>
-      <arc head="getFromBuffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="updateCapacity" kind="INPUT" tail="getFromBuffer"/>
-      <arc head="wait_C" kind="OUTPUT" tail="getProduct"/>
-      <arc head="buffer_capacity" kind="OUTPUT" tail="aviable"/>
-      <arc head="buffer" kind="OUTPUT" tail="hasProduct"/>
-      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="updateCapacity" kind="INPUT" tail="buffer"/>
-    </edges>
-  </gspn>
-  <measures gspn-name="setting1" log-uuid="8809b3d1-36db-4aba-bca9-ffc0664f9776" name="Measures" simplified-UI="false">
+  <measures gspn-name="MultiNet" log-uuid="8bd331db-f806-4226-97e1-55d68239da42" name="Measures" simplified-UI="false">
     <assignments>
-      <assignment bind-model="RANGE" range-from="1" range-step="1" range-to="10" type="INTEGER" varname="n"/>
+      <assignment bind-model="SINGLE_VALUE" single-val="" type="INTEGER" varname="n"/>
     </assignments>
     <greatspn/>
     <formulas>
@@ -271,7 +10,7 @@
         <result-table>
           <stat-result name="STAT">
             <bindings>
-              <binding name="n" value="1"/>
+              <binding name="n" value="5"/>
             </bindings>
             <stat key="build_time" value="0 seconds"/>
             <stat key="home_state" value="True"/>
@@ -279,155 +18,373 @@
             <stat key="num_tangible_markings" value="17"/>
             <stat key="num_vanishing_markings" value="0"/>
           </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="2"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="29"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="3"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="41"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="4"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="53"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="5"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="65"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="6"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="77"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="7"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="89"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="8"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="101"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="9"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="113"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
-          <stat-result name="STAT">
-            <bindings>
-              <binding name="n" value="10"/>
-            </bindings>
-            <stat key="build_time" value="0 seconds"/>
-            <stat key="home_state" value="True"/>
-            <stat key="num_dead_markings" value="0"/>
-            <stat key="num_tangible_markings" value="125"/>
-            <stat key="num_vanishing_markings" value="0"/>
-          </stat-result>
         </result-table>
       </formula>
       <formula language="RG">
         <result-table>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-0.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="1"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-1.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="2"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-2.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="3"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-3.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="4"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-4.pdf" name="RG">
+          <pdf-result name="RG">
             <bindings>
               <binding name="n" value="5"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-5.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="6"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-6.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="7"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-7.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="8"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-8.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="9"/>
-            </bindings>
-          </pdf-result>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio2-Measures.solution/setting1-RG-9.pdf" name="RG">
-            <bindings>
-              <binding name="n" value="10"/>
             </bindings>
           </pdf-result>
         </result-table>
       </formula>
     </formulas>
   </measures>
+  <gspn name="producer" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place marking="1" name="think_P" x="6.0" y="11.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="25.0" y="16.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="14.0" y="17.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="10.55" y="11.0"/>
+      <place name="placeInBuffer" x="18.0" y="11.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="25.55" y="11.0"/>
+      <template name="n" type="INTEGER" x="2.0" y="2.0"/>
+    </nodes>
+    <edges>
+      <arc head="produce" kind="INPUT" tail="think_P"/>
+      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
+      <arc head="buffer" kind="OUTPUT" tail="place">
+        <point x="26.0" y="13.0"/>
+      </arc>
+      <arc head="think_P" kind="OUTPUT" tail="place">
+        <point x="29.5" y="12.0"/>
+        <point x="29.5" y="4.0"/>
+        <point x="7.0" y="4.0"/>
+      </arc>
+      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
+    </edges>
+  </gspn>
+  <gspn name="consumer" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="17.0" y="9.0"/>
+      <place label-x="0.5" label-y="-1.5" marking="1" name="think_C" x="17.0" y="20.0"/>
+      <place label-x="-4.0" label-y="0.0" name="buffer_capacity" x="8.0" y="9.0"/>
+      <transition label-y="1.5" name="getProduct" nservers-x="0.5" type="EXP" x="11.55" y="16.0"/>
+      <place name="consume" x="5.0" y="16.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="11.55" y="20.0"/>
+    </nodes>
+    <edges>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
+      <arc head="consume" kind="OUTPUT" tail="getProduct"/>
+      <arc head="goToThink" kind="INPUT" tail="consume">
+        <point x="6.0" y="21.0"/>
+      </arc>
+      <arc head="getProduct" kind="INPUT" tail="buffer"/>
+      <arc head="think_C" kind="OUTPUT" tail="goToThink"/>
+      <arc head="getProduct" kind="INPUT" tail="think_C">
+        <point x="18.0" y="17.0"/>
+      </arc>
+    </edges>
+  </gspn>
+  <multinet name="MultiNet" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <bindings-list>
+      <binding value="3" variable="n"/>
+    </bindings-list>
+    <subnet netname="producer"/>
+    <subnet netname="consumer"/>
+  </multinet>
+  <measures gspn-name="Glycolysis" name="Measures 1" simplified-UI="false">
+    <assignments/>
+    <greatspn/>
+    <formulas>
+      <formula comment="All the basic Petri net measures" language="ALL"/>
+    </formulas>
+  </measures>
+  <gspn name="setting1" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
+      <place marking="1" name="think_P" x="6.0" y="11.0"/>
+      <place name="placeInBuffer" x="18.0" y="11.0"/>
+      <place label-x="0.5" label-y="-1.5" marking="1" name="think_C" x="25.0" y="28.0"/>
+      <place name="consume" x="13.0" y="24.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="25.0" y="16.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="14.0" y="17.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="10.55" y="11.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="25.55" y="11.0"/>
+      <transition label-y="1.5" name="getProduct" nservers-x="0.5" type="EXP" x="19.55" y="24.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="19.55" y="28.0"/>
+    </nodes>
+    <edges>
+      <arc head="buffer" kind="OUTPUT" tail="place">
+        <point x="26.0" y="13.0"/>
+      </arc>
+      <arc head="think_P" kind="OUTPUT" tail="place">
+        <point x="29.5" y="12.0"/>
+        <point x="29.5" y="4.0"/>
+        <point x="7.0" y="4.0"/>
+      </arc>
+      <arc head="getProduct" kind="INPUT" tail="think_C">
+        <point x="26.0" y="25.0"/>
+      </arc>
+      <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
+      <arc head="consume" kind="OUTPUT" tail="getProduct"/>
+      <arc head="think_C" kind="OUTPUT" tail="goToThink"/>
+      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
+      <arc head="produce" kind="INPUT" tail="think_P"/>
+      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="goToThink" kind="INPUT" tail="consume">
+        <point x="14.0" y="29.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
+      <arc head="getProduct" kind="INPUT" tail="buffer"/>
+    </edges>
+  </gspn>
+  <gspn name="setting2_markdown" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
+      <place marking="1" name="think_P" x="6.0" y="11.0"/>
+      <place name="placeInBuffer" x="18.0" y="11.0"/>
+      <place label-x="0.5" label-y="-1.5" marking="2" name="think_C" x="25.0" y="28.0"/>
+      <place name="consume" x="13.0" y="24.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="25.0" y="16.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="14.0" y="17.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="10.55" y="11.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="25.55" y="11.0"/>
+      <transition label-y="1.5" name="getProduct" nservers-x="0.5" type="EXP" x="19.55" y="24.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="19.55" y="28.0"/>
+    </nodes>
+    <edges>
+      <arc head="buffer" kind="OUTPUT" tail="place">
+        <point x="26.0" y="13.0"/>
+      </arc>
+      <arc head="think_P" kind="OUTPUT" tail="place">
+        <point x="29.5" y="12.0"/>
+        <point x="29.5" y="4.0"/>
+        <point x="7.0" y="4.0"/>
+      </arc>
+      <arc head="getProduct" kind="INPUT" tail="think_C">
+        <point x="26.0" y="25.0"/>
+      </arc>
+      <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
+      <arc head="consume" kind="OUTPUT" tail="getProduct"/>
+      <arc head="think_C" kind="OUTPUT" tail="goToThink"/>
+      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
+      <arc head="produce" kind="INPUT" tail="think_P"/>
+      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="goToThink" kind="INPUT" tail="consume">
+        <point x="14.0" y="29.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
+      <arc head="getProduct" kind="INPUT" tail="buffer"/>
+    </edges>
+  </gspn>
+  <gspn name="setting3_markdown" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
+      <place marking="p" name="think_P" x="6.0" y="11.0"/>
+      <place name="placeInBuffer" x="18.0" y="11.0"/>
+      <place label-x="0.5" label-y="-1.5" marking="c" name="think_C" x="25.0" y="28.0"/>
+      <place name="consume" x="13.0" y="24.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="25.0" y="16.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="14.0" y="17.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="10.55" y="11.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="25.55" y="11.0"/>
+      <transition label-y="1.5" name="getProduct" nservers-x="0.5" type="EXP" x="19.55" y="24.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="19.55" y="28.0"/>
+      <template name="p" type="INTEGER" x="2.0" y="4.0"/>
+      <template name="c" type="INTEGER" x="2.0" y="6.0"/>
+    </nodes>
+    <edges>
+      <arc head="buffer" kind="OUTPUT" tail="place">
+        <point x="26.0" y="13.0"/>
+      </arc>
+      <arc head="think_P" kind="OUTPUT" tail="place">
+        <point x="29.5" y="12.0"/>
+        <point x="29.5" y="4.0"/>
+        <point x="7.0" y="4.0"/>
+      </arc>
+      <arc head="getProduct" kind="INPUT" tail="think_C">
+        <point x="26.0" y="25.0"/>
+      </arc>
+      <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
+      <arc head="consume" kind="OUTPUT" tail="getProduct"/>
+      <arc head="think_C" kind="OUTPUT" tail="goToThink"/>
+      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
+      <arc head="produce" kind="INPUT" tail="think_P"/>
+      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="goToThink" kind="INPUT" tail="consume">
+        <point x="14.0" y="29.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
+      <arc head="getProduct" kind="INPUT" tail="buffer"/>
+    </edges>
+  </gspn>
+  <gspn name="setting2_scale" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
+      <place marking="1" name="think_P" x="4.0" y="10.0"/>
+      <place name="placeInBuffer" x="16.0" y="10.0"/>
+      <place label-y="2.0" marking="1" name="think_C1" x="19.0" y="31.0"/>
+      <place label-y="-1.5" name="consume_C1" x="7.0" y="27.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="33.0" y="18.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="13.0" y="18.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="10.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="10.0"/>
+      <transition label-y="1.5" name="getProduct_C1" nservers-x="0.5" type="EXP" x="13.55" y="27.0"/>
+      <transition label-y="2.0" name="goToThink_C1" nservers-x="0.5" type="EXP" x="13.55" y="31.0"/>
+      <place label-y="2.0" marking="1" name="think_C2" x="39.0" y="31.0"/>
+      <place label-x="-3.5" label-y="0.0" name="consume_C2" x="27.0" y="27.0"/>
+      <transition label-y="1.5" name="getProduct_C2" nservers-x="0.5" type="EXP" x="33.55" y="27.0"/>
+      <transition label-y="2.0" name="goToThink_C2" nservers-x="0.5" type="EXP" x="33.55" y="31.0"/>
+    </nodes>
+    <edges>
+      <arc head="buffer" kind="OUTPUT" tail="place">
+        <point x="24.0" y="12.0"/>
+      </arc>
+      <arc head="think_P" kind="OUTPUT" tail="place">
+        <point x="27.5" y="11.0"/>
+        <point x="27.5" y="3.0"/>
+        <point x="5.0" y="3.0"/>
+      </arc>
+      <arc head="getProduct_C1" kind="INPUT" tail="think_C1">
+        <point x="20.0" y="28.0"/>
+      </arc>
+      <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
+      <arc head="consume_C1" kind="OUTPUT" tail="getProduct_C1"/>
+      <arc head="think_C1" kind="OUTPUT" tail="goToThink_C1"/>
+      <arc head="place" kind="INPUT" tail="placeInBuffer"/>
+      <arc head="produce" kind="INPUT" tail="think_P"/>
+      <arc head="place" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="goToThink_C1" kind="INPUT" tail="consume_C1">
+        <point x="8.0" y="32.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct_C1"/>
+      <arc head="getProduct_C1" kind="INPUT" tail="buffer"/>
+      <arc head="getProduct_C2" kind="INPUT" tail="think_C2">
+        <point x="40.0" y="28.0"/>
+      </arc>
+      <arc head="consume_C2" kind="OUTPUT" tail="getProduct_C2"/>
+      <arc head="think_C2" kind="OUTPUT" tail="goToThink_C2"/>
+      <arc head="goToThink_C2" kind="INPUT" tail="consume_C2">
+        <point x="28.0" y="32.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct_C2"/>
+      <arc head="getProduct_C2" kind="INPUT" tail="buffer"/>
+    </edges>
+  </gspn>
+  <gspn name="setting3_scale" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <template last-binding="3" name="n" type="INTEGER" x="2.0" y="2.0"/>
+      <place marking="1" name="think_P1" x="4.0" y="10.0"/>
+      <place name="placeInBuffer_P1" x="16.0" y="10.0"/>
+      <place label-y="2.0" marking="1" name="think_C1" x="18.0" y="33.0"/>
+      <place label-y="-1.5" name="consume_C1" x="6.0" y="29.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="73.0" y="18.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="39.0" y="18.0"/>
+      <transition name="produce_P1" nservers-x="0.5" type="EXP" x="8.55" y="10.0"/>
+      <transition name="place_P1" nservers-x="0.5" type="EXP" x="23.55" y="10.0"/>
+      <transition label-y="1.5" name="getProduct_C1" nservers-x="0.5" type="EXP" x="12.55" y="29.0"/>
+      <transition label-y="2.0" name="goToThink_C1" nservers-x="0.5" type="EXP" x="12.55" y="33.0"/>
+      <place label-y="2.0" marking="1" name="think_C2" x="45.0" y="33.0"/>
+      <place label-x="-3.5" label-y="0.0" name="consume_C2" x="33.0" y="29.0"/>
+      <transition label-y="1.5" name="getProduct_C2" nservers-x="0.5" type="EXP" x="39.55" y="29.0"/>
+      <transition label-y="2.0" name="goToThink_C2" nservers-x="0.5" type="EXP" x="39.55" y="33.0"/>
+      <place marking="1" name="think_P2" x="30.0" y="10.0"/>
+      <place name="placeInBuffer_P2" x="42.0" y="10.0"/>
+      <transition name="produce_P2" nservers-x="0.5" type="EXP" x="34.55" y="10.0"/>
+      <transition name="copy_place_P1" nservers-x="0.5" type="EXP" x="49.55" y="10.0"/>
+      <place marking="1" name="think_Pn" x="72.0" y="10.0"/>
+      <place name="placeInBuffer_Pn" x="84.0" y="10.0"/>
+      <transition name="produce_Pn" nservers-x="0.5" type="EXP" x="76.55" y="10.0"/>
+      <transition name="place_Pn" nservers-x="0.5" type="EXP" x="91.55" y="10.0"/>
+      <place label-y="2.0" marking="1" name="think_Cn" x="90.0" y="33.0"/>
+      <place label-x="-3.5" label-y="0.0" name="consume_Cn" x="78.0" y="29.0"/>
+      <transition label-y="1.5" name="getProduct_Cn" nservers-x="0.5" type="EXP" x="84.55" y="29.0"/>
+      <transition label-y="2.0" name="goToThink_Cn" nservers-x="0.5" type="EXP" x="84.55" y="33.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" x="56.0" y="3.0">$p-3$ other producers</text-box>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="copy___textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" vert-pos="0" x="56.0" y="28.0">$c-3$ other consumers</text-box>
+    </nodes>
+    <edges>
+      <arc head="buffer" kind="OUTPUT" tail="place_P1">
+        <point x="24.0" y="12.0"/>
+      </arc>
+      <arc head="think_P1" kind="OUTPUT" tail="place_P1">
+        <point x="27.5" y="11.0"/>
+        <point x="27.5" y="3.0"/>
+        <point x="5.0" y="3.0"/>
+      </arc>
+      <arc head="getProduct_C1" kind="INPUT" tail="think_C1">
+        <point x="19.0" y="30.0"/>
+      </arc>
+      <arc head="placeInBuffer_P1" kind="OUTPUT" tail="produce_P1"/>
+      <arc head="consume_C1" kind="OUTPUT" tail="getProduct_C1"/>
+      <arc head="think_C1" kind="OUTPUT" tail="goToThink_C1"/>
+      <arc head="place_P1" kind="INPUT" tail="placeInBuffer_P1"/>
+      <arc head="produce_P1" kind="INPUT" tail="think_P1"/>
+      <arc head="place_P1" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="goToThink_C1" kind="INPUT" tail="consume_C1">
+        <point x="7.0" y="34.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct_C1"/>
+      <arc head="getProduct_C1" kind="INPUT" tail="buffer"/>
+      <arc head="getProduct_C2" kind="INPUT" tail="think_C2">
+        <point x="46.0" y="30.0"/>
+      </arc>
+      <arc head="consume_C2" kind="OUTPUT" tail="getProduct_C2"/>
+      <arc head="think_C2" kind="OUTPUT" tail="goToThink_C2"/>
+      <arc head="goToThink_C2" kind="INPUT" tail="consume_C2">
+        <point x="34.0" y="34.0"/>
+      </arc>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct_C2"/>
+      <arc head="getProduct_C2" kind="INPUT" tail="buffer"/>
+      <arc head="think_P2" kind="OUTPUT" tail="copy_place_P1">
+        <point x="53.5" y="11.0"/>
+        <point x="53.5" y="3.0"/>
+        <point x="31.0" y="3.0"/>
+      </arc>
+      <arc head="placeInBuffer_P2" kind="OUTPUT" tail="produce_P2"/>
+      <arc head="copy_place_P1" kind="INPUT" tail="placeInBuffer_P2"/>
+      <arc head="produce_P2" kind="INPUT" tail="think_P2"/>
+      <arc head="think_Pn" kind="OUTPUT" tail="place_Pn">
+        <point x="95.5" y="11.0"/>
+        <point x="95.5" y="3.0"/>
+        <point x="73.0" y="3.0"/>
+      </arc>
+      <arc head="placeInBuffer_Pn" kind="OUTPUT" tail="produce_Pn"/>
+      <arc head="place_Pn" kind="INPUT" tail="placeInBuffer_Pn"/>
+      <arc head="produce_Pn" kind="INPUT" tail="think_Pn"/>
+      <arc head="getProduct_Cn" kind="INPUT" tail="think_Cn">
+        <point x="91.0" y="30.0"/>
+      </arc>
+      <arc head="consume_Cn" kind="OUTPUT" tail="getProduct_Cn"/>
+      <arc head="think_Cn" kind="OUTPUT" tail="goToThink_Cn"/>
+      <arc head="goToThink_Cn" kind="INPUT" tail="consume_Cn">
+        <point x="79.0" y="34.0"/>
+      </arc>
+      <arc head="getProduct_Cn" kind="INPUT" tail="buffer"/>
+      <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct_Cn"/>
+      <arc head="copy_place_P1" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="buffer" kind="OUTPUT" tail="copy_place_P1"/>
+      <arc head="place_Pn" kind="INPUT" tail="buffer_capacity"/>
+      <arc head="buffer" kind="OUTPUT" tail="place_Pn"/>
+    </edges>
+  </gspn>
+  <measures gspn-name="setting3_scale" log-uuid="219e4ff1-29e2-4584-b8d0-43830913eb83" name="Measures 2" simplified-UI="false">
+    <assignments>
+      <assignment bind-model="SINGLE_VALUE" single-val="3" type="INTEGER" varname="n"/>
+    </assignments>
+    <greatspn/>
+    <formulas>
+      <formula language="STAT">
+        <result-table>
+          <stat-result name="STAT">
+            <bindings>
+              <binding name="n" value="3"/>
+            </bindings>
+            <stat key="build_time" value="0 seconds"/>
+            <stat key="home_state" value="True"/>
+            <stat key="num_dead_markings" value="0"/>
+            <stat key="num_tangible_markings" value="256"/>
+            <stat key="num_vanishing_markings" value="0"/>
+          </stat-result>
+        </result-table>
+      </formula>
+    </formulas>
+  </measures>
   <resource-list>
-    <document-log uuid="8809b3d1-36db-4aba-bca9-ffc0664f9776">rO0ABXNyABRqYXZhLnV0aWwuTGlua2VkTGlzdAwpU11KYIgiAwAAeHB3BAAAAUl0APcbWzBtRVhFQzogL3Vzci9sb2NhbC9HcmVhdFNQTi9iaW4vV05SRyAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxIC1tcGFyIG4gMSAtZ3VpLXN0YXQgLWRvdC1GIC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctMCAtbWF4LWRvdC1tYXJraW5ncyA4MCAKdAArT3ZlcnJpZGluZyBtYXJraW5nIHBhcmFtZXRlciBuIHRvIHZhbHVlIDEuCnQAYy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnQAHFVTRSA6IFdOUkcgbmV0bmFtZSBbLW9dWy1tXQp0AAEKdAAtVG8gcGxvdCB0aGUgZ2VuZXJhdGVkIFJHIGluIEdyYXBodml6IGZvcm1hdDoKdAA0ICAgICAgWy1kb3QtRiBmaWxlbmFtZS5kb3RdIFstbWF4LWRvdC1tYXJraW5ncyBtYXhdCnQANFBhcmFtZXRyaWMgbWFya2luZy9yYXRlIHBhcmFtZXRlcnMgY2FuIGJlIHNldCB3aXRoOgp0ADkgICAgICBbLW1wYXIgcGFyYW1fbmFtZSB2YWx1ZV0gIFstcnBhciBwYXJhbV9uYW1lIHZhbHVlXQp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AC9TZW5kIGZpbGVzIG5ldG5hbWUubmV0LCAuZGVmIHRvIGUtbWFpbCBhZGRyZXNzCnQAKmdyZWF0c3BuQGRpLnVuaXRvLml0IGlmIHlvdSBmaW5kIGFueSBidWcuCnQAYy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnQAAQp0AAEKdAAhICoqKioqIFJlYWNoYWJpbGl0eSBHcmFwaCAqKioqKiAKdAABCnQAGFRBTkdJQkxFIE1BUktJTkdTICA6IDE3CnQAF1ZBTklTSElORyBNQVJLSU5HUyA6IDAKdAAXREVBRCBNQVJLSU5HUyAgICAgIDogMAp0AAEKdAAYVE9UQUwgTUFSS0lOR1MgICAgIDogMTcKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAAQp0ACRUaGUgaW5pdGlhbCBtYXJraW5nIGlzIGEgaG9tZSBzdGF0ZQp0ABxUaW1lIHJlcXVpcmVkIC0tLS0tLS0tLS0+IDAKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAIUdlbmVyYXRpbmcgUERGIGZpbGUgdXNpbmcgZG90Li4uCnQAuiAgZG90ICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLmRvdCIgLVRwZGYgLW8gIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctMC5wZGYiCnQAJxtbMFgbWzMybSBQUk9DRVNTIEVYSVRFRCBOT1JNQUxMWS4bWzBtCnQABRtbMlgKdAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDIgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTEgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSAyLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiAyOQp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDI5CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTEucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDMgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTIgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSAzLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiA0MQp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDQxCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTIucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDQgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTMgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA0Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiA1Mwp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDUzCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTMucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDUgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTQgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA1Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiA2NQp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDY1CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTQucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDYgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTUgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA2Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiA3Nwp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDc3CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTUucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDcgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTYgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA3Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiA4OQp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDg5CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTYucGRmIgpxAH4AIXEAfgAidAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMSAtbXBhciBuIDggLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLVJHLTcgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA4Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABlUQU5HSUJMRSBNQVJLSU5HUyAgOiAxMDEKdAAXVkFOSVNISU5HIE1BUktJTkdTIDogMAp0ABdERUFEIE1BUktJTkdTICAgICAgOiAwCnQAAQp0ABlUT1RBTCBNQVJLSU5HUyAgICAgOiAxMDEKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAAQp0ACRUaGUgaW5pdGlhbCBtYXJraW5nIGlzIGEgaG9tZSBzdGF0ZQp0ABxUaW1lIHJlcXVpcmVkIC0tLS0tLS0tLS0+IDAKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAIUdlbmVyYXRpbmcgUERGIGZpbGUgdXNpbmcgZG90Li4uCnQAuiAgZG90ICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLmRvdCIgLVRwZGYgLW8gIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctNy5wZGYiCnEAfgAhcQB+ACJ0APcbWzBtRVhFQzogL3Vzci9sb2NhbC9HcmVhdFNQTi9iaW4vV05SRyAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxIC1tcGFyIG4gOSAtZ3VpLXN0YXQgLWRvdC1GIC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctOCAtbWF4LWRvdC1tYXJraW5ncyA4MCAKdAArT3ZlcnJpZGluZyBtYXJraW5nIHBhcmFtZXRlciBuIHRvIHZhbHVlIDkuCnQAYy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnQAHFVTRSA6IFdOUkcgbmV0bmFtZSBbLW9dWy1tXQp0AAEKdAAtVG8gcGxvdCB0aGUgZ2VuZXJhdGVkIFJHIGluIEdyYXBodml6IGZvcm1hdDoKdAA0ICAgICAgWy1kb3QtRiBmaWxlbmFtZS5kb3RdIFstbWF4LWRvdC1tYXJraW5ncyBtYXhdCnQANFBhcmFtZXRyaWMgbWFya2luZy9yYXRlIHBhcmFtZXRlcnMgY2FuIGJlIHNldCB3aXRoOgp0ADkgICAgICBbLW1wYXIgcGFyYW1fbmFtZSB2YWx1ZV0gIFstcnBhciBwYXJhbV9uYW1lIHZhbHVlXQp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AC9TZW5kIGZpbGVzIG5ldG5hbWUubmV0LCAuZGVmIHRvIGUtbWFpbCBhZGRyZXNzCnQAKmdyZWF0c3BuQGRpLnVuaXRvLml0IGlmIHlvdSBmaW5kIGFueSBidWcuCnQAYy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnQAAQp0AAEKdAAhICoqKioqIFJlYWNoYWJpbGl0eSBHcmFwaCAqKioqKiAKdAABCnQAGVRBTkdJQkxFIE1BUktJTkdTICA6IDExMwp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGVRPVEFMIE1BUktJTkdTICAgICA6IDExMwp0AAEKdAAqICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiAKdAABCnQAJFRoZSBpbml0aWFsIG1hcmtpbmcgaXMgYSBob21lIHN0YXRlCnQAHFRpbWUgcmVxdWlyZWQgLS0tLS0tLS0tLT4gMAp0AAEKdAAqICoqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiAKdAAhR2VuZXJhdGluZyBQREYgZmlsZSB1c2luZyBkb3QuLi4KdAC6ICBkb3QgIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEuZG90IiAtVHBkZiAtbyAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9zZXR0aW5nMS1SRy04LnBkZiIKcQB+ACFxAH4AInQA+BtbMG1FWEVDOiAvdXNyL2xvY2FsL0dyZWF0U1BOL2Jpbi9XTlJHIC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEgLW1wYXIgbiAxMCAtZ3VpLXN0YXQgLWRvdC1GIC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctOSAtbWF4LWRvdC1tYXJraW5ncyA4MCAKdAAsT3ZlcnJpZGluZyBtYXJraW5nIHBhcmFtZXRlciBuIHRvIHZhbHVlIDEwLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABlUQU5HSUJMRSBNQVJLSU5HUyAgOiAxMjUKdAAXVkFOSVNISU5HIE1BUktJTkdTIDogMAp0ABdERUFEIE1BUktJTkdTICAgICAgOiAwCnQAAQp0ABlUT1RBTCBNQVJLSU5HUyAgICAgOiAxMjUKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAAQp0ACRUaGUgaW5pdGlhbCBtYXJraW5nIGlzIGEgaG9tZSBzdGF0ZQp0ABxUaW1lIHJlcXVpcmVkIC0tLS0tLS0tLS0+IDAKdAABCnQAKiAqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKiogCnQAIUdlbmVyYXRpbmcgUERGIGZpbGUgdXNpbmcgZG90Li4uCnQAuiAgZG90ICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL3NldHRpbmcxLmRvdCIgLVRwZGYgLW8gIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbzItTWVhc3VyZXMuc29sdXRpb24vc2V0dGluZzEtUkctOS5wZGYiCnEAfgAheHNxAH4AAHcEAAABSXNyABFqYXZhLmxhbmcuQm9vbGVhbs0gcoDVnPruAgABWgAFdmFsdWV4cAFxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHEAfgE8cQB+ATxxAH4BPHg</document-log>
+    <document-log uuid="8bd331db-f806-4226-97e1-55d68239da42">rO0ABXNyABRqYXZhLnV0aWwuTGlua2VkTGlzdAwpU11KYIgiAwAAeHB3BAAAACF0AKxFbmNvdW50ZXJlZCB0aGUgZm9sbG93aW5nIHByb2JsZW1zIGR1cmluZyBHU1BOIGV4cG9ydGF0aW9uOgpEZXRlY3RlZCBwcm9ibGVtcyBpbiB0aGUgZXhwb3J0ZWQgR3JlYXRTUE4gbmV0LgoKQ291bGQgbm90IGV4cG9ydCBjb3JyZWN0bHkgaW5pdGlhbCBtYXJraW5nIHdpdGggdmFsdWUgJ24gKyBuJwoKdAD3G1swbUVYRUM6IC91c3IvbG9jYWwvR3JlYXRTUE4vYmluL1dOUkcgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9NdWx0aU5ldCAtbXBhciBuIDUgLWd1aS1zdGF0IC1kb3QtRiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL011bHRpTmV0LVJHLTAgLW1heC1kb3QtbWFya2luZ3MgODAgCnQAK092ZXJyaWRpbmcgbWFya2luZyBwYXJhbWV0ZXIgbiB0byB2YWx1ZSA1Lgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0ABxVU0UgOiBXTlJHIG5ldG5hbWUgWy1vXVstbV0KdAABCnQALVRvIHBsb3QgdGhlIGdlbmVyYXRlZCBSRyBpbiBHcmFwaHZpeiBmb3JtYXQ6CnQANCAgICAgIFstZG90LUYgZmlsZW5hbWUuZG90XSBbLW1heC1kb3QtbWFya2luZ3MgbWF4XQp0ADRQYXJhbWV0cmljIG1hcmtpbmcvcmF0ZSBwYXJhbWV0ZXJzIGNhbiBiZSBzZXQgd2l0aDoKdAA5ICAgICAgWy1tcGFyIHBhcmFtX25hbWUgdmFsdWVdICBbLXJwYXIgcGFyYW1fbmFtZSB2YWx1ZV0KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAvU2VuZCBmaWxlcyBuZXRuYW1lLm5ldCwgLmRlZiB0byBlLW1haWwgYWRkcmVzcwp0ACpncmVhdHNwbkBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AGMtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQp0AAEKdAABCnQAISAqKioqKiBSZWFjaGFiaWxpdHkgR3JhcGggKioqKiogCnQAAQp0ABhUQU5HSUJMRSBNQVJLSU5HUyAgOiAxNwp0ABdWQU5JU0hJTkcgTUFSS0lOR1MgOiAwCnQAF0RFQUQgTUFSS0lOR1MgICAgICA6IDAKdAABCnQAGFRPVEFMIE1BUktJTkdTICAgICA6IDE3CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACFHZW5lcmF0aW5nIFBERiBmaWxlIHVzaW5nIGRvdC4uLgp0ALogIGRvdCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcy5zb2x1dGlvbi9NdWx0aU5ldC5kb3QiIC1UcGRmIC1vICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8yLU1lYXN1cmVzLnNvbHV0aW9uL011bHRpTmV0LVJHLTAucGRmIgp0ACcbWzBYG1szMm0gUFJPQ0VTUyBFWElURUQgTk9STUFMTFkuG1swbQp4c3EAfgAAdwQAAAAhc3IAEWphdmEubGFuZy5Cb29sZWFuzSBygNWc+u4CAAFaAAV2YWx1ZXhwAXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACVxAH4AJXEAfgAlcQB+ACV4</document-log>
+    <document-log uuid="219e4ff1-29e2-4584-b8d0-43830913eb83">rO0ABXNyABRqYXZhLnV0aWwuTGlua2VkTGlzdAwpU11KYIgiAwAAeHB3BAAAAB50AJMbWzBtRVhFQzogL3Vzci9sb2NhbC9HcmVhdFNQTi9iaW4vV05SRyAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvMi1NZWFzdXJlcyAyLnNvbHV0aW9uL3NldHRpbmczX3NjYWxlIiAtbXBhciBuIDMgLWd1aS1zdGF0IAp0ACtPdmVycmlkaW5nIG1hcmtpbmcgcGFyYW1ldGVyIG4gdG8gdmFsdWUgMy4KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAAcVVNFIDogV05SRyBuZXRuYW1lIFstb11bLW1dCnQAAQp0AC1UbyBwbG90IHRoZSBnZW5lcmF0ZWQgUkcgaW4gR3JhcGh2aXogZm9ybWF0Ogp0ADQgICAgICBbLWRvdC1GIGZpbGVuYW1lLmRvdF0gWy1tYXgtZG90LW1hcmtpbmdzIG1heF0KdAA0UGFyYW1ldHJpYyBtYXJraW5nL3JhdGUgcGFyYW1ldGVycyBjYW4gYmUgc2V0IHdpdGg6CnQAOSAgICAgIFstbXBhciBwYXJhbV9uYW1lIHZhbHVlXSAgWy1ycGFyIHBhcmFtX25hbWUgdmFsdWVdCnQAYy0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCnQAL1NlbmQgZmlsZXMgbmV0bmFtZS5uZXQsIC5kZWYgdG8gZS1tYWlsIGFkZHJlc3MKdAAqZ3JlYXRzcG5AZGkudW5pdG8uaXQgaWYgeW91IGZpbmQgYW55IGJ1Zy4KdABjLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KdAABCnQAAQp0ACEgKioqKiogUmVhY2hhYmlsaXR5IEdyYXBoICoqKioqIAp0AAEKdAAZVEFOR0lCTEUgTUFSS0lOR1MgIDogMjU2CnQAF1ZBTklTSElORyBNQVJLSU5HUyA6IDAKdAAXREVBRCBNQVJLSU5HUyAgICAgIDogMAp0AAEKdAAZVE9UQUwgTUFSS0lOR1MgICAgIDogMjU2CnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0AAEKdAAkVGhlIGluaXRpYWwgbWFya2luZyBpcyBhIGhvbWUgc3RhdGUKdAAcVGltZSByZXF1aXJlZCAtLS0tLS0tLS0tPiAwCnQAAQp0ACogKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqIAp0ACcbWzBYG1szMm0gUFJPQ0VTUyBFWElURUQgTk9STUFMTFkuG1swbQp4c3EAfgAAdwQAAAAec3IAEWphdmEubGFuZy5Cb29sZWFuzSBygNWc+u4CAAFaAAV2YWx1ZXhwAXEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJxAH4AInEAfgAicQB+ACJ4</document-log>
   </resource-list>
 </project>
