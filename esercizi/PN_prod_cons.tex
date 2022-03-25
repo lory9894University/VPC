@@ -74,10 +74,10 @@ La Petri Net in Figura \ref{FIG:setting1} mostra una basilare rete "producer-con
 	\item Producer: Il produttore genera l'elemtento e lo inserisce nel buffer tramite la transizione \emph{place}, tale transizione non è abilitata se non sono presenti token nel posto \emph{buffer\_capacity}, cioè il buffer è pieno
 	\item Consumer: Il consumatore preleva un elemento dal buffer (solo se è presente un token nel posto \emph{buffer}) e lo "consuma".
 \end{itemize}
-Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.\begin{center}$markings = 4*N + 8$\end{center}
+Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.\begin{center}$markings = 4*N + 4$\end{center}
 \begin{figure*}[!h]
 \centering
-\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting1.png}
+\includegraphics[width=0.7\textwidth]{./Esercizio2_img/setting1.png}
 \caption{Setting 1} \label{FIG:setting1}
 \end{figure*}
 
@@ -86,20 +86,52 @@ Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di
 \subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
 La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \emph{Think\_C}, portando il numero di token a due.\\
 L'implementazione è triviale ed il numero di markings mantiene una relazione di linearità rispetto ad $N$. per quanto la costante di proporzionalità sia superiore rispetto al caso precedente non vi è un eccessivo incremento di markings anche con valori di $N$ alti. Ad esempio con $N = 1$ il reachability graph presenta 12 markings mentre con $N = 30$ ne sono presenti 182.\\
-La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente \ref{FIG:setting1}\\\begin{center}$markings = 6*N + 12$\end{center}
+La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente (setting \ref{FIG:setting1})\\\begin{center}$markings = 6*N + 6$\end{center}
 \begin{figure*}[!h]
 \centering
-\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting1.png}
+\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting2_markdown.png}
 \caption{Setting 2 con scalatura di marking} \label{FIG:setting2_markdown}
 \end{figure*}
 
+\newpage
 \subsection{Secondo  setting: replicazione di sottoreti}\label{SEC:secondo-replica}
-La soluzione tramite la replicazione della sottorete consumatore 
+La soluzione tramite la replicazione della sottorete consumatore presenta una implementazione più complessa e più "scomoda", la rete risultate per quanto meno chiara è ancora di facile comprensione.\\
+Il reachability graph è più esteso, con un solo posto nel buffer si ottengono 16 markings e, a differenza dell secondo setting (sezione \ref{SEC:secondo-marking}), la costante di proporzionalità è $8*N$.Questo porta ad un totale di 248 markings, contro i 182 del caso precedente, quando $N = 30$
 
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=\textwidth]{./Esercizio2_img/setting2_scale.png}
+\caption{Setting 2 tramite replicazione} \label{FIG:setting2_scale}
+\end{figure*}
 
+\newpage
 \section{Terzo  setting: $P$ produttori, $C$ consumatori,   1 buffer a N posizioni}\label{SEC:terzo}
 \subsection{Terzo  setting: scalatura di marcatura}\label{SEC:terzo-marking}
+Anche questo setting è di semplice implementazione, come si può vedere in Figura \ref{FIG:setting3_markdown}.Si tratta solamente di inserire dei parametri al posto del marking di Producer e Consumer.
+\begin{figure*}[!h]
+\centering
+\includegraphics[width=\textwidth]{./Esercizio2_img/setting3_markdown.png}
+\caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_markdown}
+\end{figure*}\\
+Calcolare come varia esattamente il numero di markings rispetto ai valori $P$, $C$ ed $N$ è complesso, l'equazione corrispondente è\begin{center}$markings = (2N + 2P + (N-1) * (P-1)) * (C+1)$\end{center}
+Ma analizzando l'equazione si può notare che nessuno dei tre parametri ha un influenza maggiore degli altri due.
+Al crescere di $P$, $C$ e $N$ il numero di markings cresce linearmente ed in maniera bilanciata: che sia $P$, $C$ o $N$ ad incrementare non c'è molta differenza nell'incremento dei markings.
+La crescita è comunque limitata, ad esempio impostando un buffer di 4 posti, 4 consumatori e 4 produttori vengono generati 125 markings
+\newpage
 \subsection{Terzo  setting: replicazione di sottoreti}\label{SEC:terzo-replica}
-
+La metodologia di replicazione delle sottoreti è inadatta a implementare un sistema a $P$ produttori e $C$ consumatori, in quanto se il numero di produttori e consumatori non è noto è impossibile generare manualmente il numero corretto di sottoreti.\\
+Una implementazione teorica può essere vista in Figura \ref{FIG:setting3_markdown}, ma è appunto solo teorica.Dato che non ci sono \textbf{realmente} $P$ produttori e $C$ consumatori non si possono usare i tool di analisi di \greatspn 
+\begin{figure*}[!h]
+\centering
+\centerline{\includegraphics[scale=0.2]{./Esercizio2_img/setting3_scale.png}}
+\caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_markdown}
+\end{figure*}\\
+Comunque volendo fare un'analisi della dimensione del Reachability graph possiamo prendere l'esempio in figura \ref{FIG:setting3_markdown} e confrontarlo con la stessa situazione ma con la scalatura di marcatura, quindi 3 Producer, 3 Consumers e $N$ posti nel buffer.
+In questo caso la differenza è notevole, il numero di markings aumenta molto utilizzando il metodo di replicazioni e cresce molto più velocemente, i risultati possono essere osservati in figura \ref{FIG:confronto}.\\
+\begin{figure*}[!h]
+\centering
+\centerline{\includegraphics[scale=0.5]{./Esercizio2_img/confronto.png}}
+\caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:confronto}
+\end{figure*}\\Da questi dati si può concludere che la strategia di replicazione di sottoreti non è vantagggiosa nel dal punto di vista implementativo, ne dal punto di vista della dimensione del reachability graph.
 
 \end{document}
