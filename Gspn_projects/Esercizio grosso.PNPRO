@@ -119,6 +119,62 @@
     <subnet netname="q3.2"/>
     <subnet netname="variable"/>
   </multinet>
+  <gspn name="wantp" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="-3.5" label-y="0.0" name="true_wantp" x="10.0" y="9.0"/>
+      <place label-x="3.5" label-y="0.5" marking="1" name="false_wantp" x="10.0" y="16.0"/>
+      <transition name="is_wantp_true" nservers-x="0.5" type="EXP" x="10.55" y="6.0"/>
+      <transition label-y="2.0" name="is_wantp_false" nservers-x="0.5" type="EXP" x="10.55" y="20.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="12.0"/>
+      <transition label-x="3.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="12.55" y="12.0"/>
+    </nodes>
+    <edges>
+      <arc head="is_wantp_true" kind="INPUT" tail="true_wantp">
+        <point x="9.5" y="8.5"/>
+      </arc>
+      <arc head="true_wantp" kind="OUTPUT" tail="is_wantp_true">
+        <point x="12.5" y="8.5"/>
+      </arc>
+      <arc head="is_wantp_false" kind="INPUT" tail="false_wantp">
+        <point x="9.5" y="19.0"/>
+      </arc>
+      <arc head="false_wantp" kind="OUTPUT" tail="is_wantp_false">
+        <point x="12.5" y="19.0"/>
+      </arc>
+      <arc head="set_wantp_false" kind="INPUT" tail="true_wantp"/>
+      <arc head="false_wantp" kind="OUTPUT" tail="set_wantp_false"/>
+      <arc head="set_wantp_true" kind="INPUT" tail="false_wantp"/>
+      <arc head="true_wantp" kind="OUTPUT" tail="set_wantp_true"/>
+    </edges>
+  </gspn>
+  <gspn name="wantq" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="-3.5" label-y="0.0" name="true_wantq" x="8.0" y="7.0"/>
+      <place label-x="3.5" label-y="0.5" marking="1" name="false_wantq" x="8.0" y="14.0"/>
+      <transition name="is_wantq_true" nservers-x="0.5" type="EXP" x="8.55" y="4.0"/>
+      <transition label-y="2.0" name="is_wantq_false" nservers-x="0.5" type="EXP" x="8.55" y="18.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="5.55" y="10.0"/>
+      <transition label-x="3.0" name="set_wantq_true" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="10.0"/>
+    </nodes>
+    <edges>
+      <arc head="is_wantq_true" kind="INPUT" tail="true_wantq">
+        <point x="7.5" y="6.5"/>
+      </arc>
+      <arc head="true_wantq" kind="OUTPUT" tail="is_wantq_true">
+        <point x="10.5" y="6.5"/>
+      </arc>
+      <arc head="is_wantq_false" kind="INPUT" tail="false_wantq">
+        <point x="7.5" y="17.0"/>
+      </arc>
+      <arc head="false_wantq" kind="OUTPUT" tail="is_wantq_false">
+        <point x="10.5" y="17.0"/>
+      </arc>
+      <arc head="set_wantq_false" kind="INPUT" tail="true_wantq"/>
+      <arc head="false_wantq" kind="OUTPUT" tail="set_wantq_false"/>
+      <arc head="set_wantq_true" kind="INPUT" tail="false_wantq"/>
+      <arc head="true_wantq" kind="OUTPUT" tail="set_wantq_true"/>
+    </edges>
+  </gspn>
   <gspn name="p3.6" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
       <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="11.55" y="5.0"/>
@@ -128,15 +184,15 @@
       <place name="loop_p" x="7.0" y="45.0"/>
       <transition label-x="4.0" label-y="0.0" name="acces_crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="12.0"/>
       <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
-      <transition label-x="3.5" label-y="0.0" name="is_true_q" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="19.0"/>
-      <transition label-x="4.0" label-y="0.0" name="exit_crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="42.0"/>
-      <transition label-x="4.0" label-y="0.0" name="set_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="27.0"/>
+      <transition label-x="4.5" label-y="0.0" name="is_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="19.0"/>
+      <transition label-x="4.0" label-y="0.0" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="42.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="27.0"/>
       <place label-x="2.0" label-y="0.0" name="P4" x="7.0" y="31.0"/>
-      <place label-y="-2.0" name="wantp" x="20.0" y="31.0"/>
       <place label-x="2.5" label-y="0.0" name="P5" x="7.0" y="39.0"/>
       <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="35.0"/>
-      <place name="wantq" x="20.0" y="16.0"/>
-      <place name="CS" x="20.0" y="23.0"/>
+      <place name="wantq" x="16.0" y="15.0"/>
+      <place name="wantp" x="16.0" y="33.0"/>
+      <place name="CS" x="16.0" y="29.0"/>
     </nodes>
     <edges>
       <arc head="acces_crit_p" kind="INPUT" tail="P1"/>
@@ -147,11 +203,11 @@
       <arc head="P1" kind="OUTPUT" tail="repeat_p">
         <point x="5.0" y="8.0"/>
       </arc>
-      <arc head="is_true_q" kind="INPUT" tail="P2"/>
-      <arc head="P3" kind="OUTPUT" tail="is_true_q"/>
-      <arc head="loop_p" kind="OUTPUT" tail="exit_crit_p"/>
-      <arc head="set_p" kind="INPUT" tail="P3"/>
-      <arc head="P4" kind="OUTPUT" tail="set_p"/>
+      <arc head="is_wantq_false" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="is_wantq_false"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_wantp_false"/>
+      <arc head="set_wantp_true" kind="INPUT" tail="P3"/>
+      <arc head="P4" kind="OUTPUT" tail="set_wantp_true"/>
       <arc head="nCrit_p" kind="INPUT" tail="P1"/>
       <arc head="P1" kind="OUTPUT" tail="nCrit_p">
         <point x="13.0" y="4.0"/>
@@ -159,16 +215,12 @@
       </arc>
       <arc head="crit_p" kind="INPUT" tail="P4"/>
       <arc head="P5" kind="OUTPUT" tail="crit_p"/>
-      <arc head="exit_crit_p" kind="INPUT" tail="P5"/>
-      <arc head="exit_crit_p" kind="INPUT" tail="wantp">
-        <point x="21.0" y="38.0"/>
-      </arc>
-      <arc head="wantp" kind="OUTPUT" tail="set_p"/>
-      <arc head="is_true_q" kind="INHIBITOR" mult-k="0.8538085937500001" tail="wantq">
-        <point x="13.508496093749997" y="18.72880859375"/>
-      </arc>
-      <arc head="CS" kind="OUTPUT" tail="set_p"/>
-      <arc head="exit_crit_p" kind="INPUT" tail="CS"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="P5"/>
+      <arc head="is_wantq_false" kind="INHIBITOR" tail="wantq"/>
+      <arc head="wantp" kind="OUTPUT" tail="set_wantp_true"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="wantp"/>
+      <arc head="CS" kind="OUTPUT" tail="set_wantp_true"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="CS"/>
     </edges>
   </gspn>
   <gspn name="q3.6" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
@@ -180,15 +232,15 @@
       <place label-x="3.552713678800501E-15" label-y="-2.5" name="loop_q" x="15.999999999999996" y="3.0"/>
       <transition label-x="4.0" label-y="0.0" name="acces_crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="36.0"/>
       <transition label-x="4.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="19.55" y="29.0"/>
-      <transition label-x="-3.5" label-y="-0.5" name="is_true_p" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="29.0"/>
-      <transition label-x="-4.5" label-y="-0.5" name="exit_crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="6.0"/>
-      <transition label-x="-3.0" label-y="0.0" name="set_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="21.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="is_wantp_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="29.0"/>
+      <transition label-x="-4.5" label-y="-0.5" name="set_wantq_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="6.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="set_wantq_true" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="21.0"/>
       <place label-x="2.0" label-y="0.0" name="Q4" x="16.0" y="17.0"/>
-      <place label-y="2.0" name="wantq" x="3.0" y="17.0"/>
       <place label-x="2.0" label-y="0.0" name="Q5" x="16.0" y="9.0"/>
-      <transition label-x="-3.0" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="13.0"/>
-      <place name="wantp" x="3.0000000000000018" y="32.0"/>
-      <place name="CS" x="3.0" y="24.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="16.55" y="13.0"/>
+      <place name="wantp" x="3.0" y="36.0"/>
+      <place name="wantq" x="3.0" y="11.0"/>
+      <place name="CS" x="6.0" y="18.0"/>
     </nodes>
     <edges>
       <arc head="acces_crit_q" kind="INPUT" tail="Q1"/>
@@ -199,28 +251,24 @@
       <arc head="Q1" kind="OUTPUT" tail="repeat_q">
         <point x="20.0" y="42.0"/>
       </arc>
-      <arc head="is_true_p" kind="INPUT" tail="Q2"/>
-      <arc head="Q3" kind="OUTPUT" tail="is_true_p"/>
-      <arc head="loop_q" kind="OUTPUT" tail="exit_crit_q"/>
-      <arc head="set_q" kind="INPUT" tail="Q3"/>
-      <arc head="Q4" kind="OUTPUT" tail="set_q"/>
+      <arc head="is_wantp_false" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="is_wantp_false"/>
+      <arc head="loop_q" kind="OUTPUT" tail="set_wantq_false"/>
+      <arc head="set_wantq_true" kind="INPUT" tail="Q3"/>
+      <arc head="Q4" kind="OUTPUT" tail="set_wantq_true"/>
       <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
       <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
         <point x="12.000000000000004" y="46.0"/>
         <point x="14.500000000000002" y="46.5"/>
       </arc>
-      <arc head="crit_q" kind="INPUT" tail="Q4"/>
-      <arc head="Q5" kind="OUTPUT" tail="crit_q"/>
-      <arc head="exit_crit_q" kind="INPUT" tail="Q5"/>
-      <arc head="exit_crit_q" kind="INPUT" tail="wantq">
-        <point x="3.9999999999999982" y="12.000000000000002"/>
-      </arc>
-      <arc head="wantq" kind="OUTPUT" tail="set_q"/>
-      <arc head="is_true_p" kind="INHIBITOR" mult-k="0.8538085937500001" tail="wantp">
-        <point x="11.491503906250003" y="31.27119140625"/>
-      </arc>
-      <arc head="CS" kind="OUTPUT" tail="set_q"/>
-      <arc head="exit_crit_q" kind="INPUT" tail="CS"/>
+      <arc head="cs_q" kind="INPUT" tail="Q4"/>
+      <arc head="Q5" kind="OUTPUT" tail="cs_q"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="Q5"/>
+      <arc head="is_wantp_false" kind="INHIBITOR" tail="wantp"/>
+      <arc head="wantq" kind="OUTPUT" tail="set_wantq_true"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="wantq"/>
+      <arc head="CS" kind="OUTPUT" tail="set_wantq_true"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="CS"/>
     </edges>
   </gspn>
   <multinet name="3.6" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
@@ -235,30 +283,30 @@
       <place label-x="1.5" label-y="0.0" name="P2" x="7.0" y="15.0"/>
       <place label-x="2.0" label-y="0.0" name="P3" x="7.0" y="23.0"/>
       <place name="loop_p" x="7.0" y="45.0"/>
-      <transition label-x="4.0" label-y="0.0" name="set_wantp" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="12.0"/>
+      <transition label-x="4.0" label-y="0.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="12.0"/>
       <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
-      <transition label-x="3.0" label-y="0.5" name="await_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="19.0"/>
-      <transition label-x="4.0" label-y="0.0" name="exit_crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="42.0"/>
+      <transition label-x="4.5" label-y="0.0" name="is_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="19.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="42.0"/>
       <transition label-x="3.0" label-y="0.0" name="enter_cs_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="27.0"/>
       <place label-x="2.0" label-y="0.0" name="P4" x="7.0" y="31.0"/>
-      <place label-y="-2.0" name="wantp" x="20.0" y="31.0"/>
       <place label-x="2.5" label-y="0.0" name="P5" x="7.0" y="39.0"/>
       <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="35.0"/>
-      <place name="wantq" x="20.0" y="16.0"/>
       <place name="CS" x="20.0" y="23.0"/>
+      <place name="wantq" x="17.0" y="14.0"/>
+      <place name="wantp" x="17.0" y="32.0"/>
     </nodes>
     <edges>
-      <arc head="set_wantp" kind="INPUT" tail="P1"/>
-      <arc head="P2" kind="OUTPUT" tail="set_wantp"/>
+      <arc head="set_wantp_true" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="set_wantp_true"/>
       <arc head="repeat_p" kind="INPUT" tail="loop_p">
         <point x="5.0" y="46.0"/>
       </arc>
       <arc head="P1" kind="OUTPUT" tail="repeat_p">
         <point x="5.0" y="8.0"/>
       </arc>
-      <arc head="await_p" kind="INPUT" tail="P2"/>
-      <arc head="P3" kind="OUTPUT" tail="await_p"/>
-      <arc head="loop_p" kind="OUTPUT" tail="exit_crit_p"/>
+      <arc head="is_wantq_false" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="is_wantq_false"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_wantp_false"/>
       <arc head="enter_cs_p" kind="INPUT" tail="P3"/>
       <arc head="P4" kind="OUTPUT" tail="enter_cs_p"/>
       <arc head="nCrit_p" kind="INPUT" tail="P1"/>
@@ -268,16 +316,12 @@
       </arc>
       <arc head="crit_p" kind="INPUT" tail="P4"/>
       <arc head="P5" kind="OUTPUT" tail="crit_p"/>
-      <arc head="exit_crit_p" kind="INPUT" tail="P5"/>
-      <arc head="exit_crit_p" kind="INPUT" tail="wantp">
-        <point x="21.0" y="38.0"/>
-      </arc>
-      <arc head="await_p" kind="INHIBITOR" mult-k="0.8538085937500001" tail="wantq">
-        <point x="13.508496093749997" y="18.72880859375"/>
-      </arc>
-      <arc head="exit_crit_p" kind="INPUT" tail="CS"/>
-      <arc head="wantp" kind="OUTPUT" tail="set_wantp"/>
-      <arc head="CS" kind="OUTPUT" tail="await_p"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="P5"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="CS"/>
+      <arc head="CS" kind="OUTPUT" tail="is_wantq_false"/>
+      <arc head="wantp" kind="OUTPUT" tail="set_wantp_true"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="wantp"/>
+      <arc head="is_wantq_false" kind="INHIBITOR" tail="wantq"/>
     </edges>
   </gspn>
   <gspn name="q3.8" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
@@ -287,30 +331,30 @@
       <place label-x="1.5" label-y="0.0" name="Q2" x="15.0" y="35.0"/>
       <place label-x="2.0" label-y="0.0" name="Q3" x="15.0" y="27.0"/>
       <place label-x="3.552713678800501E-15" label-y="-2.0" name="loop_q" x="14.999999999999996" y="5.0"/>
-      <transition label-x="-4.0" label-y="0.0" name="set_wantq" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="38.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="set_wantq_true" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="38.0"/>
       <transition label-x="3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="18.55" y="31.0"/>
-      <transition label-x="-3.0" label-y="-1.0" name="await_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="31.0"/>
-      <transition label-x="-4.999999999999998" label-y="-0.5" name="exit_crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.549999999999999" y="8.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="is_wantp_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="31.0"/>
+      <transition label-x="-4.999999999999998" label-y="0.0" name="set_wantq_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.549999999999999" y="8.0"/>
       <transition label-x="-4.0" label-y="0.0" name="enter_cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="23.0"/>
       <place label-x="2.0" label-y="0.0" name="Q4" x="15.0" y="19.0"/>
-      <place label-x="-0.5" label-y="2.0" name="wantq" x="2.0" y="19.0"/>
       <place label-x="2.0000000000000018" label-y="0.0" name="Q5" x="14.999999999999998" y="11.0"/>
       <transition label-x="-3.0" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="15.0"/>
-      <place name="wantp" x="2.0000000000000018" y="34.0"/>
       <place name="CS" x="2.0" y="27.0"/>
+      <place name="wantq" x="3.0" y="16.0"/>
+      <place name="wantp" x="3.0" y="36.0"/>
     </nodes>
     <edges>
-      <arc head="set_wantq" kind="INPUT" tail="Q1"/>
-      <arc head="Q2" kind="OUTPUT" tail="set_wantq"/>
+      <arc head="set_wantq_true" kind="INPUT" tail="Q1"/>
+      <arc head="Q2" kind="OUTPUT" tail="set_wantq_true"/>
       <arc head="repeat_q" kind="INPUT" tail="loop_q">
         <point x="18.999999999999996" y="6.0"/>
       </arc>
       <arc head="Q1" kind="OUTPUT" tail="repeat_q">
         <point x="19.0" y="44.0"/>
       </arc>
-      <arc head="await_q" kind="INPUT" tail="Q2"/>
-      <arc head="Q3" kind="OUTPUT" tail="await_q"/>
-      <arc head="loop_q" kind="OUTPUT" tail="exit_crit_q"/>
+      <arc head="is_wantp_false" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="is_wantp_false"/>
+      <arc head="loop_q" kind="OUTPUT" tail="set_wantq_false"/>
       <arc head="enter_cs_q" kind="INPUT" tail="Q3"/>
       <arc head="Q4" kind="OUTPUT" tail="enter_cs_q"/>
       <arc head="nCrit_1" kind="INPUT" tail="Q1"/>
@@ -320,21 +364,154 @@
       </arc>
       <arc head="crit_q" kind="INPUT" tail="Q4"/>
       <arc head="Q5" kind="OUTPUT" tail="crit_q"/>
-      <arc head="exit_crit_q" kind="INPUT" tail="Q5"/>
-      <arc head="exit_crit_q" kind="INPUT" tail="wantq">
-        <point x="2.9999999999999982" y="14.000000000000002"/>
-      </arc>
-      <arc head="await_q" kind="INHIBITOR" mult-k="0.8538085937500001" tail="wantp">
-        <point x="10.491503906250003" y="33.27119140625"/>
-      </arc>
-      <arc head="exit_crit_q" kind="INPUT" tail="CS"/>
-      <arc head="wantq" kind="OUTPUT" tail="set_wantq"/>
-      <arc head="CS" kind="OUTPUT" tail="await_q"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="Q5"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="CS"/>
+      <arc head="CS" kind="OUTPUT" tail="is_wantp_false"/>
+      <arc head="is_wantp_false" kind="INHIBITOR" tail="wantp"/>
+      <arc head="wantq" kind="OUTPUT" tail="set_wantq_true"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="wantq"/>
     </edges>
   </gspn>
   <multinet name="3.8" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <bindings-list/>
     <subnet netname="p3.8"/>
     <subnet netname="q3.8"/>
+  </multinet>
+  <gspn name="p3.9" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="31.55" y="5.0"/>
+      <place marking="1" name="P1" x="27.0" y="7.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="27.0" y="17.0"/>
+      <place name="loop_p" x="27.0" y="45.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="20.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
+      <transition label-x="4.5" label-y="0.0" name="is_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="26.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="42.0"/>
+      <place label-x="2.0" label-y="0.0" name="P6" x="27.0" y="31.0"/>
+      <place label-x="2.5" label-y="0.0" name="P7" x="27.0" y="39.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="35.0"/>
+      <place name="CS" x="40.0" y="30.0"/>
+      <place name="p4" x="19.0" y="29.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="13.0"/>
+      <place label-x="2.5" label-y="0.0" name="P3" x="27.0" y="23.0"/>
+      <transition label-x="0.5" label-y="2.5" name="is_wantq_true" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="23.55" y="26.0"/>
+      <transition label-y="2.0" name="set_wantp_false2" nservers-x="0.5" type="EXP" x="10.55" y="29.0"/>
+      <place name="p5" x="13.0" y="19.0"/>
+      <transition label-y="-2.0" name="set_wantp_true2" nservers-x="0.5" type="EXP" x="19.55" y="19.0"/>
+      <place name="wantp" x="15.0" y="26.0"/>
+      <place name="wantq" x="37.0" y="22.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="5.0" y="46.0"/>
+      </arc>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="5.0" y="8.0"/>
+      </arc>
+      <arc head="loop_p" kind="OUTPUT" tail="set_wantp_false"/>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="33.0" y="4.0"/>
+        <point x="30.5" y="3.5"/>
+      </arc>
+      <arc head="crit_p" kind="INPUT" tail="P6"/>
+      <arc head="P7" kind="OUTPUT" tail="crit_p"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="P7"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="CS"/>
+      <arc head="CS" kind="OUTPUT" tail="is_wantq_false"/>
+      <arc head="exit_nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="exit_nCrit_p"/>
+      <arc head="set_wantp_true" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="set_wantp_true"/>
+      <arc head="is_wantq_false" kind="INPUT" tail="P3"/>
+      <arc head="P6" kind="OUTPUT" tail="is_wantq_false"/>
+      <arc head="is_wantq_true" kind="INPUT" tail="P3"/>
+      <arc head="p4" kind="OUTPUT" tail="is_wantq_true"/>
+      <arc head="set_wantp_true2" kind="INPUT" tail="p5"/>
+      <arc head="P3" kind="OUTPUT" tail="set_wantp_true2"/>
+      <arc head="set_wantp_false2" kind="INPUT" tail="p4"/>
+      <arc head="p5" kind="OUTPUT" tail="set_wantp_false2">
+        <point x="11.0" y="26.0"/>
+        <point x="11.0" y="20.0"/>
+      </arc>
+      <arc head="is_wantq_false" kind="INHIBITOR" tail="wantq"/>
+      <arc head="is_wantq_true" kind="INPUT" tail="wantq"/>
+      <arc head="wantq" kind="OUTPUT" tail="is_wantq_true"/>
+      <arc head="wantp" kind="OUTPUT" tail="set_wantp_true"/>
+      <arc head="wantp" kind="OUTPUT" tail="set_wantp_true2"/>
+      <arc head="set_wantp_false2" kind="INPUT" tail="wantp"/>
+      <arc head="set_wantp_false" kind="INPUT" tail="wantp"/>
+    </edges>
+  </gspn>
+  <gspn name="q3.9" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <transition label-x="-3.5000000000000036" label-y="-1.0" name="nCrit_q" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="10.550000000000004" y="45.0"/>
+      <place marking="1" name="Q1" x="14.000000000000004" y="43.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="14.0" y="33.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.0" name="loop_q" x="13.999999999999996" y="5.0"/>
+      <transition label-x="-5.0" label-y="0.0" name="set_wantq_true" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="14.55" y="30.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="37.55" y="30.999999999999996"/>
+      <transition label-x="0.5" name="is_wantp_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="14.55" y="24.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantq_false" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="14.549999999999997" y="8.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q6" x="14.0" y="19.0"/>
+      <place label-x="2.0" label-y="0.5" name="Q7" x="14.0" y="11.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="14.55" y="15.0"/>
+      <place name="CS" x="1.0" y="20.0"/>
+      <place name="Q4" x="22.0" y="21.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="14.55" y="37.0"/>
+      <place label-x="2.5" label-y="0.0" name="Q3" x="14.0" y="27.0"/>
+      <transition label-x="1.0" label-y="2.0" name="is_wantp_true" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="18.55" y="24.0"/>
+      <transition label-y="-2.0" name="set_wantq_false2" nservers-x="0.5" rotation="3.141592653589793" type="EXP" x="31.55" y="21.0"/>
+      <place name="Q5" x="28.0" y="31.0"/>
+      <transition label-y="2.0" name="set_wantq_true2" nservers-x="0.5" rotation="3.141592653589793" type="EXP" x="22.55" y="31.0"/>
+      <place label-x="1.0" name="wantq" x="27.0" y="24.0"/>
+      <place name="wantp" x="4.0" y="28.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="38.0" y="5.9999999999999964"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="38.0" y="44.0"/>
+      </arc>
+      <arc head="loop_q" kind="OUTPUT" tail="set_wantq_false"/>
+      <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
+        <point x="10.000000000000004" y="48.0"/>
+        <point x="12.500000000000004" y="48.5"/>
+      </arc>
+      <arc head="crit_q" kind="INPUT" tail="Q6"/>
+      <arc head="Q7" kind="OUTPUT" tail="crit_q"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="Q7"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="CS"/>
+      <arc head="CS" kind="OUTPUT" tail="is_wantp_false"/>
+      <arc head="exit_nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q2" kind="OUTPUT" tail="exit_nCrit_q"/>
+      <arc head="set_wantq_true" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="set_wantq_true"/>
+      <arc head="is_wantp_false" kind="INPUT" tail="Q3"/>
+      <arc head="Q6" kind="OUTPUT" tail="is_wantp_false"/>
+      <arc head="is_wantp_true" kind="INPUT" tail="Q3"/>
+      <arc head="Q4" kind="OUTPUT" tail="is_wantp_true"/>
+      <arc head="set_wantq_true2" kind="INPUT" tail="Q5"/>
+      <arc head="Q3" kind="OUTPUT" tail="set_wantq_true2"/>
+      <arc head="set_wantq_false2" kind="INPUT" tail="Q4"/>
+      <arc head="Q5" kind="OUTPUT" tail="set_wantq_false2">
+        <point x="32.0" y="26.0"/>
+        <point x="32.0" y="32.0"/>
+      </arc>
+      <arc head="is_wantp_false" kind="INHIBITOR" tail="wantp"/>
+      <arc head="is_wantp_true" kind="INPUT" tail="wantp"/>
+      <arc head="wantp" kind="OUTPUT" tail="is_wantp_true"/>
+      <arc head="wantq" kind="OUTPUT" tail="set_wantq_true"/>
+      <arc head="wantq" kind="OUTPUT" tail="set_wantq_true2"/>
+      <arc head="set_wantq_false2" kind="INPUT" tail="wantq"/>
+      <arc head="set_wantq_false" kind="INPUT" tail="wantq"/>
+    </edges>
+  </gspn>
+  <multinet name="3.9" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <bindings-list/>
+    <subnet netname="p3.9"/>
+    <subnet netname="q3.9"/>
   </multinet>
 </project>
