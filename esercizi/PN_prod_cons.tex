@@ -68,6 +68,7 @@
 \maketitle
 
 \section{Primo setting: 1 produttore, 1 consumatore, 1 buffer a N posizioni}\label{SEC:primo}
+\subsection{Primo setting:}
 La Petri Net in Figura \ref{FIG:setting1} mostra una basilare rete "producer-consumer" divisibile in 3 sezioni.
 \begin{itemize}
 	\item Buffer: il buffer ad accesso casuale ad N posizioni è implementato tramite due posti, \emph{buffer} e \emph{buffer\_capacity}.Il primo svolge il ruolo di limite minimo, quanti prodotti sono presenti all'interno del buffer; il secondo fa da limite massimo, impedendo che il produttore inserisca più di N elementi.
