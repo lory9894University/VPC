@@ -1,7 +1,6 @@
 
 \documentclass{article}   
 \usepackage[utf8]{inputenc}
-
 \usepackage{color}
 \usepackage{graphicx} % in the STTT example
 \usepackage{amsmath}
@@ -14,6 +13,7 @@
 \usepackage{multirow}
 \usepackage{algpseudocode}
 \usepackage{algorithmicx}
+\usepackage{hyperref}
 \usepackage{float}
 \addtolength{\topmargin}{-100pt}
 \addtolength{\textheight}{160pt}
@@ -75,20 +75,30 @@ La Petri Net in Figura \ref{FIG:setting1} mostra una basilare rete "producer-con
 	\item Producer: Il produttore genera l'elemtento e lo inserisce nel buffer tramite la transizione \emph{place}, tale transizione non è abilitata se non sono presenti token nel posto \emph{buffer\_capacity}, cioè il buffer è pieno
 	\item Consumer: Il consumatore preleva un elemento dal buffer (solo se è presente un token nel posto \emph{buffer}) e lo "consuma".
 \end{itemize}
-Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.\begin{center}$markings = 4*N + 4$\end{center}
-\begin{figure*}[!h]
+Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.\begin{center}$markings = 4*(N + 1)$\end{center}
+\begin{figure*}[!ht]
 \centering
-\includegraphics[width=0.7\textwidth]{./Esercizio2_img/setting1.png}
+\includegraphics[width=0.6\textwidth]{./Esercizio2_img/setting1.png}
 \caption{Setting 1} \label{FIG:setting1}
 \end{figure*}
-
-
+\newpage
+\subsection{Rete di petri colorata}
+La rappresentazione tramite rete di petri colorata si rivela praticamente identica al caso precendente, a parte la differente notazione le figure~\ref{FIG:setting1} e~\ref{FIG:setting1_CPN} sono identiche.
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.8\textwidth]{./Esercizio2_img/setting_1_CPN.png}
+\caption{Setting 1 CPN} \label{FIG:setting1_CPN}
+\end{figure*}\\
+Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.Perfettamente in linea con quanto rileato nel caso precendente.
+$$markings = 4*(N + 1)$$
+\newpage
 \section{Secondo  setting: 1 produttore, 2 consumatori,  1 buffer a N posizioni}\label{SEC:secondo}
 \subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
 La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \emph{Think\_C}, portando il numero di token a due.\\
 L'implementazione è triviale ed il numero di markings mantiene una relazione di linearità rispetto ad $N$. per quanto la costante di proporzionalità sia superiore rispetto al caso precedente non vi è un eccessivo incremento di markings anche con valori di $N$ alti. Ad esempio con $N = 1$ il reachability graph presenta 12 markings mentre con $N = 30$ ne sono presenti 182.\\
-La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente (setting \ref{FIG:setting1})\\\begin{center}$markings = 6*N + 6$\end{center}
-\begin{figure*}[!h]
+La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente (setting \ref{FIG:setting1}). 
+$$ markings = 6*(N + 1) $$
+\begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting2_markdown.png}
 \caption{Setting 2 con scalatura di marking} \label{FIG:setting2_markdown}
@@ -97,19 +107,35 @@ La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, pratic
 \newpage
 \subsection{Secondo  setting: replicazione di sottoreti}\label{SEC:secondo-replica}
 La soluzione tramite la replicazione della sottorete consumatore presenta una implementazione più complessa e più "scomoda", la rete risultate per quanto meno chiara è ancora di facile comprensione.\\
-Il reachability graph è più esteso, con un solo posto nel buffer si ottengono 16 markings e, a differenza dell secondo setting (sezione \ref{SEC:secondo-marking}), la costante di proporzionalità è $8*N$.Questo porta ad un totale di 248 markings, contro i 182 del caso precedente, quando $N = 30$
-
-\begin{figure*}[!h]
+Il reachability graph è più esteso, con un solo posto nel buffer si ottengono 16 markings e, a differenza dell secondo setting (sezione \ref{SEC:secondo-marking}), la costante di proporzionalità è $8*(N+1)$.
+Questo porta ad un totale di 248 markings, contro i 182 del caso precedente, quando $N = 30$
+\begin{figure*}[!ht]
 \centering
 \includegraphics[width=\textwidth]{./Esercizio2_img/setting2_scale.png}
 \caption{Setting 2 tramite replicazione} \label{FIG:setting2_scale}
 \end{figure*}
 
 \newpage
-\section{Terzo  setting: $P$ produttori, $C$ consumatori,   1 buffer a N posizioni}\label{SEC:terzo}
+\subsection{Secondo setting: rete di petri colorata}
+Anche questa implementazione si presenta sostanzialmente identica all sezione~\ref{SEC:secondo-marking}.
+La marcatura iniziale del posto \textit{Think\_C} viene solamente incrementata di uno e la relazione di linearità del numero di markings del reachability graph rispetto al numero di posti nel buffer viene rispettata.\\
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting_2_CPN.png}
+\caption{Setting 2 tramite rete di petri colorata} \label{FIG:setting2_CPN}
+\end{figure*}
+La sostanziale differenza, che è anche il vantaggio che fornisce l'uso delle Reti di Petri colorate, sta nella possibilità di distinguere i due consumatori.\\
+I consumatori, che nella sezione~\ref{SEC:secondo-marking} erano indistinguibili, ora sono identificati come $<c_1>$ e $<c_2>$.Questo senza però dover ricorrere alla scomoda costruzione della sezione~\ref{SEC:secondo-replica}.
+Questa volta però con due soli posti nel buffer sono presenti $24$ markings nel reachability graph, con 3 posti $32$ markings e con 4 posti $40$. Esattamente come nel caso~\ref{SEC:secondo-replica}
+$$markings = 8 * (N + 1)$$
+Questo probabilmente poichè grazie alla colorazione dei posti è possibile trattare ogni consumatore come se fosse una rete differente, portando il numero di stati del reachability graph allo stesso valore ottenuto separando fisicamente le due reti
+
+
+\newpage
+\section{Terzo  setting: P produttori, C consumatori,1 buffer a N posizioni}\label{SEC:terzo}
 \subsection{Terzo  setting: scalatura di marcatura}\label{SEC:terzo-marking}
 Anche questo setting è di semplice implementazione, come si può vedere in Figura \ref{FIG:setting3_markdown}.Si tratta solamente di inserire dei parametri al posto del marking di Producer e Consumer.
-\begin{figure*}[!h]
+\begin{figure*}[!ht]
 \centering
 \includegraphics[width=\textwidth]{./Esercizio2_img/setting3_markdown.png}
 \caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_markdown}
@@ -121,18 +147,29 @@ La crescita è comunque limitata, ad esempio impostando un buffer di 4 posti, 4 
 \newpage
 \subsection{Terzo  setting: replicazione di sottoreti}\label{SEC:terzo-replica}
 La metodologia di replicazione delle sottoreti è inadatta a implementare un sistema a $P$ produttori e $C$ consumatori, in quanto se il numero di produttori e consumatori non è noto è impossibile generare manualmente il numero corretto di sottoreti.\\
-Una implementazione teorica può essere vista in Figura \ref{FIG:setting3_markdown}, ma è appunto solo teorica.Dato che non ci sono \textbf{realmente} $P$ produttori e $C$ consumatori non si possono usare i tool di analisi di \greatspn 
-\begin{figure*}[!h]
+Una implementazione teorica può essere vista in Figura \ref{FIG:setting3_scale}, ma è appunto solo teorica.Dato che non ci sono \textbf{realmente} $P$ produttori e $C$ consumatori non si possono usare i tool di analisi di \greatspn 
+\begin{figure*}[!ht]
 \centering
 \centerline{\includegraphics[scale=0.2]{./Esercizio2_img/setting3_scale.png}}
-\caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_markdown}
+\caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_scale}
 \end{figure*}\\
 Comunque volendo fare un'analisi della dimensione del Reachability graph possiamo prendere l'esempio in figura \ref{FIG:setting3_markdown} e confrontarlo con la stessa situazione ma con la scalatura di marcatura, quindi 3 Producer, 3 Consumers e $N$ posti nel buffer.
 In questo caso la differenza è notevole, il numero di markings aumenta molto utilizzando il metodo di replicazioni e cresce molto più velocemente, i risultati possono essere osservati in figura \ref{FIG:confronto}.\\
-\begin{figure*}[!h]
+\begin{figure*}[!ht]
 \centering
 \centerline{\includegraphics[scale=0.5]{./Esercizio2_img/confronto.png}}
 \caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:confronto}
 \end{figure*}\\Da questi dati si può concludere che la strategia di replicazione di sottoreti non è vantagggiosa nel dal punto di vista implementativo, ne dal punto di vista della dimensione del reachability graph.
+\subsection{Terzo setting: rete di Petri colorata}
+Come nel caso precendete (sezione~\ref{SEC:secondo}, l'implentazione tramite rete di Petri colorata combina il vantaggio implementativo della scalatura tramite incremento di marcatura con la distinguibilità della replicazione di sottoreti.\\
+Tutti i consumatori sono identificati da un valore $<c_i> \; con \; i \in [1,C]$ ed i produttori dal valore $<p_i> \; con \; i \in [1,P]$ ed è quindi possibile seguirne lo sviluppo e le scelte.
+Questo pur mantenendo la raffigurazione chiara e pulita della strategia si scalatura tramite incremento di marking.
+
+Anche in questo caso il numero di marking distinti del reachability graph segue perfettamente il trendella replicazione di sottoreti (vedere figura~\ref{FIG:confronto}).
+\begin{figure*}[!ht]
+\centering
+\centerline{\includegraphics[scale=0.5]{./Esercizio2_img/setting_3_CPN.png}}
+\caption{Setting 3 rete di Petri colorata} \label{FIG:setting3_CPN}
+\end{figure*}\\
 
 \end{document}

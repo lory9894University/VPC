@@ -669,46 +669,46 @@
   </measures>
   <gspn name="setting1_CPN" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
-      <template last-binding="3" name="n" type="INTEGER" x="22.0" y="3.0"/>
-      <place domain="P" marking="&lt;All&gt;" name="think_P" x="2.0" y="14.0"/>
-      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="14.0" y="14.0"/>
-      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="21.0" y="31.0"/>
-      <place domain="C" name="consume" x="9.0" y="27.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="6.55" y="14.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="21.55" y="14.0"/>
-      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="15.55" y="27.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="15.55" y="31.0"/>
-      <color-class definition="p{1..1}" name="P" x="4.125" y="1.0"/>
-      <color-class definition="c{1..1}" name="C" x="13.125" y="1.0"/>
-      <color-var domain="P" name="p0" x="3.9375" y="4.0"/>
-      <color-var domain="C" name="c0" x="13.4375" y="4.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="21.0" y="19.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="10.0" y="20.0"/>
+      <template last-binding="3" name="n" type="INTEGER" x="23.0" y="3.0"/>
+      <place domain="P" marking="&lt;All&gt;" name="think_P" x="3.0" y="14.0"/>
+      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="15.0" y="14.0"/>
+      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="22.0" y="31.0"/>
+      <place domain="C" name="consume" x="10.0" y="27.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="7.55" y="14.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="22.55" y="14.0"/>
+      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="16.55" y="27.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="16.55" y="31.0"/>
+      <color-class definition="p{1..1}" name="P" x="5.125" y="1.0"/>
+      <color-class definition="c{1..1}" name="C" x="14.125" y="1.0"/>
+      <color-var domain="P" name="p0" x="4.9375" y="4.0"/>
+      <color-var domain="C" name="c0" x="14.4375" y="4.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="22.0" y="19.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="11.0" y="20.0"/>
     </nodes>
     <edges>
       <arc head="think_P" kind="OUTPUT" mult="&lt;p0&gt;" tail="place">
-        <point x="25.5" y="15.0"/>
-        <point x="25.5" y="7.0"/>
-        <point x="3.0" y="7.0"/>
+        <point x="26.5" y="15.0"/>
+        <point x="26.5" y="7.0"/>
+        <point x="4.0" y="7.0"/>
       </arc>
       <arc head="getProduct" kind="INPUT" mult="&lt;c0&gt;" tail="think_C">
-        <point x="22.0" y="28.0"/>
+        <point x="23.0" y="28.0"/>
       </arc>
       <arc head="placeInBuffer" kind="OUTPUT" mult="&lt;p0&gt;" mult-k="1.0338867187500003" tail="produce">
-        <point x="10.93828125" y="15.0"/>
-        <point x="14.000188493728638" y="15.0"/>
+        <point x="11.93828125" y="15.0"/>
+        <point x="15.000188493728638" y="15.0"/>
       </arc>
       <arc head="consume" kind="OUTPUT" mult="&lt;c0&gt;" tail="getProduct"/>
       <arc head="think_C" kind="OUTPUT" mult="&lt;c0&gt;" tail="goToThink"/>
       <arc head="place" kind="INPUT" mult="&lt;p0&gt;" mult-k="0.53427734375" tail="placeInBuffer">
-        <point x="21.55010986328125" y="15.0"/>
+        <point x="22.55010986328125" y="15.0"/>
       </arc>
       <arc head="produce" kind="INPUT" mult="&lt;p0&gt;" tail="think_P"/>
       <arc head="goToThink" kind="INPUT" mult="&lt;c0&gt;" tail="consume">
-        <point x="10.0" y="32.0"/>
+        <point x="11.0" y="32.0"/>
       </arc>
       <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="22.0" y="16.0"/>
+        <point x="23.0" y="16.0"/>
       </arc>
       <arc head="place" kind="INPUT" tail="buffer_capacity"/>
       <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
@@ -717,46 +717,46 @@
   </gspn>
   <gspn name="setting2_CPN" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
-      <template last-binding="3" name="n" type="INTEGER" x="22.0" y="3.0"/>
-      <place domain="P" marking="&lt;All&gt;" name="think_P" x="2.0" y="14.0"/>
-      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="14.0" y="14.0"/>
-      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="21.0" y="31.0"/>
-      <place domain="C" name="consume" x="9.0" y="27.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="6.55" y="14.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="21.55" y="14.0"/>
-      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="15.55" y="27.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="15.55" y="31.0"/>
-      <color-class definition="p{1..1}" name="P" x="4.125" y="1.0"/>
-      <color-class definition="c{1..2}" name="C" x="13.125" y="1.0"/>
-      <color-var domain="P" name="p0" x="3.9375" y="4.0"/>
-      <color-var domain="C" name="c0" x="13.4375" y="4.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="21.0" y="19.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="10.0" y="20.0"/>
+      <template last-binding="3" name="n" type="INTEGER" x="24.0" y="4.0"/>
+      <place domain="P" marking="&lt;All&gt;" name="think_P" x="4.0" y="15.0"/>
+      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="16.0" y="15.0"/>
+      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="23.0" y="32.0"/>
+      <place domain="C" name="consume" x="11.0" y="28.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="8.55" y="15.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="23.55" y="15.0"/>
+      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="17.55" y="28.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="17.55" y="32.0"/>
+      <color-class definition="p{1..1}" name="P" x="6.125" y="2.0"/>
+      <color-class definition="c{1..2}" name="C" x="15.125" y="2.0"/>
+      <color-var domain="P" name="p0" x="5.9375" y="5.0"/>
+      <color-var domain="C" name="c0" x="15.4375" y="5.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="23.0" y="20.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="12.0" y="21.0"/>
     </nodes>
     <edges>
       <arc head="think_P" kind="OUTPUT" mult="&lt;p0&gt;" tail="place">
-        <point x="25.5" y="15.0"/>
-        <point x="25.5" y="7.0"/>
-        <point x="3.0" y="7.0"/>
+        <point x="27.5" y="16.0"/>
+        <point x="27.5" y="8.0"/>
+        <point x="5.0" y="8.0"/>
       </arc>
       <arc head="getProduct" kind="INPUT" mult="&lt;c0&gt;" tail="think_C">
-        <point x="22.0" y="28.0"/>
+        <point x="24.0" y="29.0"/>
       </arc>
       <arc head="placeInBuffer" kind="OUTPUT" mult="&lt;p0&gt;" mult-k="1.0338867187500003" tail="produce">
-        <point x="10.93828125" y="15.0"/>
-        <point x="14.000188493728638" y="15.0"/>
+        <point x="12.93828125" y="16.0"/>
+        <point x="16.000188493728636" y="16.0"/>
       </arc>
       <arc head="consume" kind="OUTPUT" mult="&lt;c0&gt;" tail="getProduct"/>
       <arc head="think_C" kind="OUTPUT" mult="&lt;c0&gt;" tail="goToThink"/>
       <arc head="place" kind="INPUT" mult="&lt;p0&gt;" mult-k="0.53427734375" tail="placeInBuffer">
-        <point x="21.55010986328125" y="15.0"/>
+        <point x="23.55010986328125" y="16.0"/>
       </arc>
       <arc head="produce" kind="INPUT" mult="&lt;p0&gt;" mult-x="0.5" tail="think_P"/>
       <arc head="goToThink" kind="INPUT" mult="&lt;c0&gt;" tail="consume">
-        <point x="10.0" y="32.0"/>
+        <point x="12.0" y="33.0"/>
       </arc>
       <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="22.0" y="16.0"/>
+        <point x="24.0" y="17.0"/>
       </arc>
       <arc head="place" kind="INPUT" tail="buffer_capacity"/>
       <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
@@ -765,49 +765,49 @@
   </gspn>
   <gspn name="setting3_CPN" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
-      <template last-binding="3" name="n" type="INTEGER" x="5.0" y="5.0"/>
-      <place domain="P" marking="&lt;All&gt;" name="think_P" x="2.0" y="14.0"/>
-      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="14.0" y="14.0"/>
-      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="21.0" y="31.0"/>
-      <place domain="C" name="consume" x="9.0" y="27.0"/>
-      <transition name="produce" nservers-x="0.5" type="EXP" x="6.55" y="14.0"/>
-      <transition name="place" nservers-x="0.5" type="EXP" x="21.55" y="14.0"/>
-      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="15.55" y="27.0"/>
-      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="15.55" y="31.0"/>
-      <color-class definition="p{1..np}" name="P" x="4.125" y="1.0"/>
-      <color-class definition="c{1..nc}" name="C" x="13.125" y="1.0"/>
-      <color-var domain="P" name="p0" x="3.875" y="3.0"/>
-      <color-var domain="C" name="c0" x="10.9375" y="3.0"/>
-      <template last-binding="2" name="np" type="INTEGER" x="9.0" y="5.0"/>
-      <template last-binding="2" name="nc" type="INTEGER" x="13.0" y="5.0"/>
-      <place label-x="2.0" label-y="0.0" name="buffer" x="21.0" y="19.0"/>
-      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="10.0" y="20.0"/>
+      <template last-binding="3" name="n" type="INTEGER" x="6.0" y="6.0"/>
+      <place domain="P" marking="&lt;All&gt;" name="think_P" x="3.0" y="15.0"/>
+      <place domain="P" label-x="1.0" label-y="2.0" name="placeInBuffer" x="15.0" y="15.0"/>
+      <place domain="C" label-x="1.5" label-y="2.0" marking="&lt;All&gt;" name="think_C" x="22.0" y="32.0"/>
+      <place domain="C" name="consume" x="10.0" y="28.0"/>
+      <transition name="produce" nservers-x="0.5" type="EXP" x="7.55" y="15.0"/>
+      <transition name="place" nservers-x="0.5" type="EXP" x="22.55" y="15.0"/>
+      <transition label-x="0.5" label-y="2.0" name="getProduct" nservers-x="0.5" type="EXP" x="16.55" y="28.0"/>
+      <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="16.55" y="32.0"/>
+      <color-class definition="p{1..np}" name="P" x="5.125" y="2.0"/>
+      <color-class definition="c{1..nc}" name="C" x="14.125" y="2.0"/>
+      <color-var domain="P" name="p0" x="4.875" y="4.0"/>
+      <color-var domain="C" name="c0" x="11.9375" y="4.0"/>
+      <template last-binding="2" name="np" type="INTEGER" x="10.0" y="6.0"/>
+      <template last-binding="2" name="nc" type="INTEGER" x="14.0" y="6.0"/>
+      <place label-x="2.0" label-y="0.0" name="buffer" x="22.0" y="20.0"/>
+      <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="11.0" y="21.0"/>
     </nodes>
     <edges>
       <arc head="think_P" kind="OUTPUT" mult="&lt;p0&gt;" tail="place">
-        <point x="25.5" y="15.0"/>
-        <point x="25.5" y="7.0"/>
-        <point x="3.0" y="7.0"/>
+        <point x="26.5" y="16.0"/>
+        <point x="26.5" y="8.0"/>
+        <point x="4.0" y="8.0"/>
       </arc>
       <arc head="getProduct" kind="INPUT" mult="&lt;c0&gt;" tail="think_C">
-        <point x="22.0" y="28.0"/>
+        <point x="23.0" y="29.0"/>
       </arc>
       <arc head="placeInBuffer" kind="OUTPUT" mult="&lt;p0&gt;" mult-k="1.0338867187500003" tail="produce">
-        <point x="10.93828125" y="15.0"/>
-        <point x="14.000188493728638" y="15.0"/>
+        <point x="11.93828125" y="16.0"/>
+        <point x="15.000188493728638" y="16.0"/>
       </arc>
       <arc head="consume" kind="OUTPUT" mult="&lt;c0&gt;" tail="getProduct"/>
       <arc head="think_C" kind="OUTPUT" mult="&lt;c0&gt;" tail="goToThink"/>
       <arc head="place" kind="INPUT" mult="&lt;p0&gt;" mult-k="0.53427734375" mult-x="1.2009286015442946" tail="placeInBuffer">
-        <point x="20.05010986328125" y="15.0"/>
-        <point x="22.0" y="15.0"/>
+        <point x="21.05010986328125" y="16.0"/>
+        <point x="23.0" y="16.0"/>
       </arc>
       <arc head="produce" kind="INPUT" mult="&lt;p0&gt;" mult-x="0.5" tail="think_P"/>
       <arc head="goToThink" kind="INPUT" mult="&lt;c0&gt;" tail="consume">
-        <point x="10.0" y="32.0"/>
+        <point x="11.0" y="33.0"/>
       </arc>
       <arc head="buffer" kind="OUTPUT" tail="place">
-        <point x="22.0" y="16.0"/>
+        <point x="23.0" y="17.0"/>
       </arc>
       <arc head="place" kind="INPUT" tail="buffer_capacity"/>
       <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
