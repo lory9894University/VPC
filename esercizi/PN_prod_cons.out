@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.1}{Primo setting: 1 produttore, 1 consumatore, 1 buffer a N posizioni}{}% 1
+\BOOKMARK [2][-]{subsection.1.1}{Primo setting:}{section.1}% 2
+\BOOKMARK [2][-]{subsection.1.2}{Rete di petri colorata}{section.1}% 3
+\BOOKMARK [1][-]{section.2}{Secondo setting: 1 produttore, 2 consumatori, 1 buffer a N posizioni}{}% 4
+\BOOKMARK [2][-]{subsection.2.1}{Secondo setting: scalatura di marcatura}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.2}{Secondo setting: replicazione di sottoreti}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.3}{Secondo setting: rete di petri colorata}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Terzo setting: P produttori, C consumatori,1 buffer a N posizioni}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Terzo setting: scalatura di marcatura}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Terzo setting: replicazione di sottoreti}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Terzo setting: rete di Petri colorata}{section.3}% 11

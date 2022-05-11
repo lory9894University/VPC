@@ -1,0 +1,29 @@
+MODULE main
+VAR
+  state  : {s0, s1, s2, s3, s4};
+  prop: {a, e};
+  
+ASSIGN
+  init(state) := s0;
+  init(prop) := a;
+  next(state) := 
+    case 
+      state = s0 : {s1, s3};
+      state = s1 : s2;
+      state = s2 : s2;
+      state = s3 : s4;
+      state = s4 : s0;
+      TRUE : state;
+    esac;
+  next(prop) := 
+    case
+     next(state) = s1 : a;
+     next(state) = s2 : e;
+     next(state) = s3 : e;
+     next(state) = s4 : a;
+     next(state) = s0 : a;
+      TRUE : prop;
+    esac;
+
+LTLSPEC F(prop = a & X(prop = a));
+SPEC AF(prop = a & AX(prop = a)); 

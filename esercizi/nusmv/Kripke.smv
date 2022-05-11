@@ -1,0 +1,22 @@
+MODULE main
+VAR
+  state  : {s0, s1, s2};
+  prop: {p, q, r};
+  
+ASSIGN
+  init(state) := s0;
+  init(prop) := p;
+  next(state) := 
+    case 
+      state = s0 : {s1, s2};
+      state = s1 : s2;
+      state = s2 : s2;
+      TRUE : state;
+    esac;
+  next(prop) := 
+    case
+     next(state) = s1 : q;
+     next(state) = s2 : r;
+      TRUE : prop;
+    esac;
+

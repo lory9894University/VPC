@@ -1,0 +1,44 @@
+MODULE main
+VAR
+	buffer : 0 .. 3;
+	prod : process producer(buffer);
+	cons : process consumer(buffer);
+ASSIGN
+	init(buffer) := 0; 
+
+
+MODULE producer(buffer)
+VAR
+	state : {think, produce, place};
+ASSIGN
+	init(state) := think;
+	next(state) := 
+	  case
+		state = think : produce;
+		state = produce : place;
+		state = place & !(buffer = 3): think;
+		TRUE : state;
+	  esac;	
+	next(buffer) := 
+	  case
+		state = place & !(buffer = 3): buffer + 1;
+	 	TRUE : buffer;
+	  esac;
+MODULE consumer(buffer)
+VAR
+	state : {think, consume, take};
+ASSIGN
+	init(state) := think;
+	next(state) := 
+	  case
+		state = take & !(buffer = 0): consume;
+		state = think : take;
+		state = consume : think;
+		TRUE : state;
+	  esac;	
+	next(buffer) :=
+	  case
+		state = take & !(buffer = 0): buffer -1;
+		TRUE : buffer;
+	  esac;
+

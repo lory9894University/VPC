@@ -1,6 +1,10 @@
-greatspn/
-esercizi/*
-!esercizi/*.tex
-!esercizi/*.jpg
-!esercizi/*.sh
-!esercizi/*_img*
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.pdf
+*.gz
+*.solution
+*.un~
+.*
+nuSMV/*
