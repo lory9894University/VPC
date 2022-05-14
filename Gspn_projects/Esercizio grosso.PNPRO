@@ -78,13 +78,6 @@
       <arc head="set_1" kind="INPUT" tail="CS"/>
     </edges>
   </gspn>
-  <measures gspn-name="p3.2" name="Measures" simplified-UI="false">
-    <assignments/>
-    <greatspn/>
-    <formulas>
-      <formula comment="Basic statistics of the toolchain execution." language="STAT"/>
-    </formulas>
-  </measures>
   <gspn name="variable" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
       <place marking="1" name="c1" x="8.0" y="7.0"/>
@@ -175,6 +168,56 @@
       <arc head="true" kind="OUTPUT" tail="set_true"/>
     </edges>
   </gspn>
+  <gspn name="variables" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="-2.0" label-y="0.0" name="truep" x="10.0" y="9.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="10.0" y="16.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="30.0" y="9.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="30.0" y="16.0"/>
+      <transition label-y="-3.5" name="is_truep" nservers-x="0.5" superpos-y="-2.0" superposition-tags="isWantpTrue" type="EXP" x="10.55" y="6.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse" type="EXP" x="10.55" y="20.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse" type="EXP" x="7.55" y="12.0"/>
+      <transition label-x="3.0" name="set_truep" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantpTrue" type="EXP" x="12.55" y="12.0"/>
+      <transition label-y="-3.5" name="is_trueq" nservers-x="0.5" superpos-y="-2.0" superposition-tags="isWantqTrue" type="EXP" x="30.55" y="6.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse" type="EXP" x="30.55" y="20.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falseq" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantqFalse" type="EXP" x="27.55" y="12.0"/>
+      <transition label-x="3.0" name="set_trueq" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantqTrue" type="EXP" x="32.55" y="12.0"/>
+    </nodes>
+    <edges>
+      <arc head="trueq" kind="OUTPUT" tail="is_trueq">
+        <point x="32.5" y="8.5"/>
+      </arc>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="truep" kind="OUTPUT" tail="is_truep">
+        <point x="12.5" y="8.5"/>
+      </arc>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="9.5" y="19.0"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="29.5" y="19.0"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="12.5" y="19.0"/>
+      </arc>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="32.5" y="19.0"/>
+      </arc>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="is_trueq" kind="INPUT" tail="trueq">
+        <point x="29.5" y="8.5"/>
+      </arc>
+      <arc head="is_truep" kind="INPUT" tail="truep">
+        <point x="9.5" y="8.5"/>
+      </arc>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+    </edges>
+  </gspn>
   <gspn name="p3.6" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
       <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="11.55" y="5.0"/>
@@ -255,24 +298,224 @@
       <arc head="set_wantq_false" kind="INPUT" tail="Q5"/>
     </edges>
   </gspn>
-  <algebra2 alignment="HORIZONTAL" name="3.6" policy="BINARY_PARALLEL" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" use-broken-edges="true" view-rates="false">
+  <gspn name="3.6_novar" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place marking="1" name="P1" x="7.0" y="7.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="7.0" y="15.0"/>
+      <place label-x="2.0" label-y="0.0" name="P3" x="7.0" y="23.0"/>
+      <place name="loop_p" x="7.0" y="45.0"/>
+      <place label-x="2.0" label-y="0.0" name="P4" superposition-tags="cs" x="7.0" y="31.0"/>
+      <place label-x="2.5" label-y="0.0" name="P5" x="7.0" y="39.0"/>
+      <place marking="1" name="Q1" x="38.0" y="41.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="38.0" y="33.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q3" x="38.0" y="25.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.5" name="loop_q" x="38.0" y="3.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q4" superposition-tags="cs" x="38.0" y="17.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q5" x="38.0" y="9.0"/>
+      <place label-y="3.5" name="CS" superposition-tags="cs" x="22.5" y="24.0"/>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="11.55" y="5.0"/>
+      <transition label-x="4.0" label-y="0.0" name="acces_crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="12.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
+      <transition label-x="4.5" label-y="0.0" name="is_q" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.5" superpos-y="1.0" superposition-tags="isWantqFalse" type="EXP" x="7.55" y="19.0"/>
+      <transition label-x="4.0" label-y="0.0" name="p_false" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.0" superpos-y="1.0" superposition-tags="setWantpFalse" type="EXP" x="7.55" y="42.0"/>
+      <transition label-x="4.0" label-y="-1.0" name="p_true" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.0" superpos-y="0.0" superposition-tags="setWantpTrue" type="EXP" x="7.55" y="27.0"/>
+      <transition label-x="2.5" label-y="0.0" name="cs_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="35.0"/>
+      <transition label-x="-4.000000000000002" label-y="-0.5" name="nCrit_q" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="34.550000000000004" y="43.0"/>
+      <transition label-x="-5.0" label-y="-0.5" name="acces_crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="38.55" y="36.0"/>
+      <transition label-x="4.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="41.55" y="29.0"/>
+      <transition label-x="-4.5" label-y="0.0" name="is_p" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-4.5" superpos-y="1.0" superposition-tags="isWantpFalse" type="EXP" x="38.55" y="30.0"/>
+      <transition label-x="-4.5" label-y="-0.5" name="q_false" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-4.5" superpos-y="0.5" superposition-tags="setWantqFalse" type="EXP" x="38.55" y="6.0"/>
+      <transition label-x="-4.5" label-y="2.5" name="q_true" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-4.5" superpos-y="3.5" superposition-tags="setWantqTrue" type="EXP" x="38.55" y="21.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="38.55" y="13.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="5.0" y="46.0"/>
+      </arc>
+      <arc head="CS" kind="OUTPUT" tail="p_true"/>
+      <arc head="Q2" kind="OUTPUT" tail="acces_crit_q"/>
+      <arc head="Q3" kind="OUTPUT" tail="is_p"/>
+      <arc head="is_q" kind="INPUT" tail="P2"/>
+      <arc head="is_p" kind="INPUT" tail="Q2"/>
+      <arc head="p_true" kind="INPUT" tail="P3"/>
+      <arc head="P4" kind="OUTPUT" tail="p_true"/>
+      <arc head="P5" kind="OUTPUT" tail="cs_p"/>
+      <arc head="loop_p" kind="OUTPUT" tail="p_false"/>
+      <arc head="CS" kind="OUTPUT" tail="q_true"/>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
+        <point x="34.0" y="46.0"/>
+        <point x="36.5" y="46.5"/>
+      </arc>
+      <arc head="cs_p" kind="INPUT" tail="P4"/>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="42.0" y="4.0"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="42.0" y="42.0"/>
+      </arc>
+      <arc head="cs_q" kind="INPUT" tail="Q4"/>
+      <arc head="Q5" kind="OUTPUT" tail="cs_q"/>
+      <arc head="loop_q" kind="OUTPUT" tail="q_false"/>
+      <arc head="acces_crit_q" kind="INPUT" tail="Q1"/>
+      <arc head="q_false" kind="INPUT" tail="Q5"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="13.0" y="4.0"/>
+        <point x="10.5" y="3.5"/>
+      </arc>
+      <arc head="acces_crit_p" kind="INPUT" tail="P1"/>
+      <arc head="cs_p" kind="INPUT" tail="CS"/>
+      <arc head="p_false" kind="INPUT" tail="P5"/>
+      <arc head="Q4" kind="OUTPUT" tail="q_true"/>
+      <arc head="P3" kind="OUTPUT" tail="is_q"/>
+      <arc head="q_true" kind="INPUT" tail="Q3"/>
+      <arc head="P2" kind="OUTPUT" tail="acces_crit_p"/>
+      <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="cs_q" kind="INPUT" mult-k="0.9064575195312501" tail="CS"/>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="5.0" y="8.0"/>
+      </arc>
+    </edges>
+  </gspn>
+  <algebra2 alignment="HORIZONTAL" name="Composition 3.6" policy="BINARY_PARALLEL" restriction="true" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <bindings-list/>
-    <place-tags>
-      <tag name="cs"/>
-    </place-tags>
+    <place-tags/>
     <transition-tags>
-      <tag name="setWantpTrue"/>
       <tag name="isWantqFalse"/>
-      <tag name="isWantpFalse"/>
+      <tag name="setWantpTrue"/>
       <tag name="setWantqFalse"/>
+      <tag name="isWantpFalse"/>
       <tag name="setWantpFalse"/>
       <tag name="setWantqTrue"/>
     </transition-tags>
-    <subnet netname="p3.6"/>
-    <subnet netname="wantp"/>
-    <subnet netname="wantq"/>
-    <subnet netname="q3.6"/>
+    <subnet netname="variables"/>
+    <subnet netname="3.6_novar"/>
   </algebra2>
+  <gspn name="3.6" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="-2.0" label-y="0.0" name="truep" x="45.0" y="42.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="52.0" y="42.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="59.0" y="20.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="52.0" y="20.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse" type="EXP" x="70.55" y="42.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse" type="EXP" x="48.55" y="45.0"/>
+      <transition label-x="3.0" name="set_truep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantpTrue" type="EXP" x="48.55" y="39.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse" type="EXP" x="27.55" y="19.0"/>
+      <transition label-x="-1.0" label-y="-4.5" name="set_falseq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="-0.5" superposition-tags="setWantqFalse" type="EXP" x="56.55" y="17.0"/>
+      <transition label-x="0.5" label-y="2.5" name="set_trueq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superpos-y="4.0" superposition-tags="setWantqTrue" type="EXP" x="55.55" y="24.0"/>
+      <place marking="1" name="P1" x="10.0" y="7.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="10.0" y="15.0"/>
+      <place label-x="2.0" label-y="0.0" name="P3" x="10.0" y="23.0"/>
+      <place name="loop_p" x="10.0" y="45.0"/>
+      <place label-x="2.0" label-y="0.0" name="P4" superpos-x="1.0" superpos-y="2.0" superposition-tags="cs" x="10.0" y="31.0"/>
+      <place label-x="2.5" label-y="0.0" name="P5" x="10.0" y="39.0"/>
+      <place marking="1" name="Q1" x="89.0" y="45.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="89.0" y="37.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q3" x="89.0" y="29.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.5" name="loop_q" x="89.0" y="7.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q4" superpos-y="2.0" superposition-tags="cs" x="89.0" y="21.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q5" x="89.0" y="13.0"/>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="14.55" y="5.0"/>
+      <transition label-x="4.0" label-y="0.0" name="acces_crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="12.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="19.0"/>
+      <transition label-x="2.5" label-y="0.0" name="cs_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="10.55" y="35.0"/>
+      <transition label-x="-4.000000000000002" label-y="-0.5" name="nCrit_q" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="85.55" y="47.0"/>
+      <transition label-x="-4.5" label-y="1.0" name="acces_crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="89.55" y="40.0"/>
+      <transition label-x="4.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="92.55" y="33.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="89.55" y="17.0"/>
+      <text-box bold="true" border-color="#000000" fill-color="none" name="__textBox0" shadow="true" shape="ROUND_RECTANGLE" text-color="#000000" x="33.0" y="3.0">si potrebbe inserire un nuovo posto che colleghi P_4 con Q_4, 
+per individuare la massima marcatura e
+ trovare violazioni di mutua esclusione. ma CTL e LTL lo fanno meglio</text-box>
+    </nodes>
+    <edges>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="8.0" y="46.0"/>
+      </arc>
+      <arc head="Q2" kind="OUTPUT" tail="acces_crit_q"/>
+      <arc head="P5" kind="OUTPUT" tail="cs_p"/>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
+        <point x="85.0" y="50.0"/>
+        <point x="87.5" y="50.5"/>
+      </arc>
+      <arc head="cs_p" kind="INPUT" tail="P4"/>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="93.0" y="8.0"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="93.0" y="46.0"/>
+      </arc>
+      <arc head="cs_q" kind="INPUT" tail="Q4"/>
+      <arc head="Q5" kind="OUTPUT" tail="cs_q"/>
+      <arc head="acces_crit_q" kind="INPUT" tail="Q1"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="16.0" y="4.0"/>
+        <point x="13.5" y="3.5"/>
+      </arc>
+      <arc head="acces_crit_p" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="acces_crit_p"/>
+      <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="8.0" y="8.0"/>
+      </arc>
+      <arc head="is_falseq" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="is_falseq"/>
+      <arc head="is_falsep" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="is_falsep"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="44.0" y="24.0"/>
+        <point x="33.5" y="24.0"/>
+      </arc>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="33.5" y="18.0"/>
+        <point x="44.5" y="18.0"/>
+      </arc>
+      <arc head="set_trueq" kind="INPUT" tail="Q3">
+        <point x="60.0" y="27.5"/>
+      </arc>
+      <arc head="Q4" kind="OUTPUT" tail="set_trueq">
+        <point x="79.0" y="23.0"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="Q5">
+        <point x="59.5" y="17.0"/>
+      </arc>
+      <arc head="loop_q" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="55.5" y="41.5"/>
+        <point x="67.5" y="41.5"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="67.5" y="44.5"/>
+        <point x="55.5" y="44.5"/>
+      </arc>
+      <arc head="set_truep" kind="INPUT" tail="P3"/>
+      <arc head="P4" kind="OUTPUT" tail="set_truep"/>
+      <arc head="set_falsep" kind="INPUT" tail="P5"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_falsep"/>
+    </edges>
+  </gspn>
+  <measures gspn-name="Composition 3.6" log-uuid="93325acf-6365-4472-8899-06ad496f73d6" name="CTL model checking of Composition 3.6" rapid-type="CTL_MODEL_CHECKING" simplified-UI="true">
+    <assignments/>
+    <rgmedd2 counter-examples="true"/>
+    <formulas>
+      <formula language="STAT"/>
+      <formula comment="CTL formula" expr="E( #P4==1 U #Q4==1 )" language="CTL">
+        <result-table>
+          <mc-result name="MEASURE0" value="false">
+            <bindings/>
+          </mc-result>
+        </result-table>
+      </formula>
+    </formulas>
+  </measures>
   <gspn name="p3.8" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
       <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="11.55" y="5.0"/>
@@ -353,13 +596,117 @@
       <arc head="set_wantq_false" kind="INPUT" tail="Q5"/>
     </edges>
   </gspn>
+  <gspn name="3.8" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="11.55" y="5.0"/>
+      <place marking="1" name="P1" x="7.0" y="7.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="7.0" y="15.0"/>
+      <place label-x="2.0" label-y="0.0" name="P3" x="7.0" y="23.0"/>
+      <place name="loop_p" x="7.0" y="45.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
+      <transition label-x="3.0" label-y="0.0" name="enter_cs_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="27.0"/>
+      <place label-x="2.0" label-y="0.0" name="P4" superposition-tags="cs" x="7.0" y="31.0"/>
+      <place label-x="2.5" label-y="0.0" name="P5" x="7.0" y="39.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="35.0"/>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_1" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="63.55" y="47.0"/>
+      <place marking="1" name="Q1" x="67.0" y="45.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="67.0" y="37.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q3" x="67.0" y="29.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.0" name="loop_q" x="67.0" y="7.0"/>
+      <transition label-x="3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="70.55" y="33.0"/>
+      <transition label-x="-4.0" label-y="0.0" name="enter_cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="67.55" y="25.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q4" superposition-tags="cs" x="67.0" y="21.0"/>
+      <place label-x="2.0000000000000018" label-y="0.0" name="Q5" x="67.0" y="13.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="67.55" y="17.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="48.0" y="17.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="41.0" y="17.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse" type="EXP" x="16.55" y="16.0"/>
+      <transition label-x="-1.0" label-y="-4.5" name="set_falseq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="-0.5" superposition-tags="setWantqFalse" type="EXP" x="45.55" y="14.0"/>
+      <transition label-x="0.5" label-y="2.5" name="set_trueq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superpos-y="4.0" superposition-tags="setWantqTrue" type="EXP" x="44.55" y="21.0"/>
+      <place label-x="-2.0" label-y="0.0" name="truep" x="23.0" y="38.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="30.0" y="38.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse" type="EXP" x="48.55" y="38.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse" type="EXP" x="26.55" y="41.0"/>
+      <transition label-x="3.0" name="set_truep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantpTrue" type="EXP" x="26.55" y="35.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="5.0" y="46.0"/>
+      </arc>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="5.0" y="8.0"/>
+      </arc>
+      <arc head="enter_cs_p" kind="INPUT" tail="P3"/>
+      <arc head="P4" kind="OUTPUT" tail="enter_cs_p"/>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="13.0" y="4.0"/>
+        <point x="10.5" y="3.5"/>
+      </arc>
+      <arc head="crit_p" kind="INPUT" tail="P4"/>
+      <arc head="P5" kind="OUTPUT" tail="crit_p"/>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="71.0" y="8.0"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="71.0" y="46.0"/>
+      </arc>
+      <arc head="enter_cs_q" kind="INPUT" tail="Q3"/>
+      <arc head="Q4" kind="OUTPUT" tail="enter_cs_q"/>
+      <arc head="nCrit_1" kind="INPUT" tail="Q1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_1">
+        <point x="63.0" y="50.0"/>
+        <point x="65.5" y="50.5"/>
+      </arc>
+      <arc head="crit_q" kind="INPUT" tail="Q4"/>
+      <arc head="Q5" kind="OUTPUT" tail="crit_q"/>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="33.0" y="21.0"/>
+        <point x="22.5" y="21.0"/>
+      </arc>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="22.5" y="15.0"/>
+        <point x="33.5" y="15.0"/>
+      </arc>
+      <arc head="is_falseq" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="is_falseq"/>
+      <arc head="set_trueq" kind="INPUT" tail="Q1"/>
+      <arc head="Q2" kind="OUTPUT" tail="set_trueq">
+        <point x="63.0" y="37.5"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="Q5"/>
+      <arc head="loop_q" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="33.5" y="37.5"/>
+        <point x="45.5" y="37.5"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="45.5" y="40.5"/>
+        <point x="33.5" y="40.5"/>
+      </arc>
+      <arc head="is_falsep" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="is_falsep"/>
+      <arc head="set_falsep" kind="INPUT" tail="P5"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="set_truep" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="set_truep"/>
+    </edges>
+  </gspn>
   <gspn name="p3.9" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
     <nodes>
       <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="31.55" y="5.0"/>
       <place marking="1" name="P1" x="27.0" y="7.0"/>
       <place label-x="1.5" label-y="0.0" name="P2" x="27.0" y="17.0"/>
       <place name="loop_p" x="27.0" y="45.0"/>
-      <transition label-x="5.0" label-y="0.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="5.0" superpos-y="1.0" superposition-tags="setWantqTrue" type="EXP" x="27.55" y="20.0"/>
+      <transition label-x="5.0" label-y="0.0" name="set_wantp_true" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="5.0" superpos-y="1.0" superposition-tags="setWantpTrue" type="EXP" x="27.55" y="20.0"/>
       <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
       <transition label-x="4.5" label-y="0.0" name="is_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.5" superpos-y="1.0" superposition-tags="isWantqFalse" type="EXP" x="27.55" y="26.0"/>
       <transition label-x="5.0" label-y="0.0" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.5" superpos-y="1.0" superposition-tags="setWantpFalse" type="EXP" x="27.55" y="42.0"/>
@@ -461,4 +808,570 @@
       </arc>
     </edges>
   </gspn>
+  <gspn name="3.9" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="31.55" y="5.0"/>
+      <place marking="1" name="P1" x="27.0" y="7.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="27.0" y="17.0"/>
+      <place name="loop_p" x="27.0" y="45.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="19.0"/>
+      <place label-x="2.0" label-y="0.0" name="P6" x="27.0" y="31.0"/>
+      <place label-x="2.5" label-y="0.0" name="P7" x="27.0" y="39.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="35.0"/>
+      <place name="p4" x="19.0" y="29.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="13.0"/>
+      <place label-x="2.5" label-y="0.0" name="P3" x="27.0" y="23.0"/>
+      <place label-y="-2.0" name="p5" x="13.0" y="19.0"/>
+      <place label-x="2.5" label-y="0.0" name="truep" x="59.0" y="38.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="66.0" y="38.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="73.0" y="16.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="66.0" y="16.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse" type="EXP" x="84.55" y="38.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse" type="EXP" x="62.55" y="41.0"/>
+      <transition label-y="-4.0" name="set_truep" nservers-x="0.5" rotation="6.283185307179586" superpos-y="-3.0" superposition-tags="setWantpTrue" type="EXP" x="62.55" y="35.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse" type="EXP" x="41.55" y="15.0"/>
+      <transition label-x="0.5" label-y="-4.0" name="set_falseq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superposition-tags="setWantqFalse" type="EXP" x="70.55" y="13.0"/>
+      <transition label-x="0.5" label-y="2.5" name="set_trueq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superpos-y="4.0" superposition-tags="setWantqTrue" type="EXP" x="69.55" y="20.0"/>
+      <transition label-x="2.5" label-y="-2.0" name="is_trueq" nservers-x="0.5" superpos-x="3.0" superpos-y="-1.0" superposition-tags="isWantqTrue" type="EXP" x="78.55" y="16.0"/>
+      <transition label-x="-0.5" label-y="-3.0" name="is_truep" nservers-x="0.5" superpos-x="-0.5" superpos-y="-2.0" superposition-tags="isWantpTrue" type="EXP" x="54.55" y="38.0"/>
+      <transition label-y="2.0" name="set_falsep_loop" nservers-x="0.5" superpos-y="3.0" superposition-tags="setWantpFalseLoop" type="EXP" x="66.55" y="42.0"/>
+      <transition label-x="1.5" label-y="-3.0" name="set_truep_loop" nservers-x="0.5" superpos-x="1.5" superpos-y="-2.0" superposition-tags="setWantpTrueLoop" type="EXP" x="67.55" y="34.0"/>
+      <transition label-x="-3.5000000000000036" label-y="-1.0" name="nCrit_q" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="93.55" y="47.0"/>
+      <place marking="1" name="Q1" x="97.0" y="45.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="97.0" y="35.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.0" name="loop_q" x="97.0" y="7.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="120.55" y="33.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q6" x="97.0" y="21.0"/>
+      <place label-x="2.0" label-y="0.5" name="Q7" x="97.0" y="13.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="97.55" y="17.0"/>
+      <place name="Q4" x="105.0" y="23.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="97.55" y="39.0"/>
+      <place label-x="2.5" label-y="0.0" name="Q3" x="97.0" y="29.0"/>
+      <place name="Q5" x="111.0" y="33.0"/>
+      <transition label-y="-3.0" name="set_falseq_loop" nservers-x="0.5" superpos-y="-2.0" superposition-tags="setWantqFalseLoop" type="EXP" x="64.55" y="12.0"/>
+      <transition label-y="2.0" name="set_trueq_loop" nservers-x="0.5" superpos-y="3.5" superposition-tags="setWantqTrueLoop" type="EXP" x="64.55" y="21.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="5.0" y="46.0"/>
+      </arc>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="5.0" y="8.0"/>
+      </arc>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="33.0" y="4.0"/>
+        <point x="30.5" y="3.5"/>
+      </arc>
+      <arc head="crit_p" kind="INPUT" tail="P6"/>
+      <arc head="P7" kind="OUTPUT" tail="crit_p"/>
+      <arc head="exit_nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="exit_nCrit_p"/>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="58.0" y="20.0"/>
+        <point x="47.5" y="20.0"/>
+      </arc>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="47.5" y="14.0"/>
+        <point x="58.5" y="14.0"/>
+      </arc>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="69.5" y="37.5"/>
+        <point x="81.5" y="37.5"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="81.5" y="40.5"/>
+        <point x="69.5" y="40.5"/>
+      </arc>
+      <arc head="is_falseq" kind="INPUT" tail="P3">
+        <point x="37.0" y="24.0"/>
+        <point x="37.0" y="16.0"/>
+      </arc>
+      <arc head="P6" kind="OUTPUT" tail="is_falseq">
+        <point x="39.0" y="17.0"/>
+        <point x="39.0" y="32.0"/>
+      </arc>
+      <arc head="set_falsep" kind="INPUT" tail="P7"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="trueq" kind="OUTPUT" tail="is_trueq">
+        <point x="77.0" y="16.0"/>
+      </arc>
+      <arc head="is_trueq" kind="INPUT" tail="trueq">
+        <point x="77.0" y="18.0"/>
+      </arc>
+      <arc head="set_truep" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="set_truep"/>
+      <arc head="truep" kind="OUTPUT" tail="is_truep">
+        <point x="57.5" y="38.0"/>
+      </arc>
+      <arc head="is_truep" kind="INPUT" tail="truep">
+        <point x="57.5" y="40.0"/>
+      </arc>
+      <arc broken="true" head="is_trueq" kind="INPUT" tail="P3">
+        <point x="25.5" y="26.5"/>
+        <point x="87.5" y="27.0"/>
+        <point x="87.5" y="16.5"/>
+      </arc>
+      <arc broken="true" head="p4" kind="OUTPUT" tail="is_trueq">
+        <point x="81.5" y="18.0"/>
+        <point x="81.5" y="27.0"/>
+        <point x="25.0" y="27.0"/>
+      </arc>
+      <arc head="set_truep_loop" kind="INPUT" tail="falsep">
+        <point x="70.5" y="35.0"/>
+      </arc>
+      <arc head="truep" kind="OUTPUT" tail="set_truep_loop"/>
+      <arc head="set_falsep_loop" kind="INPUT" tail="truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep_loop">
+        <point x="69.5" y="43.0"/>
+      </arc>
+      <arc broken="true" head="set_falsep_loop" kind="INPUT" mult-k="3.8032958984375007" tail="p4">
+        <point x="13.5" y="30.0"/>
+        <point x="13.5" y="48.5"/>
+        <point x="61.0" y="48.5"/>
+      </arc>
+      <arc broken="true" head="p5" kind="OUTPUT" tail="set_falsep_loop">
+        <point x="70.5" y="44.0"/>
+        <point x="70.5" y="50.0"/>
+        <point x="13.5" y="50.5"/>
+        <point x="14.0" y="49.5"/>
+        <point x="14.0" y="21.5"/>
+      </arc>
+      <arc broken="true" head="set_truep_loop" kind="INPUT" tail="p5">
+        <point x="19.0" y="21.5"/>
+        <point x="60.0" y="25.5"/>
+      </arc>
+      <arc broken="true" head="P3" kind="OUTPUT" mult-k="2.6975921630859374" tail="set_truep_loop">
+        <point x="78.0" y="30.5"/>
+        <point x="21.5" y="23.5"/>
+      </arc>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="121.0" y="7.9999999999999964"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="121.0" y="46.0"/>
+      </arc>
+      <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
+        <point x="93.0" y="50.0"/>
+        <point x="95.5" y="50.5"/>
+      </arc>
+      <arc head="crit_q" kind="INPUT" tail="Q6"/>
+      <arc head="Q7" kind="OUTPUT" tail="crit_q"/>
+      <arc head="exit_nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q2" kind="OUTPUT" tail="exit_nCrit_q"/>
+      <arc head="set_trueq" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="is_falsep" kind="INPUT" tail="Q3">
+        <point x="90.0" y="30.0"/>
+        <point x="90.0" y="40.0"/>
+      </arc>
+      <arc head="Q6" kind="OUTPUT" tail="is_falsep">
+        <point x="89.5" y="38.0"/>
+        <point x="89.5" y="22.0"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="Q7"/>
+      <arc head="loop_q" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq_loop" kind="INPUT" tail="falseq">
+        <point x="62.0" y="22.0"/>
+      </arc>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq_loop"/>
+      <arc head="set_falseq_loop" kind="INPUT" tail="trueq"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq_loop">
+        <point x="62.5" y="13.0"/>
+      </arc>
+      <arc broken="true" head="is_truep" kind="INPUT" tail="Q3">
+        <point x="100.5" y="28.0"/>
+        <point x="47.5" y="41.5"/>
+      </arc>
+      <arc broken="true" head="Q4" kind="OUTPUT" tail="is_truep">
+        <point x="51.5" y="37.0"/>
+        <point x="101.0" y="27.5"/>
+      </arc>
+      <arc broken="true" head="set_falseq_loop" kind="INPUT" mult-k="3.7220581054687503" tail="Q4">
+        <point x="112.0" y="24.0"/>
+        <point x="112.0" y="11.5"/>
+        <point x="70.0" y="11.5"/>
+      </arc>
+      <arc broken="true" head="Q5" kind="OUTPUT" mult-k="2.7522125244140625" tail="set_falseq_loop">
+        <point x="89.5" y="14.5"/>
+        <point x="112.0" y="26.0"/>
+      </arc>
+      <arc broken="true" head="set_trueq_loop" kind="INPUT" mult-k="2.3438354492187496" tail="Q5">
+        <point x="100.5" y="31.0"/>
+        <point x="66.5" y="21.5"/>
+      </arc>
+      <arc broken="true" head="Q3" kind="OUTPUT" mult-k="1.78714599609375" tail="set_trueq_loop">
+        <point x="107.0" y="32.5"/>
+      </arc>
+    </edges>
+  </gspn>
+  <algebra2 alignment="HORIZONTAL" name="composizione_buggata" policy="BINARY_PARALLEL" restriction="true" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <bindings-list/>
+    <place-tags>
+      <tag name="cs"/>
+    </place-tags>
+    <transition-tags>
+      <tag name="setWantpFalse"/>
+      <tag name="setWantpTrue"/>
+      <tag name="isWantpFalse"/>
+    </transition-tags>
+    <subnet netname="p3.6"/>
+    <subnet netname="wantp"/>
+    <subnet netname="q3.6"/>
+  </algebra2>
+  <measures gspn-name="3.9" log-uuid="dcaa46b5-2766-4bf5-9489-505ba3d29b9f" name="CTL model checking of 3.9" rapid-type="CTL_MODEL_CHECKING" simplified-UI="true">
+    <assignments/>
+    <rgmedd2 counter-examples="true"/>
+    <formulas>
+      <formula language="STAT"/>
+      <formula comment="CTL formula" expr="E( #P6==1 U #Q6==1 )" language="CTL">
+        <result-table>
+          <mc-result name="MEASURE0" value="false">
+            <bindings/>
+          </mc-result>
+        </result-table>
+      </formula>
+    </formulas>
+  </measures>
+  <gspn name="3.10" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <transition label-x="1.5" label-y="1.5" name="nCrit_p" nservers-x="0.5" rotation="2.356194490192345" type="EXP" x="31.55" y="9.0"/>
+      <place marking="1" name="P1" x="27.0" y="11.0"/>
+      <place label-x="1.5" label-y="0.0" name="P2" x="27.0" y="21.0"/>
+      <place name="loop_p" x="27.0" y="55.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="4.55" y="23.0"/>
+      <place label-x="1.5" name="P8" x="27.0" y="35.0"/>
+      <place label-x="-2.5" label-y="0.0" name="P10" x="27.0" y="49.0"/>
+      <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="39.0"/>
+      <place name="P5" x="13.0" y="37.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="27.55" y="17.0"/>
+      <place label-y="-2.0" name="P3" x="27.0" y="27.0"/>
+      <place label-y="-2.0" name="P7" x="18.0" y="21.0"/>
+      <place label-x="2.5" label-y="0.0" name="truep" x="59.0" y="42.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="66.0" y="42.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="73.0" y="20.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="66.0" y="20.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse" type="EXP" x="84.55" y="42.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="6.283185307179586" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse" type="EXP" x="62.55" y="45.0"/>
+      <transition label-y="-4.0" name="set_truep" nservers-x="0.5" rotation="6.283185307179586" superpos-y="-3.0" superposition-tags="setWantpTrue" type="EXP" x="62.55" y="39.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse" type="EXP" x="41.55" y="19.0"/>
+      <transition label-x="0.5" label-y="-4.0" name="set_falseq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superposition-tags="setWantqFalse" type="EXP" x="70.55" y="17.0"/>
+      <transition label-x="0.5" label-y="2.5" name="set_trueq" nservers-x="0.5" rotation="3.141592653589793" superpos-x="0.5" superpos-y="4.0" superposition-tags="setWantqTrue" type="EXP" x="69.55" y="24.0"/>
+      <transition label-x="2.5" label-y="-2.0" name="is_trueq" nservers-x="0.5" superpos-x="3.0" superpos-y="-1.0" superposition-tags="isWantqTrue" type="EXP" x="78.55" y="20.0"/>
+      <transition label-x="-0.5" label-y="-3.0" name="is_truep" nservers-x="0.5" superpos-x="-0.5" superpos-y="-2.0" superposition-tags="isWantpTrue" type="EXP" x="54.55" y="42.0"/>
+      <transition label-y="2.0" name="set_falsep_loop" nservers-x="0.5" superpos-y="3.0" superposition-tags="setWantpFalseLoop" type="EXP" x="66.55" y="46.0"/>
+      <transition label-x="1.5" label-y="-3.0" name="set_truep_loop" nservers-x="0.5" superpos-x="1.5" superpos-y="-2.0" superposition-tags="setWantpTrueLoop" type="EXP" x="67.55" y="38.0"/>
+      <transition label-x="-3.5000000000000036" label-y="-1.0" name="nCrit_q" nservers-x="0.5" rotation="5.497787143782138" type="EXP" x="93.55" y="51.0"/>
+      <place marking="1" name="Q1" x="97.0" y="49.0"/>
+      <place label-x="1.5" label-y="0.0" name="Q2" x="97.0" y="39.0"/>
+      <place label-x="3.552713678800501E-15" label-y="-2.0" name="loop_q" x="97.0" y="4.0"/>
+      <transition label-x="-3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="120.55" y="37.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q8" x="97.0" y="25.0"/>
+      <place label-x="2.0" label-y="0.5" name="Q10" x="97.0" y="10.0"/>
+      <place name="Q4" x="105.0" y="27.0"/>
+      <transition label-x="5.0" label-y="0.0" name="exit_nCrit_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="97.55" y="43.0"/>
+      <place label-x="2.5" label-y="0.0" name="Q3" x="97.0" y="33.0"/>
+      <place name="Q6" x="115.0" y="39.0"/>
+      <transition label-y="-3.0" name="set_falseq_loop" nservers-x="0.5" superpos-y="-2.0" superposition-tags="setWantqFalseLoop" type="EXP" x="64.55" y="16.0"/>
+      <transition label-y="2.0" name="set_trueq_loop" nservers-x="0.5" superpos-y="3.5" superposition-tags="setWantqTrueLoop" type="EXP" x="64.55" y="25.0"/>
+      <place name="Turn2" x="72.0" y="58.0"/>
+      <place marking="1" name="Turn1" x="61.0" y="58.0"/>
+      <transition name="is1" nservers-x="0.5" type="EXP" x="56.55" y="56.0"/>
+      <transition name="set2" nservers-x="0.5" type="EXP" x="66.55" y="55.0"/>
+      <transition name="set1" nservers-x="0.5" type="EXP" x="66.55" y="62.0"/>
+      <transition name="is2" nservers-x="0.5" type="EXP" x="76.55" y="56.0"/>
+      <transition label-y="2.0" name="await2" nservers-x="0.5" type="EXP" x="76.55" y="60.0"/>
+      <transition label-y="2.0" name="await1" nservers-x="0.5" type="EXP" x="56.55" y="60.0"/>
+      <place label-x="-2.5" label-y="0.0" name="P9" x="27.0" y="45.0"/>
+      <transition label-x="3.0" label-y="0.0" name="crit_q" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="97.55" y="21.0"/>
+      <place label-x="2.0" label-y="0.0" name="Q9" x="97.0" y="16.0"/>
+      <place name="P4" x="21.0" y="35.0"/>
+      <place label-x="-2.0" label-y="0.0" name="P6" x="13.0" y="27.0"/>
+      <place name="Q5" x="115.0" y="30.0"/>
+      <place name="Q7" x="107.0" y="39.0"/>
+      <transition label-x="3.0" label-y="0.0" name="isnt1" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="82.55" y="57.0"/>
+      <transition label-x="-2.5" label-y="0.0" name="isnt2" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="50.55" y="57.0"/>
+    </nodes>
+    <edges>
+      <arc head="repeat_p" kind="INPUT" tail="loop_p">
+        <point x="5.0" y="56.0"/>
+      </arc>
+      <arc head="P1" kind="OUTPUT" tail="repeat_p">
+        <point x="5.0" y="12.0"/>
+      </arc>
+      <arc head="nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P1" kind="OUTPUT" tail="nCrit_p">
+        <point x="33.0" y="8.0"/>
+        <point x="30.5" y="7.5"/>
+      </arc>
+      <arc head="crit_p" kind="INPUT" tail="P8"/>
+      <arc head="exit_nCrit_p" kind="INPUT" tail="P1"/>
+      <arc head="P2" kind="OUTPUT" tail="exit_nCrit_p"/>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="58.0" y="24.0"/>
+        <point x="47.5" y="24.0"/>
+      </arc>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="47.5" y="18.0"/>
+        <point x="58.5" y="18.0"/>
+      </arc>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="69.5" y="41.5"/>
+        <point x="81.5" y="41.5"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="81.5" y="44.5"/>
+        <point x="69.5" y="44.5"/>
+      </arc>
+      <arc head="is_falseq" kind="INPUT" tail="P3">
+        <point x="37.0" y="28.0"/>
+        <point x="37.0" y="20.0"/>
+      </arc>
+      <arc head="P8" kind="OUTPUT" tail="is_falseq">
+        <point x="39.0" y="21.0"/>
+        <point x="39.0" y="36.0"/>
+      </arc>
+      <arc head="set_falsep" kind="INPUT" tail="P10"/>
+      <arc head="loop_p" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="trueq" kind="OUTPUT" tail="is_trueq">
+        <point x="77.0" y="20.0"/>
+      </arc>
+      <arc head="is_trueq" kind="INPUT" tail="trueq">
+        <point x="77.0" y="22.0"/>
+      </arc>
+      <arc head="set_truep" kind="INPUT" tail="P2"/>
+      <arc head="P3" kind="OUTPUT" tail="set_truep"/>
+      <arc head="truep" kind="OUTPUT" tail="is_truep">
+        <point x="57.5" y="42.0"/>
+      </arc>
+      <arc head="is_truep" kind="INPUT" tail="truep">
+        <point x="57.5" y="44.0"/>
+      </arc>
+      <arc broken="true" head="is_trueq" kind="INPUT" tail="P3">
+        <point x="25.5" y="30.5"/>
+        <point x="87.5" y="31.0"/>
+        <point x="87.5" y="20.5"/>
+      </arc>
+      <arc broken="true" head="P4" kind="OUTPUT" tail="is_trueq">
+        <point x="81.5" y="22.0"/>
+        <point x="81.5" y="31.0"/>
+        <point x="25.0" y="31.0"/>
+      </arc>
+      <arc head="set_truep_loop" kind="INPUT" tail="falsep">
+        <point x="70.5" y="39.0"/>
+      </arc>
+      <arc head="truep" kind="OUTPUT" tail="set_truep_loop"/>
+      <arc head="set_falsep_loop" kind="INPUT" tail="truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep_loop">
+        <point x="69.5" y="47.0"/>
+      </arc>
+      <arc broken="true" head="set_falsep_loop" kind="INPUT" mult-k="3.8032958984375007" tail="P5">
+        <point x="14.0" y="34.0"/>
+        <point x="13.5" y="52.5"/>
+        <point x="61.0" y="52.5"/>
+      </arc>
+      <arc broken="true" head="P6" kind="OUTPUT" tail="set_falsep_loop">
+        <point x="70.5" y="48.0"/>
+        <point x="70.5" y="54.0"/>
+        <point x="13.5" y="54.5"/>
+        <point x="14.0" y="53.5"/>
+        <point x="14.0" y="31.0"/>
+      </arc>
+      <arc broken="true" head="set_truep_loop" kind="INPUT" tail="P7">
+        <point x="23.0" y="25.0"/>
+        <point x="60.0" y="29.5"/>
+      </arc>
+      <arc broken="true" head="P3" kind="OUTPUT" mult-k="2.6975921630859374" tail="set_truep_loop">
+        <point x="78.0" y="34.5"/>
+        <point x="21.5" y="27.5"/>
+      </arc>
+      <arc head="repeat_q" kind="INPUT" tail="loop_q">
+        <point x="121.0" y="4.9999999999999964"/>
+      </arc>
+      <arc head="Q1" kind="OUTPUT" tail="repeat_q">
+        <point x="121.0" y="50.0"/>
+      </arc>
+      <arc head="nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q1" kind="OUTPUT" tail="nCrit_q">
+        <point x="93.0" y="54.0"/>
+        <point x="95.5" y="54.5"/>
+      </arc>
+      <arc head="exit_nCrit_q" kind="INPUT" tail="Q1"/>
+      <arc head="Q2" kind="OUTPUT" tail="exit_nCrit_q"/>
+      <arc head="set_trueq" kind="INPUT" tail="Q2"/>
+      <arc head="Q3" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="is_falsep" kind="INPUT" tail="Q3">
+        <point x="90.0" y="34.0"/>
+        <point x="90.0" y="44.0"/>
+      </arc>
+      <arc head="Q8" kind="OUTPUT" tail="is_falsep">
+        <point x="89.5" y="42.0"/>
+        <point x="89.5" y="26.0"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="Q10"/>
+      <arc head="loop_q" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="set_trueq_loop" kind="INPUT" tail="falseq">
+        <point x="62.0" y="26.0"/>
+      </arc>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq_loop"/>
+      <arc head="set_falseq_loop" kind="INPUT" tail="trueq"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq_loop">
+        <point x="62.5" y="17.0"/>
+      </arc>
+      <arc broken="true" head="is_truep" kind="INPUT" tail="Q3">
+        <point x="100.5" y="32.0"/>
+        <point x="47.5" y="45.5"/>
+      </arc>
+      <arc broken="true" head="Q4" kind="OUTPUT" tail="is_truep">
+        <point x="51.5" y="41.0"/>
+        <point x="101.0" y="31.5"/>
+      </arc>
+      <arc broken="true" head="set_falseq_loop" kind="INPUT" mult-k="3.7220581054687503" tail="Q5">
+        <point x="116.0" y="34.5"/>
+        <point x="116.5" y="16.0"/>
+        <point x="70.0" y="15.5"/>
+      </arc>
+      <arc broken="true" head="Q6" kind="OUTPUT" mult-k="2.7522125244140625" tail="set_falseq_loop">
+        <point x="89.5" y="18.5"/>
+        <point x="116.0" y="29.5"/>
+      </arc>
+      <arc broken="true" head="set_trueq_loop" kind="INPUT" mult-k="2.3438354492187496" tail="Q7">
+        <point x="100.5" y="35.0"/>
+        <point x="66.5" y="25.5"/>
+      </arc>
+      <arc broken="true" head="Q3" kind="OUTPUT" mult-k="1.78714599609375" tail="set_trueq_loop">
+        <point x="107.0" y="36.5"/>
+      </arc>
+      <arc head="is1" kind="INPUT" tail="Turn1">
+        <point x="53.0" y="59.0"/>
+        <point x="53.0" y="57.0"/>
+      </arc>
+      <arc head="await1" kind="INPUT" tail="Turn1">
+        <point x="53.0" y="59.0"/>
+        <point x="53.0" y="61.0"/>
+      </arc>
+      <arc head="Turn1" kind="OUTPUT" tail="is1"/>
+      <arc head="Turn1" kind="OUTPUT" tail="await1"/>
+      <arc head="set2" kind="INPUT" tail="Turn1"/>
+      <arc head="Turn2" kind="OUTPUT" tail="set2"/>
+      <arc head="set1" kind="INPUT" tail="Turn2"/>
+      <arc head="Turn1" kind="OUTPUT" tail="set1"/>
+      <arc head="await2" kind="INPUT" tail="Turn2">
+        <point x="80.0" y="59.0"/>
+        <point x="80.0" y="61.0"/>
+      </arc>
+      <arc head="Turn2" kind="OUTPUT" tail="await2"/>
+      <arc head="Turn2" kind="OUTPUT" tail="is2"/>
+      <arc head="is2" kind="INPUT" tail="Turn2">
+        <point x="80.0" y="59.0"/>
+        <point x="80.0" y="57.0"/>
+      </arc>
+      <arc head="P9" kind="OUTPUT" tail="crit_p"/>
+      <arc broken="true" head="set2" kind="INPUT" mult-k="0.9636169433593751" tail="P9"/>
+      <arc broken="true" head="P10" kind="OUTPUT" mult-k="2.5219726562499996" tail="set2">
+        <point x="63.0" y="56.5"/>
+        <point x="25.896191406249997" y="48.0994140625"/>
+      </arc>
+      <arc head="Q9" kind="OUTPUT" tail="crit_q"/>
+      <arc head="crit_q" kind="INPUT" tail="Q8"/>
+      <arc broken="true" head="set1" kind="INPUT" mult-k="1.73687744140625" tail="Q9">
+        <point x="71.5" y="67.0"/>
+      </arc>
+      <arc broken="true" head="Q10" kind="OUTPUT" mult-k="1.9666564941406248" tail="set1">
+        <point x="72.0" y="64.5"/>
+      </arc>
+      <arc broken="true" head="is2" kind="INPUT" mult-k="2.39686279296875" tail="P4">
+        <point x="22.0" y="51.0"/>
+        <point x="75.5" y="55.5"/>
+      </arc>
+      <arc broken="true" head="P5" kind="OUTPUT" mult-k="2.5819366455078123" tail="is2">
+        <point x="24.0" y="54.5"/>
+        <point x="17.0" y="41.5"/>
+      </arc>
+      <arc broken="true" head="await1" kind="INPUT" tail="P6">
+        <point x="14.0" y="23.0"/>
+        <point x="19.0" y="66.5"/>
+      </arc>
+      <arc broken="true" head="P7" kind="OUTPUT" tail="await1">
+        <point x="60.5" y="62.5"/>
+        <point x="39.0" y="66.5"/>
+        <point x="11.0" y="21.5"/>
+        <point x="13.5" y="22.0"/>
+      </arc>
+      <arc broken="true" head="is1" kind="INPUT" tail="Q4">
+        <point x="110.0" y="29.5"/>
+      </arc>
+      <arc broken="true" head="Q5" kind="OUTPUT" mult-k="2.539529418945312" tail="is1">
+        <point x="62.5" y="56.5"/>
+        <point x="112.0" y="30.0"/>
+      </arc>
+      <arc broken="true" head="await2" kind="INPUT" tail="Q6">
+        <point x="113.5" y="42.5"/>
+        <point x="81.0" y="62.0"/>
+      </arc>
+      <arc broken="true" head="Q7" kind="OUTPUT" tail="await2">
+        <point x="74.5" y="63.0"/>
+        <point x="120.0" y="62.5"/>
+      </arc>
+      <arc head="isnt2" kind="INPUT" tail="Turn1">
+        <point x="51.0" y="59.0"/>
+      </arc>
+      <arc head="Turn1" kind="OUTPUT" tail="isnt2">
+        <point x="51.0" y="56.5"/>
+        <point x="54.5" y="58.0"/>
+      </arc>
+      <arc head="isnt1" kind="INPUT" tail="Turn2">
+        <point x="83.0" y="59.0"/>
+      </arc>
+      <arc head="Turn2" kind="OUTPUT" tail="isnt1">
+        <point x="83.0" y="57.0"/>
+        <point x="77.5" y="58.5"/>
+      </arc>
+      <arc broken="true" head="isnt2" kind="INPUT" mult-k="0.5001061230897904" tail="P4">
+        <point x="24.5" y="38.0"/>
+        <point x="50.0" y="63.5"/>
+      </arc>
+      <arc broken="true" head="P8" kind="OUTPUT" mult-k="2.58193359375" tail="isnt2">
+        <point x="49.5" y="54.0"/>
+        <point x="31.5" y="33.0"/>
+      </arc>
+      <arc broken="true" head="isnt1" kind="INPUT" tail="Q4">
+        <point x="105.0" y="25.5"/>
+        <point x="88.0" y="64.0"/>
+      </arc>
+      <arc broken="true" head="Q8" kind="OUTPUT" mult-x="1.5615913757777449" mult-y="-1.1730107802778207" tail="isnt1">
+        <point x="85.5" y="54.5"/>
+        <point x="98.0" y="30.5"/>
+      </arc>
+    </edges>
+  </gspn>
+  <measures gspn-name="3.10" name="Measures of 3.10" simplified-UI="false">
+    <assignments/>
+    <rgmedd2/>
+    <formulas>
+      <formula expr="AF(#P1 == 1)" language="CTLSTAR"/>
+      <formula language="RG"/>
+    </formulas>
+  </measures>
+  <resource-list>
+    <document-log uuid="dcaa46b5-2766-4bf5-9489-505ba3d29b9f">rO0ABXNyABRqYXZhLnV0aWwuTGlua2VkTGlzdAwpU11KYIgiAwAAeHB3BAAAAKF0AMcbWzBtRVhFQzogL29wdC9ncmVhdHNwbi9saWIvYXBwL3BvcnRhYmxlX2dyZWF0c3BuL2Jpbi9EU1BOLVRvb2wgLWxvYWQgIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIDMuOS5zb2x1dGlvbi8zLjkiIC1wYmFzaXMgLWRldGVjdC1leHAgLXBzZmwgLWJuZCAKdACQG1sxbRtbNG1MT0FESU5HIFBFVFJJIE5FVCAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiAzLjkuc29sdXRpb24vMy45IChuZXQvZGVmKS4uLhtbMjJtG1syNG0KdAAPTUFSS0lORyBQQVI6IDAKdAAQUExBQ0VTOiAgICAgIDIwCnQAD1JBVEUgUEFSOiAgICAwCnQAEFRSQU5TSVRJT05TOiAyMAp0AA9NRUFTVVJFUzogICAgMAp0AChMT0FESU5HIFRJTUU6IFtVc2VyIDAuMDAwcywgU3lzIDAuMDAxc10KdAABCnQAAQp0AB5DT01QVVRJTkcgUExBQ0UgRkxPVyBCQVNJUy4uLgp0ABJNPTIwLCBOPTIwLCBOMD0yMAp0ADlDb21wdXRhdGlvbiBvZiBGbG93IGJhc2lzOiBzdGVwIDEvMjAsIHxLfD0xOCwgcHJvZHVjdHM9MQp0AFMbWzFBICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCnQAUxtbMUFDb21wdXRhdGlvbiBvZiBGbG93IGJhc2lzOiBjb21wbGV0ZWQgaW4gMTQgc3RlcHMsIHxLfD02LiAgICAgICAgICAgICAgICAgICAgICAKdABARk9VTkQgNiBWRUNUT1JTIElOIFRIRSBQTEFDRSBGTE9XIEJBU0lTICg0IHNlbWlmbG93cywgMiBmbG93cykuCnQAAQp0AAEKdAAnQWxsIHBsYWNlcyBhcmUgY292ZXJlZCBieSBzb21lIFAtZmxvdy4KdAABCnQAJlRPVEFMIFRJTUU6IFtVc2VyIDAuMDAwcywgU3lzIDAuMDAwc10KdAAnQVZPSUQgRVhQT05FTlRJQUwgR1JPV1RIIE9GIFNFTUlGTE9XUy4KdAAdQ09NUFVUSU5HIFBMQUNFIFNFTUlGTE9XUy4uLgp0ABJNPTIwLCBOPTIwLCBOMD0yMAp0ACtHZW5lcmF0aW9uIG9mIFNlbWlmbG93czogc3RlcCAxLzIwLCB8S3w9MTgKdABTG1sxQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAp0AFEbWzFBR2VuZXJhdGlvbiBvZiBTZW1pZmxvd3M6IGNvbXBsZXRlZCBpbiAxNCBzdGVwcywgfEt8PTguICAgICAgICAgICAgICAgICAgICAgIAp0ABlGT1VORCA4IFBMQUNFIFNFTUlGTE9XUy4KdAABCnQAAQp0ACtBbGwgcGxhY2VzIGFyZSBjb3ZlcmVkIGJ5IHNvbWUgUC1zZW1pZmxvdy4KdAABCnQAJlRPVEFMIFRJTUU6IFtVc2VyIDAuMDAwcywgU3lzIDAuMDAwc10KdAAsQ09NUFVUSU5HIFBMQUNFIEJPVU5EUyBGUk9NIFAtU0VNSUZMT1dTIC4uLgp0ACcbWzBYG1szMm0gUFJPQ0VTUyBFWElURUQgTk9STUFMTFkuG1swbQp0AMYbWzBtRVhFQzogL29wdC9ncmVhdHNwbi9saWIvYXBwL3BvcnRhYmxlX2dyZWF0c3BuL2Jpbi9EU1BOLVRvb2wgLWxvYWQgIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIDMuOS5zb2x1dGlvbi8zLjkiIC1sb2FkLWJuZCAtdGltZW91dCA1IC1pbHAtYm5kIAp0AJAbWzFtG1s0bUxPQURJTkcgUEVUUkkgTkVUIC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIDMuOS5zb2x1dGlvbi8zLjkgKG5ldC9kZWYpLi4uG1syMm0bWzI0bQp0AA9NQVJLSU5HIFBBUjogMAp0ABBQTEFDRVM6ICAgICAgMjAKdAAPUkFURSBQQVI6ICAgIDAKdAAQVFJBTlNJVElPTlM6IDIwCnQAD01FQVNVUkVTOiAgICAwCnQAKExPQURJTkcgVElNRTogW1VzZXIgMC4wMDBzLCBTeXMgMC4wMDBzXQp0AAEKdAABCnQAFUxPQURJTkcgQk5EIEZJTEUgLi4uCnQAIFNjaGVkdWxlZCB0aW1lb3V0IG9mIDUgc2Vjb25kcy4KdAAlQ09NUFVUSU5HIFBMQUNFIEJPVU5EUyBVU0lORyBJTFAgLi4uCnQAGEFsbCBwbGFjZXMgYXJlIGJvdW5kZWQuCnEAfgAkdACsG1swbUVYRUM6IC9vcHQvZ3JlYXRzcG4vbGliL2FwcC9wb3J0YWJsZV9ncmVhdHNwbi9iaW4vUkdNRUREMyAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvIGdyb3Nzby1DVEwgbW9kZWwgY2hlY2tpbmcgb2YgMy45LnNvbHV0aW9uLzMuOSIgLU1FVEEgLWMgLUMgCnQAIFJhbmRvbSBzZWVkczogMTY1MjUyMjA1NSA4NzMwMzMKdABQPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQp0ABFHcmVhdFNQTi9NZWRkbHkuCnQAOCAgQ29weXJpZ2h0IChDKSAxOTg3LTIwMTgsIFVuaXZlcnNpdHkgb2YgVG9yaW5vLCBJdGFseS4KdAAxICBTZW5kIGZpbGVzIG5ldG5hbWUubmV0LCAuZGVmIHRvIGUtbWFpbCBhZGRyZXNzCnQAKyAgYmVjY3V0aUBkaS51bml0by5pdCBpZiB5b3UgZmluZCBhbnkgYnVnLgp0AFA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CnQAH0Jhc2VkIG9uIE1FRERMWSB2ZXJzaW9uIDAuMTYuMAp0AEYgIENvcHlyaWdodCAoQykgMjAwOSwgSW93YSBTdGF0ZSBVbml2ZXJzaXR5IFJlc2VhcmNoIEZvdW5kYXRpb24sIEluYy4KdAApICB3ZWJzaXRlOiBodHRwOi8vbWVkZGx5LnNvdXJjZWZvcmdlLm5ldAp0AFA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CnQAKVVzaW5nIHBlci1ldmVudCBzYXR1cmF0aW9uIChzYXQtcHJlZ2VuKS4KdAAbVXNpbmcgZmFzdCBOU0YgZ2VuZXJhdGlvbi4KdAARUHJvY2VzcyBJRDogNTcyNAp0AGtNT0RFTCBOQU1FOiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiAzLjkuc29sdXRpb24vMy45CnQAHSAgMjAgcGxhY2VzLCAyMCB0cmFuc2l0aW9ucy4KdAAnVXNlZCBNZW1vcnkgZm9yIGVuY29kaW5nIG5ldDogNDE4ODIwS0IKdAB1T3BlbmluZyBmaWxlOiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiAzLjkuc29sdXRpb24vMy45LmJuZCBPSy4KdAB4T3BlbmluZyBmaWxlOiAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiAzLjkuc29sdXRpb24vMy45LmlscGJuZCBPSy4KdAAQSU5QVVQgQVJDUzogIDI2CnQAEE9VVFBVVCBBUkNTOiAyNgp0AA9JTkhJQiBBUkNTOiAgMAp0AA9URVNUIEFSQ1M6ICAgNgp0ABBQTEFDRVM6ICAgICAgMjAKdAAQVFJBTlNJVElPTlM6IDIwCnQAD0lOVkFSSUFOVFM6ICA2CnQAD1AtU0VNSUZMT1dTOiA4CnQAFk1BWCBJTlZBUklBTlQgQ0FSRDogMQp0AAEKdABQPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSBWQVJJQUJMRSBPUkRFUiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQp0ADxWYXJpYWJsZSBvcmRlciBtZXRob2Q6IE1ldGEtaGV1cmlzdGljIHVzaW5nIHdlaWdodGVkIHNjb3JlLgp0AFEgIE1FVEhPRCAgICAgICAgICAgICAgU0NPUkUgICAgICAgIFNXSVIgICAgICAgU09VUFMgRElTQ09VTlQgIFdFSUdIVCAgICAgICBUSU1FIAp0AFUgIFNMTyAgICAgICAgICAgICAgICAxOTAuNzQgICAgICAgICAxNzAgICAgICAgICAgOTUgICAgICAgIDEgICAxLjEyMiAgIDAuMDAwNDQxIHNlYy4KdABVICBTTE8rRm9yY2UgICAgICAgICAgICA5Ni44ICAgICAgICAgMTEwICAgICAgICAgIDkwICAgICAgICAxICAgIDAuODggICAwLjAwMDE5MSBzZWMuCnQAVSAgU0xPLTE2ICAgICAgICAgICAgIDEzNS42NiAgICAgICAgIDE3MCAgICAgICAgICA5NSAgICAgICAgMSAgIDAuNzk4ICAgMC4wMDAyOTYgc2VjLgp0AFUgIFNMTy0xNitGb3JjZSAgICAgICAxMDAuMjEgICAgICAgICAxMTAgICAgICAgICAgOTAgICAgICAgIDEgICAwLjkxMSAgIDAuMDAwMTU4IHNlYy4KdABVICBUT1YyICAgICAgICAgICAgICAyOTkuMDYxICAgICAgICAgMzI5ICAgICAgICAgMTExICAgICAgICAxICAgMC45MDkgICAwLjAwMDE4NSBzZWMuCnQAVSAgVE9WMitGb3JjZSAgICAgICAgIDk3LjI3MiAgICAgICAgICA4NCAgICAgICAgICA4NCAgICAgICAgMSAgIDEuMTU4ICAgMC4wMDAyNDIgc2VjLgp0AFUgIE5PQUNLMiAgICAgICAgICAgIDQyMS44NjMgICAgICAgICAzNzMgICAgICAgICAxMjEgICAgICAgIDEgICAxLjEzMSAgIDAuMDAwMTQ0IHNlYy4KdABVICBOT0FDSzIrRm9yY2UgICAgICAgIDkyLjEyICAgICAgICAgIDk0ICAgICAgICAgIDg3ICAgICAgICAxICAgIDAuOTggICAwLjAwMDIwMyBzZWMuCnQAVSAgQUNNICAgICAgICAgICAgICAgMTk5LjE2NyAgICAgICAgIDE5NyAgICAgICAgICA5OSAgICAgICAgMSAgIDEuMDExICAgMC4wMDAyMDIgc2VjLgp0AFUgIEFDTStGb3JjZSAgICAgICAgIDEwNC43OTYgICAgICAgICAgODIgICAgICAgICAgODIgICAgICAgIDEgICAxLjI3OCAgIDAuMDAwMTc0IHNlYy4KdABVICBDTTIgICAgICAgICAgICAgICAyNTEuMTc1ICAgICAgICAgMTk3ICAgICAgICAgIDk5ICAgICAgICAxICAgMS4yNzUgICAwLjAwMDEzNCBzZWMuCnQAVSAgQ00yK0ZvcmNlICAgICAgICAgIDkwLjExOCAgICAgICAgICA4MiAgICAgICAgICA4MiAgICAgICAgMSAgIDEuMDk5ICAgMC4wMDAxNTkgc2VjLgp0AFUgIFAgICAgICAgICAgICAgICAgIDMwMC4wMTQgICAgICAgICAyODYgICAgICAgICAxNDEgICAgICAgIDEgICAxLjA0OSAgIDAuMDAwMTE3IHNlYy4KdABVICBHUCAgICAgICAgICAgICAgICAxMzAuMjU2ICAgICAgICAgMTEyICAgICAgICAgIDgyICAgICAgICAxICAgMS4xNjMgICAgMC4wMDAzOSBzZWMuCnQAVSAgR1ArRm9yY2UgICAgICAgICAgICAgIDExNyAgICAgICAgIDEwNCAgICAgICAgICA3NiAgICAgICAgMSAgIDEuMTI1ICAgMC4wMDAxNzkgc2VjLgp0AD5NZXRhLWhldXJpc3RpYzogc2VsZWN0aW5nIG1ldGhvZCBDTTIrRm9yY2Ugd2l0aCBzY29yZTogOTAuMTE4CnQAKVRpbWUgdG8gY29tcHV0ZSB2YXJpYWJsZSBvcmRlcjogMC4wMDQ2ODkKdAABCnQAUD09PT09PT09PT09PT09PT09PT09PT09PT0gU1RBUlQgRklSSU5HIFJVTEVTIEVOQ09ESU5HID09PT09PT09PT09PT09PT09PT09PT09PT0KdAAsRW5jb2RlZCAyMCB0cmFuc2l0aW9uIGluIDEgcHJp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</document-log>
+    <document-log uuid="93325acf-6365-4472-8899-06ad496f73d6">rO0ABXNyABRqYXZhLnV0aWwuTGlua2VkTGlzdAwpU11KYIgiAwAAeHB3BAAAAKF0AN8bWzBtRVhFQzogL29wdC9ncmVhdHNwbi9saWIvYXBwL3BvcnRhYmxlX2dyZWF0c3BuL2Jpbi9EU1BOLVRvb2wgLWxvYWQgIi9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIENvbXBvc2l0aW9uIDMuNi5zb2x1dGlvbi9Db21wb3NpdGlvbiAzLjYiIC1wYmFzaXMgLWRldGVjdC1leHAgLXBzZmwgLWJuZCAKdACoG1sxbRtbNG1MT0FESU5HIFBFVFJJIE5FVCAvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiBDb21wb3NpdGlvbiAzLjYuc29sdXRpb24vQ29tcG9zaXRpb24gMy42IChuZXQvZGVmKS4uLhtbMjJtG1syNG0KdAAPTUFSS0lORyBQQVI6IDAKdAAQUExBQ0VTOiAgICAgIDE3CnQAD1JBVEUgUEFSOiAgICAwCnQAEFRSQU5TSVRJT05TOiAxNgp0AA9NRUFTVVJFUzogICAgMAp0AChMT0FESU5HIFRJTUU6IFtVc2VyIDAuMDAwcywgU3lzIDAuMDAwc10KdAABCnQAAQp0AB5DT01QVVRJTkcgUExBQ0UgRkxPVyBCQVNJUy4uLgp0ABJNPTE2LCBOPTE3LCBOMD0xNwp0ADlDb21wdXRhdGlvbiBvZiBGbG93IGJhc2lzOiBzdGVwIDEvMTYsIHxLfD0xNSwgcHJvZHVjdHM9MQp0AFMbWzFBICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCnQAUxtbMUFDb21wdXRhdGlvbiBvZiBGbG93IGJhc2lzOiBjb21wbGV0ZWQgaW4gMTAgc3RlcHMsIHxLfD03LiAgICAgICAgICAgICAgICAgICAgICAKdABARk9VTkQgNyBWRUNUT1JTIElOIFRIRSBQTEFDRSBGTE9XIEJBU0lTICg0IHNlbWlmbG93cywgMyBmbG93cykuCnQAAQp0AAEKdAAnQWxsIHBsYWNlcyBhcmUgY292ZXJlZCBieSBzb21lIFAtZmxvdy4KdAABCnQAJlRPVEFMIFRJTUU6IFtVc2VyIDAuMDAwcywgU3lzIDAuMDAwc10KdAAnQVZPSUQgRVhQT05FTlRJQUwgR1JPV1RIIE9GIFNFTUlGTE9XUy4KdAAdQ09NUFVUSU5HIFBMQUNFIFNFTUlGTE9XUy4uLgp0ABJNPTE2LCBOPTE3LCBOMD0xNwp0ACtHZW5lcmF0aW9uIG9mIFNlbWlmbG93czogc3RlcCAxLzE2LCB8S3w9MTUKdABTG1sxQSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAp0AFIbWzFBR2VuZXJhdGlvbiBvZiBTZW1pZmxvd3M6IGNvbXBsZXRlZCBpbiAxMCBzdGVwcywgfEt8PTEyLiAgICAgICAgICAgICAgICAgICAgICAKdAAaRk9VTkQgMTIgUExBQ0UgU0VNSUZMT1dTLgp0AAEKdAABCnQAK0FsbCBwbGFjZXMgYXJlIGNvdmVyZWQgYnkgc29tZSBQLXNlbWlmbG93Lgp0AAEKdAAmVE9UQUwgVElNRTogW1VzZXIgMC4wMDBzLCBTeXMgMC4wMDBzXQp0ACxDT01QVVRJTkcgUExBQ0UgQk9VTkRTIEZST00gUC1TRU1JRkxPV1MgLi4uCnQAJxtbMFgbWzMybSBQUk9DRVNTIEVYSVRFRCBOT1JNQUxMWS4bWzBtCnQA3htbMG1FWEVDOiAvb3B0L2dyZWF0c3BuL2xpYi9hcHAvcG9ydGFibGVfZ3JlYXRzcG4vYmluL0RTUE4tVG9vbCAtbG9hZCAiL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvIGdyb3Nzby1DVEwgbW9kZWwgY2hlY2tpbmcgb2YgQ29tcG9zaXRpb24gMy42LnNvbHV0aW9uL0NvbXBvc2l0aW9uIDMuNiIgLWxvYWQtYm5kIC10aW1lb3V0IDUgLWlscC1ibmQgCnQAqBtbMW0bWzRtTE9BRElORyBQRVRSSSBORVQgL2hvbWUvbG9yZW56by9zY3VvbGEvVlBDL0dzcG5fcHJvamVjdHMvRXNlcmNpemlvIGdyb3Nzby1DVEwgbW9kZWwgY2hlY2tpbmcgb2YgQ29tcG9zaXRpb24gMy42LnNvbHV0aW9uL0NvbXBvc2l0aW9uIDMuNiAobmV0L2RlZikuLi4bWzIybRtbMjRtCnQAD01BUktJTkcgUEFSOiAwCnQAEFBMQUNFUzogICAgICAxNwp0AA9SQVRFIFBBUjogICAgMAp0ABBUUkFOU0lUSU9OUzogMTYKdAAPTUVBU1VSRVM6ICAgIDAKdAAoTE9BRElORyBUSU1FOiBbVXNlciAwLjAwMHMsIFN5cyAwLjAwMHNdCnQAAQp0AAEKdAAVTE9BRElORyBCTkQgRklMRSAuLi4KdAAgU2NoZWR1bGVkIHRpbWVvdXQgb2YgNSBzZWNvbmRzLgp0ACVDT01QVVRJTkcgUExBQ0UgQk9VTkRTIFVTSU5HIElMUCAuLi4KdAAYQWxsIHBsYWNlcyBhcmUgYm91bmRlZC4KcQB+ACR0AMQbWzBtRVhFQzogL29wdC9ncmVhdHNwbi9saWIvYXBwL3BvcnRhYmxlX2dyZWF0c3BuL2Jpbi9SR01FREQzICIvaG9tZS9sb3JlbnpvL3NjdW9sYS9WUEMvR3Nwbl9wcm9qZWN0cy9Fc2VyY2l6aW8gZ3Jvc3NvLUNUTCBtb2RlbCBjaGVja2luZyBvZiBDb21wb3NpdGlvbiAzLjYuc29sdXRpb24vQ29tcG9zaXRpb24gMy42IiAtTUVUQSAtYyAtQyAKdAAgUmFuZG9tIHNlZWRzOiAxNjUyNTIyMDkxIDUwNjg5Nwp0AFA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CnQAEUdyZWF0U1BOL01lZGRseS4KdAA4ICBDb3B5cmlnaHQgKEMpIDE5ODctMjAxOCwgVW5pdmVyc2l0eSBvZiBUb3Jpbm8sIEl0YWx5Lgp0ADEgIFNlbmQgZmlsZXMgbmV0bmFtZS5uZXQsIC5kZWYgdG8gZS1tYWlsIGFkZHJlc3MKdAArICBiZWNjdXRpQGRpLnVuaXRvLml0IGlmIHlvdSBmaW5kIGFueSBidWcuCnQAUD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KdAAfQmFzZWQgb24gTUVERExZIHZlcnNpb24gMC4xNi4wCnQARiAgQ29weXJpZ2h0IChDKSAyMDA5LCBJb3dhIFN0YXRlIFVuaXZlcnNpdHkgUmVzZWFyY2ggRm91bmRhdGlvbiwgSW5jLgp0ACkgIHdlYnNpdGU6IGh0dHA6Ly9tZWRkbHkuc291cmNlZm9yZ2UubmV0CnQAUD09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0KdAApVXNpbmcgcGVyLWV2ZW50IHNhdHVyYXRpb24gKHNhdC1wcmVnZW4pLgp0ABtVc2luZyBmYXN0IE5TRiBnZW5lcmF0aW9uLgp0ABFQcm9jZXNzIElEOiA1NzY1CnQAg01PREVMIE5BTUU6IC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIENvbXBvc2l0aW9uIDMuNi5zb2x1dGlvbi9Db21wb3NpdGlvbiAzLjYKdAAdICAxNyBwbGFjZXMsIDE2IHRyYW5zaXRpb25zLgp0ACdVc2VkIE1lbW9yeSBmb3IgZW5jb2RpbmcgbmV0OiA0NTI1ODhLQgp0AI1PcGVuaW5nIGZpbGU6IC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIENvbXBvc2l0aW9uIDMuNi5zb2x1dGlvbi9Db21wb3NpdGlvbiAzLjYuYm5kIE9LLgp0AJBPcGVuaW5nIGZpbGU6IC9ob21lL2xvcmVuem8vc2N1b2xhL1ZQQy9Hc3BuX3Byb2plY3RzL0VzZXJjaXppbyBncm9zc28tQ1RMIG1vZGVsIGNoZWNraW5nIG9mIENvbXBvc2l0aW9uIDMuNi5zb2x1dGlvbi9Db21wb3NpdGlvbiAzLjYuaWxwYm5kIE9LLgp0ABBJTlBVVCBBUkNTOiAgMTgKdAAQT1VUUFVUIEFSQ1M6IDE4CnQAD0lOSElCIEFSQ1M6ICAwCnQAD1RFU1QgQVJDUzogICA2CnQAEFBMQUNFUzogICAgICAxNwp0ABBUUkFOU0lUSU9OUzogMTYKdAAPSU5WQVJJQU5UUzogIDcKdAAQUC1TRU1JRkxPV1M6IDEyCnQAFk1BWCBJTlZBUklBTlQgQ0FSRDogMQp0AAEKdABQPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSBWQVJJQUJMRSBPUkRFUiA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQp0ADxWYXJpYWJsZSBvcmRlciBtZXRob2Q6IE1ldGEtaGV1cmlzdGljIHVzaW5nIHdlaWdodGVkIHNjb3JlLgp0AFEgIE1FVEhPRCAgICAgICAgICAgICAgU0NPUkUgICAgICAgIFNXSVIgICAgICAgU09VUFMgRElTQ09VTlQgIFdFSUdIVCAgICAgICBUSU1FIAp0AFUgIFNMTyAgICAgICAgICAgICAgIDEzOC4wMDYgICAgICAgICAxMjMgICAgICAgICAgNjQgICAgICAgIDEgICAxLjEyMiAgIDAuMDAwMzMzIHNlYy4KdABVICBTTE8rRm9yY2UgICAgICAgICAgIDU4LjA4ICAgICAgICAgIDY2ICAgICAgICAgIDU0ICAgICAgICAxICAgIDAuODggICAwLjAwMDE5MSBzZWMuCnQAVSAgU0xPLTE2ICAgICAgICAgICAgIDk4LjE1NCAgICAgICAgIDEyMyAgICAgICAgICA2NCAgICAgICAgMSAgIDAuNzk4ICAgMC4wMDAyMDMgc2VjLgp0AFUgIFNMTy0xNitGb3JjZSAgICAgICA2MC4xMjYgICAgICAgICAgNjYgICAgICAgICAgNTQgICAgICAgIDEgICAwLjkxMSAgIDAuMDAwMTU0IHNlYy4KdABVICBUT1YyICAgICAgICAgICAgICAxMjIuNzE1ICAgICAgICAgMTM1ICAgICAgICAgIDY2ICAgICAgICAxICAgMC45MDkgICAwLjAwMDE0NyBzZWMuCnQAVSAgVE9WMitGb3JjZSAgICAgICAgIDg1LjY5MiAgICAgICAgICA3NCAgICAgICAgICA1NSAgICAgICAgMSAgIDEuMTU4ICAgMC4wMDAyNDggc2VjLgp0AFUgIE5PQUNLMiAgICAgICAgICAgIDI2NS43ODUgICAgICAgICAyMzUgICAgICAgICAgODQgICAgICAgIDEgICAxLjEzMSAgIDAuMDAwMTI0IHNlYy4KdABVICBOT0FDSzIrRm9yY2UgICAgICAgIDk5Ljk2ICAgICAgICAgMTAyICAgICAgICAgIDY0ICAgICAgICAxICAgIDAuOTggICAwLjAwMDI3OCBzZWMuCnQAVSAgQUNNICAgICAgICAgICAgICAgMTMzLjQ1MiAgICAgICAgIDEzMiAgICAgICAgICA2NiAgICAgICAgMSAgIDEuMDExICAgICAwLjAwMDIgc2VjLgp0AFUgIEFDTStGb3JjZSAgICAgICAgICA5My4yOTQgICAgICAgICAgNzMgICAgICAgICAgNTUgICAgICAgIDEgICAxLjI3OCAgIDAuMDAwMjcxIHNlYy4KdABVICBDTTIgICAgICAgICAgICAgICAgIDE2OC4zICAgICAgICAgMTMyICAgICAgICAgIDY2ICAgICAgICAxICAgMS4yNzUgICAwLjAwMDEyOCBzZWMuCnQAVSAgQ00yK0ZvcmNlICAgICAgICAgIDgwLjIyNyAgICAgICAgICA3MyAgICAgICAgICA1NSAgICAgICAgMSAgIDEuMDk5ICAgMC4wMDAyMjYgc2VjLgp0AFUgIFAgICAgICAgICAgICAgICAgICAyNjIuMjUgICAgICAgICAyNTAgICAgICAgICAgOTIgICAgICAgIDEgICAxLjA0OSAgIDAuMDAwMTQzIHNlYy4KdABVICBHUCAgICAgICAgICAgICAgICAyMTcuNDgxICAgICAgICAgMTg3ICAgICAgICAgIDc4ICAgICAgICAxICAgMS4xNjMgICAgMC4wMDAzMyBzZWMuCnQAVSAgR1ArRm9yY2UgICAgICAgICAgMTc4Ljg3NSAgICAgICAgIDE1OSAgICAgICAgICA2OSAgICAgICAgMSAgIDEuMTI1ICAgMC4wMDAyNzMgc2VjLgp0AD1NZXRhLWhldXJpc3RpYzogc2VsZWN0aW5nIG1ldGhv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AH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjcQB+AKNxAH4Ao3EAfgCjeA</document-log>
+  </resource-list>
 </project>
