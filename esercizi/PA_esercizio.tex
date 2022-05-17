@@ -1,0 +1,82 @@
+\documentclass[a4paper]{article}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{xcolor}
+\usepackage{forest}
+\usepackage{multicol}
+\setlength{\columnsep}{3cm}
+\usepackage{parskip}
+\usepackage{changepage}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[italian]{babel}
+\usepackage{thmtools}
+\begin{document}
+\addtolength{\topmargin}{-100pt}
+\addtolength{\textheight}{160pt}
+
+
+\author{Lorenzo Dentis, lorenzo.dentis@edu.unito.it}
+\title{Produttori e consumatori in PA e Nusmv}
+\maketitle
+\section{Process Algebra}
+\subsection{1 produttore, 1 consumatore, buffer a N posizioni}
+\label{SEC:PA_1}
+Il sistema può essere essere osservato in Figura~\ref{FIG:ES3Setting1SYS}.\\
+\begin{figure}[!ht]
+	\makebox[\textwidth][c]{\includegraphics[width=1\linewidth]{Esercizio3_img/Es3-setting1SYS.pdf}}
+  \label{FIG:ES3Setting1SYS}
+\end{figure}\\
+Le operazioni $put,get$ sono inserite in una restrizione, in modo che sia possibile inserire e rimuovere oggetti dal buffer solamente tramite $\tau$-operazioni che coinvolgono una "cella" del buffer ed uno tra il consuamtore ed il produttore.\\
+Non è possibile indicare un buffer a N posizioni in maniera genereica quindi tramite un abuso di notazione ho costruito il buffer come una composizione di buffer ad 1 posizione, dato che l'esercizio richiede che non il buffer sia un unico oggetto e non sia possibile inserire elementi in differenti "celle" di questo ho definito tre funzioni di relabeling ed una nuova operazione $passa$ anche essa inserita nella restrizione.
+\begin{itemize}
+	\item $f_E$: operazione effettuabile solo da una cella del buffer, è l'unica cella che può effettuare operazioni di $put$, obbligando il produttore ad inserire dati solo in quella cella.
+	\item $f_F$: operazione effettuabile solo da una cella del buffer, è l'unica cella che può effettuare operazioni di $get$, obbligando il consumatore a prelevare dati solo da quella cella.
+	\item $f_M$: questa funzione di relabeling permette alle celle del buffer differenti da quella iniziale e quella finale di passare liberamente il dato.
+\end{itemize}
+Dato che l'esercizio specificava di non imporre alcuna politica di accesso non ci sono limitazioni su dove verrà spostato il dato: sarebbe possibile ad esempio spostare direttamente il dato dalla prima all'ultima cella del buffer, oppure effettuare infinite $\tau$-operazioni tra le celle del buffer.\\
+\begin{figure}[!ht]
+        \makebox[\textwidth][c]{\includegraphics[width=1.25\linewidth]{Esercizio3_img/Es3-setting1DG.pdf}}
+  \label{FIG:ES3Setting1DG}
+\end{figure}\\
+Lo scopo principale di questo \textit{derivation graph} è mostrare informalmente il funzionamento del buffer a N posizioni, come anticipato prima i dati posso essere mossi liberamente all'interno del buffer, finchè questo non è pieno.Le operazioni interne al buffer sono state rappresentate informalmente con il termine $\tau_{pass}$ per distinguerle chiaramente dalle operazioni svolte dal produttore e dal consumatore, rispettivamente $\tau_{get}$ e $\tau_{put}$.
+
+
+\subsection{1 produttore, 2 consumatori, buffer a N posizioni}
+Il sistema in questo caso è molto simile al sitema del caso precedente, l'unica aggiunta è la concatenazione di un ulteriore Cons.\\
+\begin{figure}[!ht]
+        \makebox[\textwidth][c]{\includegraphics[width=1\linewidth]{Esercizio3_img/Es3-setting2SYS.pdf}}
+  \label{FIG:ES3Setting2SYS}
+\end{figure}
+\begin{figure}[!ht]
+        \makebox[\textwidth][c]{\includegraphics[width=1.25\linewidth]{Esercizio3_img/Es3-setting2DG.pdf}}
+  \label{FIG:ES3Setting2DG}
+\end{figure}\\
+In questo \textit{derivation graph} (figura \ref{FIG:ES3Setting2DG}) si è considerata solo la situazione in cui il buffer è limitato a 3 posizioni, dato che tale assunto semplifica la lettura ed in ogni caso la situazione con buffer ad N posizioni è stata già discussa nella sezione precendente (sezione \ref{SEC:PA_1}).
+La presenza di un ulteriore consumatore non modifica molto il grafo, infatti aggiunge solo ad ogni stato (escluso lo stato con il buffer completamente vuoto) la possibilità di effettuare due distinte operazioni $\tau_{get}$, una per ogni \textit{Consumer}.
+Entrambe le operazioni $\tau_{get}$, nonostante siano svolte da due \textit{Consumer} differenti, conducono a due stati indistinguibili che ho quindi accorpato in uno stato solo.
+\subsection{P produttori, C consumatori, buffer a N posizioni}
+\section{NuSMV}
+\subsection{1 produttore, 1 consumatore, buffer a N posizioni}
+\lstinputlisting[numbers=left,firstnumber=1,stepnumber=1]{nusmv/consegnare/es_3_setting_1.smv}
+In questo programma il buffer è identificato da una variabile intera che può assumere valori compresi tra 0 e 3, volendo incrementare la dimensione del buffer bisogna modificare il valore 3 inserendo il valore desiderato.
+Non c'è quindi la possibilità di impostare il valore del buffer in maniera interattiva ma quantomeno lo si può gestire parametricamente.\\
+I due processi ricevono come parametro il buffer ed hanno una semplice implementazione dei passaggi di stato: l'unica limitazione inserita è nell'uscita dallo stato \texttt{place}/\texttt{take} che corrisponde all'operazione di aggiunta/rimozione di un elemento dal buffer.\\
+Il \textit{Consumer} non può effettuare l'operazione \textit{get} se il buffer è vuoto (riga 36), così come il \textit{producer} non puà effettuare una \textit{put} se il buffer è già pieno (riga 19).
+
+Invece il buffer viene incrementato o decrementato solo quando un processo effettua una operazione su di esso (righe 24 e 41), la sintassi di \textit{NuSMV} obbliga l'inserimento di una clausola che impedisca al buffer di superare il valore 3 o scendere sotto il valore 0.
+
+\subsection{1 produttore, 2 consumatori, buffer a N posizioni}
+\lstinputlisting{nusmv/consegnare/es_3_setting_2.smv}
+Come nelle altre implementazioni il setting 2 è praticamente identico al setting 1. In questo caso la differenza sta nell'introduzione di una nuova variabile Cons2, istanza di \texttt{process consumer}.
+Si può però notare che non è necessaria alcuna forma di mutua esclusione esplicita in quanto le operazioni di \texttt{place} e \texttt{take} sono intese come operazioni atomiche.
+\subsection{P produttori, C consumatori, buffer a N posizioni}
+Questa implementazione non è possibile, in quanto \emph{NuSMV} non permette la creazione di vettori di processi, l'unico modo di generare P produttori e C consumatori è quindi scrivere P variabili di tipo \texttt{process prod} e C variabili di tipo \texttt{process cons}.
+\end{document}

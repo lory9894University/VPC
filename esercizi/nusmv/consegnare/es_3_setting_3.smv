@@ -1,10 +1,7 @@
 MODULE main
 VAR
 	buffer : 0 .. 3;
-	prod1 : process producer(buffer);
-	prod2 : process producer(buffer);
-	cons : process consumer(buffer);
-ASSIGN
+	prod : array 1..3 of process producer(buffer);
 	init(buffer) := 0; 
 
 
