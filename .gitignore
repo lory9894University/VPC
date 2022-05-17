@@ -7,5 +7,6 @@
 *.solution
 *.un~
 .*
+*.out
 NuSMV/*
 nuSMV/*
