@@ -1,0 +1,51 @@
+MODULE main
+VAR
+	turn : 1 .. 2;
+	p : process p_proc(turn);
+	q : process q_proc(turn);
+ASSIGN
+	init(turn) := 1; 
+
+SPEC !EF( p.state = q3 & q.state = p3);
+
+MODULE p_proc(turn)
+VAR
+	state : {p1, p2, p3, p4};
+ASSIGN
+	init(state) := p1;
+	next(state) := 
+	  case
+		state = p1 : {p2, p1};
+		state = p2 & (turn = 1): p3;
+		state = p3 : p4;
+		state = p4 : p1;
+		TRUE : state;
+	  esac;	
+	next(turn) := 
+	  case
+		state = p4 : 2;
+	 	TRUE : turn;
+	  esac;
+
+--SPEC AF!(state = p3 & turn = 2);
+
+MODULE q_proc(turn)
+VAR
+	state : {q1, q2, q3, q4};
+ASSIGN
+	init(state) := q1;
+	next(state) := 
+	  case
+		state = q1 : {q2, q1};
+		state = q2 & (turn = 2): q3;
+		state = q3 : q4;
+		state = q4 : q1;
+		TRUE : state;
+	  esac;	
+	next(turn) := 
+	  case
+		state = q4 : 1;
+	 	TRUE : turn;
+	  esac;
+
+--SPEC AF!( state = q3 & turn = 1);

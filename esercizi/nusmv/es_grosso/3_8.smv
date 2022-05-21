@@ -1,0 +1,54 @@
+MODULE main
+VAR
+	wantp : boolean;
+	wantq : boolean;
+	p : process p_proc(wantp, wantq);
+	q : process q_proc(wantp, wantq);
+ASSIGN
+	init(wantp) := FALSE; 
+	init(wantq) := FALSE; 
+
+SPEC !EF( p.state = p4 & q.state = q4);
+
+MODULE p_proc(wantp, wantq)
+VAR
+	state : {p1, p2, p3, p4,p5};
+ASSIGN
+	init(state) := p1;
+	next(state) := 
+	  case
+		state = p1 : {p2, p1};
+		state = p2 : p3;
+		state = p3 & (wantq = FALSE): p4;
+		state = p4 : p5;
+		state = p5 : p1;
+		TRUE : state;
+	  esac;	
+	next(wantp) := 
+	  case
+		state = p3 : TRUE;
+		state = p5 : FALSE;
+	 	TRUE : wantp;
+	  esac;
+
+MODULE q_proc(wantp, wantq)
+VAR
+	state : {q1, q2, q3, q4,q5};
+ASSIGN
+	init(state) := q1;
+	next(state) := 
+	  case
+		state = q1 : {q2, q1};
+		state = q2 & (wantp = FALSE): q3;
+		state = q3 : q4;
+		state = q4 : q5;
+		state = q5 : q1;
+		TRUE : state;
+	  esac;	
+	next(wantq) := 
+	  case
+		state = q3 : TRUE;
+		state = q5 : FALSE;
+	 	TRUE : wantq;
+	  esac;
+
