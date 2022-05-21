@@ -1,0 +1,83 @@
+MODULE main
+VAR
+	wantp : boolean;
+	wantq : boolean;
+	turn: 1 .. 2;
+	p : process p_proc(wantp, wantq, turn);
+	q : process q_proc(wantp, wantq, turn);
+ASSIGN
+	init(wantp) := FALSE; 
+	init(wantq) := FALSE; 
+	init(turn) := 1;
+
+SPEC !EF( p.state = p8 & q.state = q8);
+
+MODULE p_proc(wantp, wantq,turn)
+VAR
+	state : {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
+ASSIGN
+	init(state) := p1;
+	next(state) := 
+	  case
+		state = p1 : {p2, p1};
+		state = p2 : p3;
+		state = p3 & wantq: p4;
+		state = p3 & !wantq: p8;
+		state = p4 & (turn = 2): p5 ;
+		state = p4 & !(turn = 2): p3 ;
+		state = p5 : p6;
+		state = p6 & (turn = 1): p7;
+		state = p7 : p3;
+		state = p8 : p9;
+		state = p9 : p10;
+		state = p10 : p1;
+		TRUE : state;
+	  esac;	
+	next(wantp) := 
+	  case
+		state = p2 : TRUE;
+		state = p5 : FALSE;
+		state = p7 : TRUE;
+		state = p10 : FALSE;
+	 	TRUE : wantp;
+	  esac;
+	next(turn) :=
+	  case 
+		state = p9 : 2;
+		TRUE : turn;
+	  esac;
+
+MODULE q_proc(wantp, wantq,turn)
+VAR
+	state : {q1, q2, q3, q4, q5, q6, q7, q8, q9, q10};
+ASSIGN
+	init(state) := q1;
+	next(state) := 
+	  case
+		state = q1 : {q2, q1};
+		state = q2 : q3;
+		state = q3 & wantp: q4;
+		state = q3 & !wantp: q8;
+		state = q4 & (turn = 1): q5 ;
+		state = q4 & !(turn = 1): q3 ;
+		state = q5 : q6;
+		state = q6 & (turn = 2): q7;
+		state = q7 : q3;
+		state = q8 : q9;
+		state = q9 : q10;
+		state = q10 : q1;
+		TRUE : state;
+	  esac;	
+	next(wantq) := 
+	  case
+		state = q2 : TRUE;
+		state = q5 : FALSE;
+		state = q7 : TRUE;
+		state = q10 : FALSE;
+	 	TRUE : wantq;
+	  esac;
+	next(turn) :=
+	  case 
+		state = q9 : 1;
+		TRUE : turn;
+	  esac;

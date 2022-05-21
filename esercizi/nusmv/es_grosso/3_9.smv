@@ -8,49 +8,55 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
-SPEC !EF( p.state = p4 & q.state = q4);
+SPEC !EF( p.state = p6 & q.state = q6);
 
 MODULE p_proc(wantp, wantq)
 VAR
-	state : {p1, p2, p3, p4,p5};
+	state : {p1, p2, p3, p4, p5, p6, p7};
 ASSIGN
 	init(state) := p1;
 	next(state) := 
 	  case
 		state = p1 : {p2, p1};
 		state = p2 : p3;
-		state = p3 & !wantq: p4;
+		state = p3 & wantq: p4;
+		state = p3 & !wantq: p6;
 		state = p4 : p5;
-		state = p5 : p1;
+		state = p5 : p3;
+		state = p6 : p7;
+		state = p7 : p1;
 		TRUE : state;
 	  esac;	
 	next(wantp) := 
 	  case
 		state = p2 : TRUE;
-		state = p5 : FALSE;
+		state = p5 : TRUE;
+		state = p7 : FALSE;
 	 	TRUE : wantp;
 	  esac;
 
 MODULE q_proc(wantp, wantq)
 VAR
-	state : {q1, q2, q3, q4,q5};
+	state : {q1, q2, q3, q4, q5, q6, q7};
 ASSIGN
 	init(state) := q1;
 	next(state) := 
 	  case
 		state = q1 : {q2, q1};
 		state = q2 : q3;
-		state = q3 & !wantp :  q4;
+		state = q3 & wantp: q4;
+		state = q3 & !wantp: q6;
 		state = q4 : q5;
-		state = q5 : q1;
+		state = q5 : q3;
+		state = q6 : q7;
+		state = q7 : q1;
 		TRUE : state;
 	  esac;	
 	next(wantq) := 
 	  case
 		state = q2 : TRUE;
-		state = q5 : FALSE;
+		state = q5 : TRUE;
+		state = q7 : FALSE;
 	 	TRUE : wantq;
 	  esac;
-
---boh, il comando check_fsm mi dice che un successore c'è. non capico davverò perchè ( dovrebbe andare in deadlock)
 
