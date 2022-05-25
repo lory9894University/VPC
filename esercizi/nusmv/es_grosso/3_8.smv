@@ -2,17 +2,17 @@ MODULE main
 VAR
 	wantp : boolean;
 	wantq : boolean;
-	p : process p_proc(wantp, wantq);
-	q : process q_proc(wantp, wantq);
+	p : process proc(wantp, wantq);
+	q : process proc(wantq, wantp);
 ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
-SPEC !EF( p.state = p4 & q.state = q4);
+SPEC !EF( p.state = p4 & q.state = p4);
 
-MODULE p_proc(wantp, wantq)
+MODULE proc(wantp, wantq)
 VAR
-	state : {p1, p2, p3, p4,p5};
+	state : {p1, p2, p3, p4, p5};
 ASSIGN
 	init(state) := p1;
 	next(state) := 
@@ -30,27 +30,3 @@ ASSIGN
 		state = p5 : FALSE;
 	 	TRUE : wantp;
 	  esac;
-
-MODULE q_proc(wantp, wantq)
-VAR
-	state : {q1, q2, q3, q4,q5};
-ASSIGN
-	init(state) := q1;
-	next(state) := 
-	  case
-		state = q1 : {q2, q1};
-		state = q2 : q3;
-		state = q3 & !wantp :  q4;
-		state = q4 : q5;
-		state = q5 : q1;
-		TRUE : state;
-	  esac;	
-	next(wantq) := 
-	  case
-		state = q2 : TRUE;
-		state = q5 : FALSE;
-	 	TRUE : wantq;
-	  esac;
-
---boh, il comando check_fsm mi dice che un successore c'è. non capico davverò perchè ( dovrebbe andare in deadlock)
-
