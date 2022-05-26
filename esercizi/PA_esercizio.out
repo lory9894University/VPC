@@ -1,8 +1,0 @@
-\BOOKMARK [1][-]{section.1}{Process Algebra}{}% 1
-\BOOKMARK [2][-]{subsection.1.1}{1 produttore, 1 consumatore, buffer a N posizioni}{section.1}% 2
-\BOOKMARK [2][-]{subsection.1.2}{1 produttore, 2 consumatori, buffer a N posizioni}{section.1}% 3
-\BOOKMARK [2][-]{subsection.1.3}{P produttori, C consumatori, buffer a N posizioni}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{NuSMV}{}% 5
-\BOOKMARK [2][-]{subsection.2.1}{1 produttore, 1 consumatore, buffer a N posizioni}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.2}{1 produttore, 2 consumatori, buffer a N posizioni}{section.2}% 7
-\BOOKMARK [2][-]{subsection.2.3}{P produttori, C consumatori, buffer a N posizioni}{section.2}% 8
