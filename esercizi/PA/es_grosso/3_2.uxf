@@ -1,0 +1,78 @@
+<diagram program="umletino" version="15.0.0"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLUseCase</id><coordinates><x>240</x><y>80</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q1) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>160</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q1) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>250</y><w>120</w><h>40</h></coordinates><panel_attributes>(P3 || Q1) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>360</y><w>120</w><h>40</h></coordinates><panel_attributes>(P4 || Q1) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>240</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q2) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>330</y><w>120</w><h>40</h></coordinates><panel_attributes>(P3 || Q2) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>420</y><w>120</w><h>40</h></coordinates><panel_attributes>(P4 || Q2) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>160</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q2) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>620</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q2) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>700</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q3) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>790</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q4) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>520</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q2) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>610</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q3) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>450</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q1) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>140</x><y>540</y><w>120</w><h>40</h></coordinates><panel_attributes>(P2 || Q1) || T2
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>340</x><y>710</y><w>120</w><h>40</h></coordinates><panel_attributes>(P1 || Q4) || T1
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>110</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;50;80;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>190</y><w>60</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(isT1)</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>110</y><w>100</w><h>70</h></coordinates><panel_attributes>ncsQ
+lt=&lt;&lt;&lt;-
+
+</panel_attributes><additional_attributes>80;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>190</y><w>50</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>280</y><w>50</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+csP</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>280</y><w>190</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsQ</panel_attributes><additional_attributes>170;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>270</y><w>60</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(isT1)</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>360</y><w>50</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+csQ</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>450</y><w>70</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(setT2)</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>550</y><w>60</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(isT2)</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>640</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+csQ</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>390</y><w>70</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(setT2)</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>480</y><w>50</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>570</y><w>60</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsQ</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>650</y><w>60</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(isT2)</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>730</y><w>50</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+csQ</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>390</y><w>180</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsQ</panel_attributes><additional_attributes>160;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>480</y><w>180</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsQ</panel_attributes><additional_attributes>160;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>190</y><w>190</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsQ</panel_attributes><additional_attributes>170;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>550</y><w>180</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;80;160;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>640</y><w>190</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;70;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>230</x><y>740</y><w>190</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+ncsP</panel_attributes><additional_attributes>10;60;170;10</additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>50</y><w>90</w><h>70</h></coordinates><panel_attributes>ncsP
+
+lt=&lt;&lt;&lt;-
+</panel_attributes><additional_attributes>70;40;30;20;10;40;50;50</additional_attributes></element><element><id>Relation</id><coordinates><x>330</x><y>60</y><w>110</w><h>60</h></coordinates><panel_attributes>ncsQ
+
+lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>10;30;50;10;70;30;30;40</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>130</y><w>90</w><h>70</h></coordinates><panel_attributes>ncsQ
+
+
+lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>70;40;30;20;10;40;50;50</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>220</y><w>90</w><h>70</h></coordinates><panel_attributes>ncsQ
+
+
+lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>70;40;30;20;10;40;50;50</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>330</y><w>90</w><h>70</h></coordinates><panel_attributes>ncsQ
+
+
+lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>70;40;30;20;10;40;50;50</additional_attributes></element><element><id>Relation</id><coordinates><x>90</x><y>410</y><w>90</w><h>80</h></coordinates><panel_attributes>ncsQ
+
+
+lt=&lt;&lt;&lt;-
+</panel_attributes><additional_attributes>70;50;30;20;10;40;50;60</additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>470</y><w>70</w><h>60</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+
+ncsP</panel_attributes><additional_attributes>30;10;10;20;30;40;50;20</additional_attributes></element><element><id>Relation</id><coordinates><x>100</x><y>510</y><w>80</w><h>70</h></coordinates><panel_attributes>ncsQ
+
+
+lt=&lt;&lt;&lt;-</panel_attributes><additional_attributes>60;40;30;20;10;40;40;50</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>130</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+
+
+ncsP</panel_attributes><additional_attributes>10;40;50;20;70;40;30;50</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>490</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+
+
+ncsP</panel_attributes><additional_attributes>10;40;50;20;70;40;30;50</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>580</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+
+
+ncsP</panel_attributes><additional_attributes>10;40;50;20;70;40;30;50</additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>680</y><w>100</w><h>70</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+
+
+ncsP</panel_attributes><additional_attributes>10;40;50;20;70;40;30;50</additional_attributes></element><element><id>Relation</id><coordinates><x>340</x><y>100</y><w>270</w><h>760</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;-
+τ(setT1)</panel_attributes><additional_attributes>10;10;210;50;210;740;100;740;60;650</additional_attributes></element><element><id>Relation</id><coordinates><x>60</x><y>190</y><w>130</w><h>640</h></coordinates><panel_attributes>lt=-&gt;&gt;&gt;
+τ(setT1)</panel_attributes><additional_attributes>80;620;10;570;10;50;110;10</additional_attributes></element></diagram>
