@@ -8,25 +8,25 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
-SPEC !EF( p.state = p4 & q.state = p4);
+SPEC !EF( p.state = s4 & q.state = s4);
 
 MODULE proc(wantp, wantq)
 VAR
-	state : {p1, p2, p3, p4,p5};
+	state : {s1, s2, s3, s4,s5};
 ASSIGN
-	init(state) := p1;
+	init(state) := s1;
 	next(state) := 
 	  case
-		state = p1 : {p2, p1};
-		state = p2 & (wantq = FALSE): p3;
-		state = p3 : p4;
-		state = p4 : p5;
-		state = p5 : p1;
+		state = s1 : {s2, s1};
+		state = s2 & (wantq = FALSE): s3;
+		state = s3 : s4;
+		state = s4 : s5;
+		state = s5 : s1;
 		TRUE : state;
 	  esac;	
 	next(wantp) := 
 	  case
-		state = p3 : TRUE;
-		state = p5 : FALSE;
+		state = s3 : TRUE;
+		state = s5 : FALSE;
 	 	TRUE : wantp;
 	  esac;

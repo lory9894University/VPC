@@ -10,39 +10,39 @@ ASSIGN
 	init(wantq) := FALSE; 
 	init(turn) := 1;
 
-SPEC !EF( p.state = p8 & q.state = p8);
+SPEC !EF( p.state = s8 & q.state = s8);
 
 MODULE proc(wantp, wantq,turn,my_turn,other_turn)
 VAR
-	state : {p1, p2, p3, p4, p5, p6, p7, p8, p9, p10};
+	state : {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10};
 ASSIGN
-	init(state) := p1;
+	init(state) := s1;
 	next(state) := 
 	  case
-		state = p1 : {p2, p1};
-		state = p2 : p3;
-		state = p3 & wantq: p4;
-		state = p3 & !wantq: p8;
-		state = p4 & (turn = other_turn): p5 ;
-		state = p4 & !(turn = other_turn): p3 ;
-		state = p5 : p6;
-		state = p6 & (turn = my_turn): p7;
-		state = p7 : p3;
-		state = p8 : p9;
-		state = p9 : p10;
-		state = p10 : p1;
+		state = s1 : {s2, s1};
+		state = s2 : s3;
+		state = s3 & wantq: s4;
+		state = s3 & !wantq: s8;
+		state = s4 & (turn = other_turn): s5 ;
+		state = s4 & !(turn = other_turn): s3 ;
+		state = s5 : s6;
+		state = s6 & (turn = my_turn): s7;
+		state = s7 : s3;
+		state = s8 : s9;
+		state = s9 : s10;
+		state = s10 : s1;
 		TRUE : state;
 	  esac;	
 	next(wantp) := 
 	  case
-		state = p2 : TRUE;
-		state = p5 : FALSE;
-		state = p7 : TRUE;
-		state = p10 : FALSE;
+		state = s2 : TRUE;
+		state = s5 : FALSE;
+		state = s7 : TRUE;
+		state = s10 : FALSE;
 	 	TRUE : wantp;
 	  esac;
 	next(turn) :=
 	  case 
-		state = p9 : other_turn;
+		state = s9 : other_turn;
 		TRUE : turn;
 	  esac;
