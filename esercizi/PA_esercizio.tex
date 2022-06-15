@@ -116,7 +116,6 @@ Come nel caso \ref{SEC:PA2} da ogni stato avente almeno un elemento nel buffer �
 \newpage
 
 \section{NuSMV}
-%todo: fare reachable_state -v e commentare la dimensione rispetto alla reti di petri. sarà minore perchè alle reti ho eliminato un posto "inutile". sengarlo o modificare le reti di petri.
 \subsection{1 produttore, 1 consumatore, buffer a N posizioni}
 \lstinputlisting[numbers=left,firstnumber=1,stepnumber=1,basicstyle=\small]{nusmv/consegnare/es_3_setting_1.smv}
 In questo programma il buffer è identificato da una variabile intera che può assumere valori compresi tra 0 e 3, volendo incrementare la dimensione del buffer bisogna modificare il valore 3 inserendo il valore desiderato.
@@ -125,11 +124,20 @@ I due processi ricevono come parametro il buffer ed hanno una semplice implement
 Il \textit{Consumer} non può effettuare l'operazione \textit{get} se il buffer è vuoto (riga 36), così come il \textit{producer} non puà effettuare una \textit{put} se il buffer è già pieno (riga 19).
 
 Invece il buffer viene incrementato o decrementato solo quando un processo effettua una operazione su di esso (righe 24 e 41), la sintassi di \textit{NuSMV} obbliga l'inserimento di una clausola che impedisca al buffer di superare il valore 3 o scendere sotto il valore 0.
+
+Lanciando il comando \texttt{print\_reachable\_states} risulta che il numero di stati raggiungibili è $36 out of 36$, e varia a seconda della dimensione del buffer in maniera linearmente proporzionale, in accordo con quanto ottenuto dallo studio del reachability graph nelle PN.
+Ci sono invece molti più stati di quanti siano i marking del \textit{Reachability Graph}, probabilmente perchè il numero di posti non è equivalente al numero di "stati" dei processi producer,consumer e buffer.
+Ad esempio il processo producer ha 3 stati: "think, produce, place" ma la mia implementazione in PN ha solo 2 posti "ThinkP e PlaceInBuffer", se avessi mantenuto una implementazione cooerente tra i due strumenti avrei ottenuto lo stesso valore sia calcolando gli stati raggiungibili in NuSMV che calcolando il numero di markings nel reachability graph.
+%ormai l'ho consegnato, non posso cambiare il vecchio file
 \newpage
 \subsection{1 produttore, 2 consumatori, buffer a N posizioni}
 \lstinputlisting{nusmv/consegnare/es_3_setting_2.smv}
 Come nelle altre implementazioni il setting 2 è praticamente identico al setting 1. In questo caso la differenza sta nell'introduzione di una nuova variabile Cons2, istanza di \texttt{process consumer}.
 Si può però notare che non è necessaria alcuna forma di mutua esclusione esplicita in quanto le operazioni di \texttt{place} e \texttt{take} sono intese come operazioni atomiche.
+
+Come nel caso precendente il comando \texttt{print\_reachable\_states} fornisce un valore che non corrisponde al valore ottenuto calcolando i markings della corrispondente Petri Net, per lo stesso motivo sicusso prima.
+In questo caso otteniamo 108 stati raggiungibili mentre il reachability graph della PN corrispondente identifica 32 markings.Se io avessi aggiunto un posto alla rete del consumatore ed un posto alla rete del produttore e poi effettuato una scalatura per ripetizioni di sottoreti avrei ottenuto un RG avente esattamente 108 markings.
+\newpage
 \subsection{P produttori, C consumatori, buffer a N posizioni}
 Questa implementazione non è possibile, in quanto \emph{NuSMV} non permette la creazione di vettori di processi, l'unico modo di generare P produttori e C consumatori è quindi scrivere P variabili di tipo \texttt{process prod} e C variabili di tipo \texttt{process cons}.
 \end{document}
