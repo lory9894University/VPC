@@ -90,21 +90,24 @@ Risposta 1: $ ( \lnot p \land q) \lor (p \land \lnot q) $
 notazione per Naturali $ \mathbb{N} $, Interi $ \mathbb{Z} $, Reali $ \mathbb{R} $,\\ elemento contenuto in un insieme $ \in $
 \newline
 \begin{definition}[Intersezione]L'intersezione ($\cap$) tra due insiemi $A$ e $B$ è l'insieme degli elementi che appartengono contemporaneamente sia ad $A$ che a $B$\\ 
-	\begin{center}$A \cap B = {x:x \in A \: and \: x \in B}$\end{center}
+	\begin{center}$A \cap B = \{x:x \in A \: and \: x \in B\}$\end{center}
 \end{definition}
 \begin{definition}[Unione]L'unione $\cup$ tra due insiemi $A$ e $B$ è l'insieme degli elementi che appartengono ad $A$, a $B$ o ad entrambi.
-	\begin{center}$A \cup B = {x:x \in A \: or \: x \in B}$\end{center}
+	\begin{center}$A \cup B = \{x:x \in A \: or \: x \in B\}$\end{center}
 \end{definition}
 \begin{definition}[Differenza]La differenza $\setminus$ tra due insiemi $A$ e $B$, indicata con $A \setminus B$ è l'isieme degli elementi di $A$ esclusi gli elementi che appartengono anche a $B$
-	\begin{center}$A \setminus B = {x:x \in A \: and \: x \in B}$\end{center}
+	\begin{center}$A \setminus B = \{x:x \in A \: and \: x \in B\}$\end{center}
 \end{definition}
-\begin{definition}[Power Set]L' insieme potenza (power set) $\mathcal{P}$($A$) è l'insieme di tutti i sottoinsiemi di $A$.\begin{center} $\mathcal{P}(A)=\{X : X \subseteq A\}$ \end{center}
+\begin{definition}[Power Set]L' insieme potenza (power set) $\mathcal{P}$($A$) è l'insieme di tutti i sottoinsiemi di $A$, compreso l'insieme vuoto $\emptyset$ e l'insieme $A$ stesso.\begin{center} $\mathcal{P}(A)=\{X : X \subseteq A\}$ \end{center}
 \end{definition}
 \begin{definition}[Complemento]L'insieme complemento di un inseme $A$, scritto $A^{C}$, è l'insieme ottenuto dalla differenza tra l'insieme Universo ed $A$.\begin{center} $A^{C} = U \setminus A$\end{center}
 \end{definition}
-\begin{definition}[Sottoinsieme]Un sottinsieme $ \subset $ di $A$ è un insieme che contiene solamente elementi contenuti in $A$.
+\begin{definition}[Sottoinsieme]Un sottinsieme $ \subseteq $  di $A$ è un insieme che contiene solamente gli elementi contenuti in $A$, eventualmente tutti.
+$$ X \subseteq A \Leftrightarrow X = \{x \vert x \in A \}$$
 \end{definition}
-\begin{definition}[Sottoinsieme stretto]Un sottinsieme stretto $ \subseteq $  di $A$ è un insieme che contiene solamente gli elementi contenuti in $A$, eventualmente tutti.
+\begin{definition}[Sottoinsieme stretto]
+Un sottinsieme stretto $ \subset $ di $A$ è un insieme che contiene solamente elementi contenuti in $A$, ma non tutti.
+$$ X \subset A \Leftrightarrow X = \{x \vert x \in A \} \land X \neq A$$
 \end{definition}
 
 \subsubsection{relazioni}
@@ -123,6 +126,7 @@ Una relazione binaria $R$ in un insieme $X$ è detta riflessiva se ogni elemento
 \begin{center}$\forall a,b\in X,\ aRb\Rightarrow bRa$\end{center}
 \end{definition}
 \begin{definition}[Relazione transitiva]Una relazione transitiva $R$ in un insieme $X$ è transitiva se e solo se prendendo tre elementi qualsiasi $a$, $b$ e $c$ $ \in X$, tali che $aRb$ e $bRc$ allora $aRc$
+	$$\forall a,b,c \in X,aRb \wedge bRc \Rightarrow aRc$$
 \end{definition}
 \begin{definition}[Relazione di equivalenza]Una relazione di equivalenza $R$ su $A$ è una relazione riflessiva, simmetrica e transitiva.
 \end{definition}
@@ -151,10 +155,10 @@ Una relazione binaria $R$ in un insieme $X$ è detta riflessiva se ogni elemento
 \begin{definition}[Lettera e stringa]Posto un alfabeto $\Sigma$, una lettera è un elemento $\in \Sigma$, una stringa è una sequenza ordinata e finita di lettere.
 \end{definition}
 
-\begin{definition}[String vuota]Stringa di lunghezza 0, si indica con $\epsilon$
+\begin{definition}[String vuota]Stringa di lunghezza 0, si indica con $\epsilon$, la si può anche definire come l' elemento neutro rispetto all'operazione concatenazione $\cdot$
 \end{definition}
 
-\begin{definition}[Concatenazione] Il concatenamento di due stringe $L_1$,$L_2$, indicato con "." o semplicemente senza alcun carattere, da origine alla stringa $L_1L_2$ di lunghezza $|L_1| + |L_2|$ che presenta ordinatamente i caratteri di $L_1$ seguiti da quelli di $L_2$.
+\begin{definition}[Concatenazione] Il concatenamento di due stringe $L_1$,$L_2$, indicato con "$\cdot$" o semplicemente senza alcun carattere, da origine alla stringa $L_1L_2$ di lunghezza $|L_1| + |L_2|$ che presenta ordinatamente i caratteri di $L_1$ seguiti da quelli di $L_2$.
 \end{definition}
 
 \begin{definition}[Prefisso e Suffisso]Data una stringa $S = t_1,$...,$t_n$ definiamo prefisso la stringa $S^1 = t_1,$...,$t_m$ con $ 0 < m < n$. Invece definiamo suffisso la stringa $S^2 = t_m,$...,$t_n$ con $ 0 < m < n$ 
