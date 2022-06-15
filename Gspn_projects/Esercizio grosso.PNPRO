@@ -382,10 +382,10 @@
     <place-tags/>
     <transition-tags>
       <tag name="isWantqFalse"/>
-      <tag name="setWantpTrue"/>
       <tag name="setWantqFalse"/>
-      <tag name="isWantpFalse"/>
       <tag name="setWantpFalse"/>
+      <tag name="setWantpTrue"/>
+      <tag name="isWantpFalse"/>
       <tag name="setWantqTrue"/>
     </transition-tags>
     <subnet netname="variables"/>
@@ -566,7 +566,7 @@ per individuare la massima marcatura e
       <transition label-x="-5.0" label-y="0.0" name="set_wantq_true" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-5.0" superpos-y="1.0" superposition-tags="setWantqTrue" type="EXP" x="15.55" y="38.0"/>
       <transition label-x="3.0" label-y="0.0" name="repeat_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="18.55" y="31.0"/>
       <transition label-x="-5.0" label-y="0.0" name="is_wantp_false" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-5.0" superpos-y="1.0" superposition-tags="isWantpFalse" type="EXP" x="15.55" y="31.0"/>
-      <transition label-x="-4.999999999999998" label-y="0.0" name="set_wantq_false" nservers-x="0.5" rotation="4.71238898038469" superposition-tags="setWantqFalse" type="EXP" x="15.549999999999999" y="8.0"/>
+      <transition label-x="-4.999999999999998" label-y="0.0" name="set_wantq_false" nservers-x="0.5" rotation="4.71238898038469" superpos-x="-5.499999999999998" superpos-y="1.0" superposition-tags="setWantqFalse" type="EXP" x="15.549999999999999" y="8.0"/>
       <transition label-x="-4.0" label-y="0.0" name="enter_cs_q" nservers-x="0.5" rotation="4.71238898038469" type="EXP" x="15.55" y="23.0"/>
       <place label-x="2.0" label-y="0.0" name="Q4" superposition-tags="cs" x="15.0" y="19.0"/>
       <place label-x="2.0000000000000018" label-y="0.0" name="Q5" x="14.999999999999998" y="11.0"/>
@@ -1356,7 +1356,7 @@ per individuare la massima marcatura e
       <formula language="RG"/>
       <formula language="DD">
         <result-table>
-          <pdf-result filename="/home/lorenzo/scuola/VPC/Gspn_projects/Esercizio grosso-Measures of 3.10.solution/3.10-DD-0.pdf" name="DD">
+          <pdf-result name="DD">
             <bindings/>
           </pdf-result>
         </result-table>

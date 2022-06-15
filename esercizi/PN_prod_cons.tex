@@ -91,6 +91,7 @@ La rappresentazione tramite rete di petri colorata si rivela praticamente identi
 \end{figure*}\\
 Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.Perfettamente in linea con quanto rileato nel caso precendente.
 $$markings = 4*(N + 1)$$
+Non vi è alcuna differenza tra il RG ed il SRG, essendoci un singolo token nel consumatore ed un singolo token nel produttore non viene generata alcun marking "simbolico".Una eventuale rete unfolded sarebbe identica a questa rete
 \newpage
 \section{Secondo  setting: 1 produttore, 2 consumatori,  1 buffer a N posizioni}\label{SEC:secondo}
 \subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
@@ -119,16 +120,19 @@ Questo porta ad un totale di 248 markings, contro i 182 del caso precedente, qua
 \subsection{Secondo setting: rete di petri colorata}
 Anche questa implementazione si presenta sostanzialmente identica all sezione~\ref{SEC:secondo-marking}.
 La marcatura iniziale del posto \textit{Think\_C} viene solamente incrementata di uno e la relazione di linearità del numero di markings del reachability graph rispetto al numero di posti nel buffer viene rispettata.\\
+Infatti come ci si aspetterebbe il numero di markings del reachability graph simbolico è identico al numero di marking ottenuto tramite scalatura di marking
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=0.75\textwidth]{./Esercizio2_img/setting_2_CPN.png}
 \caption{Setting 2 tramite rete di petri colorata} \label{FIG:setting2_CPN}
 \end{figure*}
 La sostanziale differenza, che è anche il vantaggio che fornisce l'uso delle Reti di Petri colorate, sta nella possibilità di distinguere i due consumatori.\\
-I consumatori, che nella sezione~\ref{SEC:secondo-marking} erano indistinguibili, ora sono identificati come $<c_1>$ e $<c_2>$.Questo senza però dover ricorrere alla scomoda costruzione della sezione~\ref{SEC:secondo-replica}.
-Questa volta però con due soli posti nel buffer sono presenti $24$ markings nel reachability graph, con 3 posti $32$ markings e con 4 posti $40$. Esattamente come nel caso~\ref{SEC:secondo-replica}
+I consumatori, che nella sezione~\ref{SEC:secondo-marking} erano indistinguibili, ora sono identificati come $<c_1>$ e $<c_2>$.
+Questo senza però dover ricorrere alla scomoda costruzione della sezione~\ref{SEC:secondo-replica}.
+La dimensione del Reachability Graph è aumentata di conseguenza,con due soli posti nel buffer sono presenti $24$ markings, con 3 posti $32$ markings e con 4 posti $40$. Esattamente come nel caso~\ref{SEC:secondo-replica}
 $$markings = 8 * (N + 1)$$
-Questo probabilmente poichè grazie alla colorazione dei posti è possibile trattare ogni consumatore come se fosse una rete differente, portando il numero di stati del reachability graph allo stesso valore ottenuto separando fisicamente le due reti
+Questo poichè grazie alla colorazione dei posti è possibile trattare ogni consumatore come se fosse una rete differente, portando il numero di stati del reachability graph allo stesso valore ottenuto separando fisicamente le due reti.
+Facendo l'unfolding di questa rete si ottiene la rete ottenuta tramite replicazione di sottoretti
 
 
 \newpage
@@ -165,7 +169,9 @@ Come nel caso precendete (sezione~\ref{SEC:secondo}, l'implentazione tramite ret
 Tutti i consumatori sono identificati da un valore $<c_i> \; con \; i \in [1,C]$ ed i produttori dal valore $<p_i> \; con \; i \in [1,P]$ ed è quindi possibile seguirne lo sviluppo e le scelte.
 Questo pur mantenendo la raffigurazione chiara e pulita della strategia si scalatura tramite incremento di marking.
 
-Anche in questo caso il numero di marking distinti del reachability graph segue perfettamente il trendella replicazione di sottoreti (vedere figura~\ref{FIG:confronto}).
+Anche in questo caso il numero di marking distinti del reachability graph segue perfettamente il trend della replicazione di sottoreti (vedere figura~\ref{FIG:confronto}).\\
+Il \textit{Symbolic Reachability Graph} è identico al \textit{reachability graph} della rete generata tramite scalatura di marking, mentre il \textit{reachability graph} si comporta esattamente come quello che si otterrebbe della rete ottenuta tramite replicazione.\\
+Anche in questo caso effettuare unfolding di questa rete colorata porterebbe alla rete della sezione \ref{SEC:terzo-replica}.
 \begin{figure*}[!ht]
 \centering
 \centerline{\includegraphics[scale=0.5]{./Esercizio2_img/setting_3_CPN.png}}
