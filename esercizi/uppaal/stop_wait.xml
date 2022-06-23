@@ -5,102 +5,99 @@
 chan ack, send, send_ack, received;
 clock time_elapsed, msg_time;
 const int minTransmissionTime = 95;
-const int maxTransmissionTime = 105;</declaration>
+const int maxTransmissionTime = 105;
+const int elaboration_time_max = 10;</declaration>
 	<template>
 		<name x="5" y="5">Sender</name>
-		<declaration>// Place local declarations here.</declaration>
-		<location id="id0" x="-433" y="-170">
-			<name x="-443" y="-204">prepare</name>
-		</location>
-		<location id="id1" x="-144" y="-170">
+		<declaration>//comment
+clock elaboration_time;
+
+</declaration>
+		<location id="id0" x="-144" y="-170">
 			<name x="-154" y="-204">sending</name>
+			<label kind="invariant" x="-154" y="-153">elaboration_time &lt;= elaboration_time_max</label>
 		</location>
-		<location id="id2" x="-306" y="-297">
+		<location id="id1" x="-306" y="-297">
 			<name x="-316" y="-331">wait</name>
 		</location>
 		<init ref="id0"/>
 		<transition>
-			<source ref="id2"/>
-			<target ref="id0"/>
-			<label kind="synchronisation" x="-415" y="-250">ack?</label>
-		</transition>
-		<transition>
 			<source ref="id1"/>
-			<target ref="id2"/>
-			<label kind="synchronisation" x="-288" y="-250">send!</label>
-			<label kind="assignment" x="-238" y="-272">time_elapsed := 0</label>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-322" y="-187">ack?</label>
+			<label kind="assignment" x="-322" y="-170">elaboration_time := 0</label>
+			<nail x="-340" y="-170"/>
 		</transition>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id1"/>
+			<label kind="synchronisation" x="-288" y="-250">send!</label>
+			<label kind="assignment" x="-238" y="-272">time_elapsed := 0</label>
 		</transition>
 	</template>
 	<template>
 		<name>Receiver</name>
-		<location id="id3" x="0" y="0">
-			<name x="-10" y="-34">receive</name>
+		<declaration>clock elaboration_time;
+</declaration>
+		<location id="id2" x="0" y="0">
+			<name x="-34" y="-34">receive</name>
 		</location>
-		<location id="id4" x="127" y="-153">
-			<name x="117" y="-187">processing</name>
-		</location>
-		<location id="id5" x="255" y="0">
+		<location id="id3" x="255" y="0">
 			<name x="245" y="-34">acknowledge</name>
+			<label kind="invariant" x="178" y="25">elaboration_time &lt;= elaboration_time_max</label>
 		</location>
-		<init ref="id3"/>
-		<transition>
-			<source ref="id4"/>
-			<target ref="id3"/>
-		</transition>
-		<transition>
-			<source ref="id5"/>
-			<target ref="id4"/>
-			<label kind="synchronisation" x="195" y="-102">send_ack!</label>
-		</transition>
+		<init ref="id2"/>
 		<transition>
 			<source ref="id3"/>
-			<target ref="id5"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="93" y="-93">send_ack!</label>
+			<nail x="127" y="-127"/>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id3"/>
 			<label kind="synchronisation" x="93" y="8">received?</label>
+			<label kind="assignment" x="59" y="-25">elaboration_time := 0</label>
 		</transition>
 	</template>
 	<template>
 		<name>Channel</name>
-		<location id="id6" x="-561" y="-391">
-			<name x="-552" y="-416">ready</name>
-			<urgent/>
+		<location id="id4" x="-561" y="-391">
+			<name x="-552" y="-382">ready</name>
 		</location>
-		<location id="id7" x="-696" y="-280">
+		<location id="id5" x="-696" y="-280">
 			<name x="-739" y="-255">to_sender</name>
 			<label kind="invariant" x="-807" y="-221">msg_time &lt;= maxTransmissionTime</label>
 		</location>
-		<location id="id8" x="-425" y="-510">
+		<location id="id6" x="-425" y="-510">
 			<name x="-435" y="-544">to_receiver</name>
 			<label kind="invariant" x="-484" y="-561">msg_time &lt;= maxTransmissionTime</label>
 		</location>
-		<init ref="id6"/>
+		<init ref="id4"/>
 		<transition>
-			<source ref="id7"/>
-			<target ref="id6"/>
+			<source ref="id5"/>
+			<target ref="id4"/>
 			<label kind="guard" x="-672" y="-272">msg_time &gt;= minTransmissionTime</label>
 			<label kind="synchronisation" x="-655" y="-298">received!</label>
 			<nail x="-577" y="-280"/>
 		</transition>
 		<transition>
-			<source ref="id6"/>
-			<target ref="id7"/>
+			<source ref="id4"/>
+			<target ref="id5"/>
 			<label kind="synchronisation" x="-706" y="-417">send?</label>
 			<label kind="assignment" x="-731" y="-434">msg_time := 0</label>
 			<nail x="-680" y="-391"/>
 		</transition>
 		<transition>
-			<source ref="id8"/>
-			<target ref="id6"/>
+			<source ref="id6"/>
+			<target ref="id4"/>
 			<label kind="guard" x="-646" y="-578">msg_time &gt;= minTransmissionTime</label>
 			<label kind="synchronisation" x="-552" y="-552">ack!</label>
 			<nail x="-544" y="-510"/>
 		</transition>
 		<transition>
-			<source ref="id6"/>
-			<target ref="id8"/>
+			<source ref="id4"/>
+			<target ref="id6"/>
 			<label kind="synchronisation" x="-494" y="-374">send_ack?</label>
 			<label kind="assignment" x="-510" y="-391">msg_time := 0</label>
 			<nail x="-434" y="-391"/>
@@ -119,12 +116,12 @@ system sender, receiver, channel;
 			<comment>always globally not deadlock</comment>
 		</query>
 		<query>
-			<formula>A[] sender.prepare imply ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * maxTransmissionTime) || time_elapsed == 0)</formula>
+			<formula>sender.sending --&gt; ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * (maxTransmissionTime + elaboration_time_max)) ||(time_elapsed &lt;= elaboration_time_max))</formula>
 			<comment>non mi piace proprio
-always globally se il sender è in prepare o non è mai stato inviato un messaggio oppure è passato un tempo &lt; max e &gt; di min</comment>
+always globally se il sender è in sending o non è mai stato inviato un messaggio oppure è passato un tempo &lt; max e &gt; di min</comment>
 		</query>
 		<query>
-			<formula>sender.sending --&gt; sender.prepare</formula>
+			<formula>sender.sending --&gt; sender.sending &amp;&amp; time_elapsed &gt; 0</formula>
 			<comment>se invio un messaggio ottengo un ack</comment>
 		</query>
 		<query>
@@ -136,7 +133,7 @@ always globally se il sender è in prepare o non è mai stato inviato un messagg
 			<comment>se affido un messaggio al canale questi lo consegna</comment>
 		</query>
 		<query>
-			<formula>channel.ready --&gt; (channel.ready &amp;&amp; msg_time &gt;= minTransmissionTime &amp;&amp; msg_time &lt;= maxTransmissionTime)</formula>
+			<formula>channel.ready --&gt; (channel.ready &amp;&amp; msg_time &gt;= minTransmissionTime &amp;&amp; msg_time &lt;= maxTransmissionTime + elaboration_time_max)</formula>
 			<comment>se parto da uno stato in cui il canale e pronto a trasmettere tornerà ad essere pronto a trasmettere dopo un tempo compreso tra maxTrasmissione e minTrasmissione</comment>
 		</query>
 	</queries>
