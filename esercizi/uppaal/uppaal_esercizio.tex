@@ -48,6 +48,15 @@ Per consegnare il messaggio si sincronizza con il Destinatario sul \channel rece
 discorso diametralmente opposto vare per l'Acknowledge, il canale si sincroniza con il Destinatario sul \channel send\_ack, e consegna l'ack dopo un intervallo di tempo sincronizzandosi con il Mittente sul \channel ack.
 In ultimo è presente un timer che viene resettato sull'arco di "presa in carico" di un pacchetto, questo timer può esssere utilizzato per verificare il tempo necessario alla trasmissione di un singolo pacchetto.
 \subsection{Analisi}
+\begin{itemize}
+	\item A[] not deadlock
+	\item A[] sender.prepare imply ((time_elapsed >= 2 * minTransmissionTime && time_elapsed <= 2 * maxTransmissionTime) || time_elapsed == 0)
+	\item sender.sending --> sender.prepare
+	\item sender.sending --> receiver.acknowledge
+	\item channel.to_sender --> channel.to_receiver
+	\item channel.ready --> (channel.ready && msg_time >= minTransmissionTime && msg_time <= maxTransmissionTime)
+	Se parto da uno stato in cui il canale e pronto a trasmettere tornerò dopo qualsiasi esecuzione ad essere pronto a trasmettere dopo un tempo compreso tra maxTrasmissione e minTrasmissione.
+\end{itemize}
 
 \section{Modello B}
 \section{Modello c}
