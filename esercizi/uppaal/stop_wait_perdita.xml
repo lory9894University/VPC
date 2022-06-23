@@ -124,12 +124,12 @@ system sender, receiver, channel;
 			<comment>always globally not deadlock</comment>
 		</query>
 		<query>
-			<formula>A[]((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * (maxTransmissionTime + elaboration_time_max)) ||(sender.sending &amp;&amp; time_elapsed &lt;= elaboration_time_max))</formula>
+			<formula>sender.sending --&gt; ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * (maxTransmissionTime + elaboration_time_max)) ||(time_elapsed &lt;= elaboration_time_max))</formula>
 			<comment>non mi piace proprio
 always globally se il sender è in prepare o non è mai stato inviato un messaggio oppure è passato un tempo &lt; max e &gt; di min</comment>
 		</query>
 		<query>
-			<formula>sender.sending --&gt; sender.sending &amp;&amp; time_elapsed &gt; 0</formula>
+			<formula>sender.sending --&gt; sender.sending &amp;&amp; time_elapsed &gt; elaboration_time_max</formula>
 			<comment>se invio un messaggio ottengo un ack</comment>
 		</query>
 		<query>
