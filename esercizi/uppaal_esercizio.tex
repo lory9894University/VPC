@@ -1,0 +1,40 @@
+\documentclass[a4paper]{article}
+\usepackage{listings}
+\usepackage{qtree}
+\usepackage{xcolor}
+\usepackage{forest}
+\usepackage{multicol}
+\setlength{\columnsep}{3cm}
+\usepackage{parskip}
+\usepackage{changepage}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[italian]{babel}
+\usepackage{thmtools}
+\begin{document}
+
+\author{Lorenzo Dentis, lorenzo.dentis@edu.unito.it}
+\title{Esercizi con Uppaal}
+\maketitle
+%http://ppedreiras.av.it.pt/resources/empse0809/slides/TheUppaalModelChecker-Julian.pdf
+\section{Modello A}
+Stop and wait e canale perfetto.\\ 
+Si assume che il canale sia perfetto, e quindi nè il messaggio, nè l’ack possono essere persi. 
+Il tempo di trasmissione sul link è variabile all’interno di un intervallo limitato (costanti minTransmissionTime e maxTransmissionTime ), con una differenza $\leq \fract{1}{10}$ tempo di trasmissione. 
+
+Si definiscano e provino le proprietà di corretto funzionamento del protocollo, inparticolare si provi qual è il tempo minimo e massimo che intercorre dalla spedizione di un messaggio alla ricezione del suo ack.
+\subsection{mittente}
+
+\subsection{destinatario}
+\subsection{canale}
+\section{Modello B}
+\section{Modello c}
+%controllare anche di non poter spedire il frame 1 senza aver spedito il frame 0
+\end{document}

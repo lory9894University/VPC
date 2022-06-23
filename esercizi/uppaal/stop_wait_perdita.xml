@@ -65,6 +65,7 @@ const int maxTransmissionTime = 105;</declaration>
 	<template>
 		<name>Channel</name>
 		<location id="id6" x="-212" y="-229">
+			<name x="-222" y="-263">ready</name>
 		</location>
 		<location id="id7" x="-347" y="-118">
 			<name x="-390" y="-93">to_sender</name>
@@ -72,6 +73,7 @@ const int maxTransmissionTime = 105;</declaration>
 		</location>
 		<location id="id8" x="-76" y="-348">
 			<name x="-86" y="-382">to_receiver</name>
+			<label kind="invariant" x="-153" y="-391">msg_time &lt;= maxTransmissionTime</label>
 		</location>
 		<init ref="id6"/>
 		<transition>
@@ -120,7 +122,27 @@ system sender, receiver, channel;
     </system>
 	<queries>
 		<query>
-			<formula></formula>
+			<formula>A[] not deadlock</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>A[] sender.prepare imply ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * maxTransmissionTime) || time_elapsed == 0)</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>sender.sending --&gt; sender.prepare</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>sender.sending --&gt; receiver.acknowledge</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>channel.to_sender --&gt; channel.to_receiver</formula>
+			<comment></comment>
+		</query>
+		<query>
+			<formula>channel.ready --&gt; (channel.ready &amp;&amp; msg_time &gt;= minTransmissionTime &amp;&amp; msg_time &lt;= maxTransmissionTime)</formula>
 			<comment></comment>
 		</query>
 	</queries>
