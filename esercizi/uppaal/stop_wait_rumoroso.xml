@@ -6,22 +6,28 @@ chan ack, send, send_ack, received;
 clock time_elapsed, msg_time;
 const int minTransmissionTime = 95;
 const int maxTransmissionTime = 105;
-int[0,1] frameNr := 0;</declaration>
+const int elaboration_time_max = 10;
+int[0,1] frameNr := 0;
+int [0,1] ackNr := 0;</declaration>
 	<template>
 		<name x="5" y="5">Sender</name>
 		<declaration>// Place local declarations here.
 int [0,1] frame;
 clock timer;
-const int timeout := 220;</declaration>
+int timeout := 231;
+//i valori di timeout &lt; 190 rendono il timeout sicuro, i valori sopra 230 lo rendono impossibli (a meno di messaggi persi), qeulli compresi lo rendono possibile.
+clock elaboration_time;
+</declaration>
 		<location id="id0" x="-688" y="-17">
 			<name x="-698" y="-51">send_msg</name>
+			<label kind="invariant" x="-773" y="-68">elaboration_time &lt;= elaboration_time_max</label>
 		</location>
 		<location id="id1" x="-399" y="-17">
 			<name x="-348" y="-25">wait</name>
-			<label kind="invariant" x="-391" y="0">timer &lt;= timeout</label>
 		</location>
 		<location id="id2" x="-399" y="-178">
 			<name x="-409" y="-212">resend</name>
+			<label kind="invariant" x="-527" y="-229">elaboration_time &lt;= elaboration_time_max</label>
 		</location>
 		<init ref="id0"/>
 		<transition>
@@ -35,6 +41,7 @@ const int timeout := 220;</declaration>
 			<source ref="id1"/>
 			<target ref="id0"/>
 			<label kind="synchronisation" x="-595" y="85">ack?</label>
+			<label kind="assignment" x="-646" y="102">elaboration_time := 0</label>
 			<nail x="-399" y="102"/>
 			<nail x="-689" y="102"/>
 		</transition>
@@ -42,36 +49,48 @@ const int timeout := 220;</declaration>
 			<source ref="id1"/>
 			<target ref="id2"/>
 			<label kind="guard" x="-399" y="-131">timer &gt;= timeout</label>
+			<label kind="assignment" x="-561" y="-119">elaboration_time := 0</label>
 		</transition>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id1"/>
 			<label kind="synchronisation" x="-586" y="-34">send!</label>
 			<label kind="assignment" x="-603" y="-17">timer :=0,
-frameNr = 1- frameNr</label>
+frameNr = 1- frameNr,
+time_elapsed := 0</label>
 		</transition>
 	</template>
 	<template>
 		<name>Receiver</name>
-		<declaration>int [0,1] ackNr := 0;</declaration>
+		<declaration>clock elaboration_time;</declaration>
 		<location id="id3" x="0" y="0">
 			<name x="-10" y="-34">receive</name>
 		</location>
 		<location id="id4" x="255" y="0">
 			<name x="245" y="-34">acknowledge</name>
+			<label kind="invariant" x="272" y="-8">elaboration_time &lt;= elaboration_time_max</label>
 		</location>
 		<init ref="id3"/>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id3"/>
+			<label kind="guard" x="76" y="127">ackNr == frameNr</label>
+			<label kind="synchronisation" x="93" y="76">send_ack!</label>
+			<nail x="127" y="127"/>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id3"/>
+			<label kind="guard" x="68" y="-178">ackNr != frameNr</label>
 			<label kind="synchronisation" x="85" y="-102">send_ack!</label>
-			<label kind="assignment" x="68" y="-76">ackNr = frameNr</label>
+			<label kind="assignment" x="68" y="-153">ackNr = 1 - ackNr</label>
 			<nail x="119" y="-136"/>
 		</transition>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id4"/>
 			<label kind="synchronisation" x="93" y="8">received?</label>
+			<label kind="assignment" x="59" y="-17">elaboration_time := 0</label>
 		</transition>
 	</template>
 	<template>
@@ -129,7 +148,6 @@ frameNr = 1- frameNr</label>
 receiver = Receiver();
 channel = Channel();
 
-
 system sender, receiver, channel;
     </system>
 	<queries>
@@ -138,8 +156,9 @@ system sender, receiver, channel;
 			<comment></comment>
 		</query>
 		<query>
-			<formula>A[] sender.send_msg imply ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * maxTransmissionTime) || time_elapsed == 0)</formula>
-			<comment></comment>
+			<formula>A[] sender.send_msg imply ((time_elapsed &gt;= 2 * minTransmissionTime &amp;&amp; time_elapsed &lt;= 2 * (maxTransmissionTime + elaboration_time_max)) || time_elapsed &lt;= elaboration_time_max)</formula>
+			<comment>è sempre vero che se invio un messaggio 
+falso perchè potrei perdere tutti i messaggi, esecuzione non fair.</comment>
 		</query>
 		<query>
 			<formula>sender.wait --&gt; sender.send_msg</formula>
@@ -154,14 +173,16 @@ system sender, receiver, channel;
 			<comment>questa me la aspettavo falsa,</comment>
 		</query>
 		<query>
-			<formula>channel.ready --&gt; (channel.ready &amp;&amp; msg_time &gt;= minTransmissionTime &amp;&amp; msg_time &lt;= maxTransmissionTime)</formula>
-			<comment>se parto da uno stato in cui il canale e pronto a trasmettere tornerà ad essere pronto a trasmettere dopo un tempo compreso tra maxTrasmissione e minTrasmissione
-
-falso perchè potrei perdere tutti i messaggi, esecuzione non fair.</comment>
+			<formula>E&lt;&gt; (sender.wait &amp;&amp; (time_elapsed &gt;= 2* minTransmissionTime &amp;&amp; time_elapsed &lt;= 2* (maxTransmissionTime + elaboration_time_max)))</formula>
+			<comment>Esiste un path per cui il sender è tornato alla posizione iniziale (cioè ha inviato un messaggio e ricevuto un ack) entro il tempo limite</comment>
 		</query>
 		<query>
-			<formula>E&lt;&gt; (sender.wait &amp;&amp; (msg_time &gt;= minTransmissionTime &amp;&amp; msg_time &lt;= maxTransmissionTime))</formula>
-			<comment>Esiste un path per cui il sender è tornato alla posizione iniziale (cioè ha inviato un messaggio e ricevuto un ack) entro il tempo limite</comment>
+			<formula>sender.send_msg --&gt; (sender.timer &gt;= 2* minTransmissionTime &amp;&amp; sender.timer &lt;= 2* (maxTransmissionTime + elaboration_time_max) || time_elapsed &lt;= elaboration_time_max ) </formula>
+			<comment>il path di cui parlavo nella query prima è un path che sicuramente porta a sender.send_msg. Se sono in sender.send_msg ho ottenuto l'ack entro l'intervallo di tempo.</comment>
+		</query>
+		<query>
+			<formula>A[] sender.send_msg imply (frameNr == ackNr)</formula>
+			<comment></comment>
 		</query>
 	</queries>
 </nta>
