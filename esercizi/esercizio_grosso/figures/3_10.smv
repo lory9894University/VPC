@@ -1,0 +1,47 @@
+MODULE main
+VAR
+	wantp : boolean;
+	wantq : boolean;
+	turn: 1 .. 2;
+	p : process proc(wantp, wantq, turn, 1, 2);
+	q : process proc(wantq, wantp, turn, 2, 1);
+ASSIGN
+	init(wantp) := FALSE; 
+	init(wantq) := FALSE; 
+	init(turn) := 1;
+
+
+MODULE proc(wantp, wantq,turn,my_turn,other_turn)
+VAR
+	state : {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10};
+ASSIGN
+	init(state) := s1;
+	next(state) := 
+	  case
+		state = s1 : {s2, s1};
+		state = s2 : s3;
+		state = s3 & wantq: s4;
+		state = s3 & !wantq: s8;
+		state = s4 & (turn = other_turn): s5 ;
+		state = s4 & !(turn = other_turn): s3 ;
+		state = s5 : s6;
+		state = s6 & (turn = my_turn): s7;
+		state = s7 : s3;
+		state = s8 : s9;
+		state = s9 : s10;
+		state = s10 : s1;
+		TRUE : state;
+	  esac;	
+	next(wantp) := 
+	  case
+		state = s2 : TRUE;
+		state = s5 : FALSE;
+		state = s7 : TRUE;
+		state = s10 : FALSE;
+	 	TRUE : wantp;
+	  esac;
+	next(turn) :=
+	  case 
+		state = s9 : other_turn;
+		TRUE : turn;
+	  esac;
