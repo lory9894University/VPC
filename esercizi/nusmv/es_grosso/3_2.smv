@@ -6,7 +6,6 @@ VAR
 ASSIGN
 	init(turn) := 1; 
 
-SPEC !EF( p.state = s3 & q.state = s3);
 
 MODULE proc(turn,var_wait,var_set)
 VAR
@@ -27,4 +26,4 @@ ASSIGN
 	 	TRUE : turn;
 	  esac;
 
---SPEC AF!(state = s3 & turn = 2);
+
