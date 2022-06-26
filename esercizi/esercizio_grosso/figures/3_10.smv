@@ -10,6 +10,8 @@ ASSIGN
 	init(wantq) := FALSE; 
 	init(turn) := 1;
 
+SPEC AG (( p.state = s3 ) -> (AF p.state = s8 ))
+
 
 MODULE proc(wantp, wantq,turn,my_turn,other_turn)
 VAR
@@ -45,3 +47,4 @@ ASSIGN
 		state = s9 : other_turn;
 		TRUE : turn;
 	  esac;
+FAIRNESS running;

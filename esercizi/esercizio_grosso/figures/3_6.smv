@@ -8,6 +8,7 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
+SPEC AG (( p.state = s2 ) -> (AF p.state = s3 ))
 
 
 MODULE proc(wantp, wantq)
@@ -30,3 +31,4 @@ ASSIGN
 		state = s5 : FALSE;
 	 	TRUE : wantp;
 	  esac;
+FAIRNESS running;

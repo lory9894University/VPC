@@ -6,6 +6,7 @@ VAR
 ASSIGN
 	init(turn) := 1; 
 
+SPEC AG (( p.state = s2 ) -> (AF p.state = s3 ))
 
 MODULE proc(turn,var_wait,var_set)
 VAR
