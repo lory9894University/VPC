@@ -6,7 +6,13 @@ VAR
 ASSIGN
 	init(turn) := 1; 
 
+SPEC AG !(( p.state = s3 ) & (q.state = s3 ))
 SPEC AG (( p.state = s2 ) -> (AF p.state = s3 ))
+SPEC AG EF (( p.state = s1 )| ( q.state = s1 ))
+
+LTLSPEC G !(p.state = s3 & q.state = s3)
+LTLSPEC G (p.state = s2 -> F(p.state = s3))
+LTLSPEC G F (( p.running) | ( q.running ) )
 
 MODULE proc(turn,var_wait,var_set)
 VAR
@@ -26,4 +32,3 @@ ASSIGN
 		state = s4 : var_set;
 	 	TRUE : turn;
 	  esac;
-

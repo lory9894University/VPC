@@ -8,6 +8,15 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
+SPEC AG !(( p.state = s6 ) & (q.state = s6 )) 
+SPEC AG (( p.state = s2 ) -> (AF p.state = s6 )) 
+SPEC AG EF (( p.state = s1 )| ( q.state = s1 )) 
+ 
+LTLSPEC G !(p.state = s6 & q.state = s6) 
+LTLSPEC G (p.state = s2 -> F(p.state = s6)) 
+LTLSPEC G F (( p.running) | ( q.running ) )
+
+
 MODULE proc(wantp, wantq)
 VAR
 	state : {s1, s2, s3, s4, s5, s6, s7};
@@ -32,3 +41,4 @@ ASSIGN
 		state = s7 : FALSE;
 	 	TRUE : wantp;
 	  esac;
+FAIRNESS running;

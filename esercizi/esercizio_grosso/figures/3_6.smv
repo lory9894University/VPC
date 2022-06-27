@@ -8,7 +8,13 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
-SPEC AG (( p.state = s2 ) -> (AF p.state = s3 ))
+SPEC AG !(( p.state = s4 ) & (q.state = s4 ))
+SPEC AG (( p.state = s2 ) -> (AF p.state = s4 ))
+SPEC AG EF (( p.state = s1 )| ( q.state = s1 ))
+
+LTLSPEC G !(p.state = s4 & q.state = s4)
+LTLSPEC G (p.state = s2 -> F(p.state = s4))
+LTLSPEC G F (( p.running) | ( q.running ) )
 
 
 MODULE proc(wantp, wantq)
