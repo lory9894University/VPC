@@ -1,0 +1,32 @@
+MODULE main
+VAR
+	wantp : boolean;
+	wantq : boolean;
+	p : process proc(wantp, wantq);
+	q : process proc(wantq, wantp);
+ASSIGN
+	init(wantp) := FALSE; 
+	init(wantq) := FALSE; 
+
+
+MODULE proc(want_me, want_other)
+VAR
+	state : {s1, s2, s3, s4,s5};
+ASSIGN
+	init(state) := s1;
+	next(state) := 
+	  case
+		state = s1 : {s2, s1};
+		state = s2 & (want_other = FALSE): s3;
+		state = s3 : s4;
+		state = s4 : s5;
+		state = s5 : s1;
+		TRUE : state;
+	  esac;	
+	next(want_me) := 
+	  case
+		state = s3 : TRUE;
+		state = s5 : FALSE;
+	 	TRUE : want_me;
+	  esac;
+FAIRNESS running;
