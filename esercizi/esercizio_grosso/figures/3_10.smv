@@ -10,7 +10,13 @@ ASSIGN
 	init(wantq) := FALSE; 
 	init(turn) := 1;
 
-SPEC AG (( p.state = s3 ) -> (AF p.state = s8 ))
+SPEC AG !(( p.state = s8 ) & (q.state = s8 )) 
+SPEC AG (( p.state = s2 ) -> (AF p.state = s8 )) 
+SPEC AG AF (( p.state = s1 )| ( q.state = s1 )) 
+ 
+LTLSPEC G !(p.state = s8 & q.state = s8) 
+LTLSPEC G (p.state = s2 -> F(p.state = s8)) 
+LTLSPEC G F (( p.running) | ( q.running ) )
 
 
 MODULE proc(wantp, wantq,turn,my_turn,other_turn)

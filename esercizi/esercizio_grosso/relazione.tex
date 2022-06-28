@@ -379,11 +379,10 @@ Sono state verificate le seguenti formule LTL:
 \end{itemize}
 
 \subsection{NuSMV}
-L'implementazione del sistema tramite il linguaggio di NuSMV è pressochè identica a quella della sezione \ref{SUBSEC:3.6NuSMV}, l'unica differenza sta nella posizione del controllo \texttt{!want\_other} che questa volta viene effettuato dopo aver impostato la variabile \textit{want\_me} a true.
+L'implementazione del sistema tramite il linguaggio di NuSMV non presenta particolari differenze rispetto allo pseudocodice 3.9. Allo stato 5 vi è il salto che permette di creare il ciclo interno e si può uscire da questo ciclo solamente se la variabile \textit{want\_other} è falsa quando il processo è nello stato s3.
 \lstinputlisting{figures/3_9_code.smv}
-Il comando \texttt{print\_reachable\_states} mostra 21 stati raggiungibili di 100 possibili, in linea con la dimensione del Reachability Graph.
-È presente uno stato di deadlock : $p.state=s3, \; q.state=s3, \; wantp = true, \; wantq = true $. 
-
+Il comando \texttt{print\_reachable\_states} mostra 45 stati raggiungibili di 196 possibili, in linea con la dimensione del Reachability Graph.
+Non è presente alcuno stato di deadlock.
 \subsubsection{Model Checking NuSMV}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
@@ -391,7 +390,7 @@ Sono state verificate le seguenti formule CTL:
         \item deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{red}{false}.\\
 		Si verifica di nuovo la stesso situazione presentata in GreatSPN, la formula è incorretta per verificare l'assenza di deadlock. Va quindi riscritta.
 
-        \item deadlock: \textit{AG AF ((( p.state = s1 ) | ( q.state = s1 ) ) | (( p.state = s4 ) | ( q.state = s4 ) ))} \textcolor{green}{true}.\\
+        \item deadlock corretto: \textit{AG AF ((( p.state = s1 ) | ( q.state = s1 ) ) | (( p.state = s4 ) | ( q.state = s4 ) ))} \textcolor{green}{true}.\\
         \item assenza di starvation: \textit{AG (( p.state = s2 ) -> (AF p.state = s3 ))} ed anche \textit{AG (( q.state = s2 ) -> (AF q.state = s3 ))}. Entrambe risultano \textcolor{red}{false}.\\
 		Come visto nel Model Checking in GreatSPN si può verificare starvation sia perchè un processo blocca l'altro e va solo lui in critical section ma anche perchè entrambi si bloccano l'accesso a vicenda.
 		Il controesempio fornito dal MC è una istanza del secondo tipo.
@@ -403,9 +402,77 @@ Sono state verificate le seguenti formule LTL:
 		In questo caso il problema di definizione della formula logica "il processo può essere eseguito" non si pone, in quanto NuSMV permette di utilizzare la clausola \texttt{running} per stabilire se un processo sta venendo eseguito o no (questo solo il LTL).\\
 		Quindi il Model Checker mostra correttamente l'assenza di Deadlock.
         \item assenza di starvation: \textit{G (p.state = s2 ->  F p.state = s3)} ed anche \textit{G (p.state = s2 ->  F p.state = s3)}. Entrambe risultano \textcolor{red}{false}.\\
-		Essendoci deadlock c'è sempre la possibilità di starvation. Se il sistema va in deadlock dopo l'esecuzione presentata precedente entrambi i processi presentano starvation.
-		L'esempio presentato dal Model Checker è lo stesso del caso di deadlock.
+		L'esempio presentato dal Model Checker è lo stesso dell'analisi con CTL.
 \end{itemize}
+
+\newpage
+\section{Algoritmo 3.10}
+\label{SEC:3.10}
+\begin{center}\includegraphics[width=1\textwidth]{3.10.png}\end{center}
+L'algoritmo in figura risolve il problema della starvation dell'algoritmo 3.9 \ref{SEC:3.9} sfruttando l'idea dell'algoritmo 3.2 \ref{SEC:3.2} di inserire una variabile turn per decidere quale processo entrerà in sezione critica.
+A differenza del 3.2 però il controllo del turno viene effettuato solamente se c'è effettivamente qualcun'altro in attesa di entrare in sezione critica
+\subsection{Rete di Petri}
+\begin{center}
+\includegraphics[width=0.7\textwidth]{WantP.png}
+\includegraphics[width=0.8\textwidth]{turn.png}
+\end{center}
+\begin{center}
+\makebox[\textwidth][c]{
+\includegraphics[width=0.8\textwidth]{3.10p.png}
+\includegraphics[width=0.8\textwidth]{3.10q.png}}
+\end{center}
+\newpage
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=1.6\textwidth]{3.10PN.png}}
+\caption{Rete di petri composta} \label{FIG:3.10PN}
+\end{figure*}
+\newpage
+\subsubsection{RG}
+Il reachability graph, in figura \ref{FIG:3.10RG}, è composto da 172 stati, di cui nessuno rappresentante una situazione di Deadlock.
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=1\textwidth]{3.10RG}}
+\caption{Reachability graph 3.10} \label{FIG:3.10RG}
+\end{figure*}
+\newpage
+\subsubsection{Analisi strutturale}
+
+\subsubsection{Model Checking GreatSPN}
+Sono state verificate le seguenti formule CTL:
+\begin{itemize}
+	\item mutua esclusione: \textit{AG !(\#P6==1 \&\& \#Q6==1)} \textcolor{green}{true}.\\
+	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF \#P6>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF \#P6>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
+\end{itemize}
+Sono state verificate le seguenti formule LTL:
+\begin{itemize}
+	\item mutua esclusione: \textit{G !(\#P4==1 \&\& \#Q4==1)} \textcolor{green}{true}.
+	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P6 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q6 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
+	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{red}{false}.
+\end{itemize}
+
+\subsection{NuSMV}
+\lstinputlisting{figures/3_10_code.smv}
+Il comando \texttt{print\_reachable\_states} mostra 134 stati raggiungibili di 800 possibili, in linea con la dimensione del Reachability Graph.
+Non è presente alcuno stato di deadlock.\\
+
+\subsubsection{Model Checking NuSMV}
+Sono state verificate le seguenti formule CTL:
+\begin{itemize}
+        \item mutua esclusione: \textit{AG !(( p.state = s6 ) \& (q.state = s6 ))} \textcolor{green}{true}.
+        \item deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{red}{false}.\\
+        \item assenza di starvation: \textit{AG (( p.state = s2 ) -> (AF p.state = s3 ))} ed anche \textit{AG (( q.state = s2 ) -> (AF q.state = s3 ))}. Entrambe risultano \textcolor{red}{false}.\\
+\end{itemize}
+Sono state verificate le seguenti formule LTL:
+\begin{itemize}
+        \item mutua esclusione: \textit{G !(p.state = s4 \& q.state = s4)} \textcolor{green}{true}.\\
+        \item deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{green}{true}. \\
+        \item assenza di starvation: \textit{G (p.state = s2 ->  F p.state = s3)} ed anche \textit{G (p.state = s2 ->  F p.state = s3)}. Entrambe risultano \textcolor{red}{false}.\\
+\end{itemize}
+
 
 
 \end{document}

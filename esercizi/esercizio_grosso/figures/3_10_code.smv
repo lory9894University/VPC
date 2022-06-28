@@ -10,10 +10,8 @@ ASSIGN
 	init(wantq) := FALSE; 
 	init(turn) := 1;
 
-SPEC AG (( p.state = s3 ) -> (AF p.state = s8 ))
 
-
-MODULE proc(wantp, wantq,turn,my_turn,other_turn)
+MODULE proc(want_me, want_other,turn,my_turn,other_turn)
 VAR
 	state : {s1, s2, s3, s4, s5, s6, s7, s8, s9, s10};
 ASSIGN
@@ -22,8 +20,8 @@ ASSIGN
 	  case
 		state = s1 : {s2, s1};
 		state = s2 : s3;
-		state = s3 & wantq: s4;
-		state = s3 & !wantq: s8;
+		state = s3 & want_other: s4;
+		state = s3 & !want_other: s8;
 		state = s4 & (turn = other_turn): s5 ;
 		state = s4 & !(turn = other_turn): s3 ;
 		state = s5 : s6;
@@ -34,13 +32,13 @@ ASSIGN
 		state = s10 : s1;
 		TRUE : state;
 	  esac;	
-	next(wantp) := 
+	next(want_me) := 
 	  case
 		state = s2 : TRUE;
 		state = s5 : FALSE;
 		state = s7 : TRUE;
 		state = s10 : FALSE;
-	 	TRUE : wantp;
+	 	TRUE : want_me;
 	  esac;
 	next(turn) :=
 	  case 
