@@ -10,7 +10,8 @@ ASSIGN
 
 SPEC AG !(( p.state = s6 ) & (q.state = s6 )) 
 SPEC AG (( p.state = s2 ) -> (AF p.state = s6 )) 
-SPEC AG EF (( p.state = s1 )| ( q.state = s1 )) 
+SPEC AG AF (( p.state = s3 )| ( q.state = s3 )) 
+SPEC AG AF ((( p.state = s1 ) | ( q.state = s1 ) ) | (( p.state = s4 ) | ( q.state = s4 ) ))
  
 LTLSPEC G !(p.state = s6 & q.state = s6) 
 LTLSPEC G (p.state = s2 -> F(p.state = s6)) 

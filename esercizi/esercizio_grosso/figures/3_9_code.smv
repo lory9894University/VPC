@@ -8,7 +8,7 @@ ASSIGN
 	init(wantp) := FALSE; 
 	init(wantq) := FALSE; 
 
-MODULE proc(wantp, wantq)
+MODULE proc(want_me, want_other)
 VAR
 	state : {s1, s2, s3, s4, s5, s6, s7};
 ASSIGN
@@ -17,18 +17,18 @@ ASSIGN
 	  case
 		state = s1 : {s2, s1};
 		state = s2 : s3;
-		state = s3 & wantq: s4;
-		state = s3 & !wantq: s6;
+		state = s3 & want_other: s4;
+		state = s3 & !want_other: s6;
 		state = s4 : s5;
 		state = s5 : s3;
 		state = s6 : s7;
 		state = s7 : s1;
 		TRUE : state;
 	  esac;	
-	next(wantp) := 
+	next(want_me) := 
 	  case
 		state = s2 : TRUE;
 		state = s5 : TRUE;
 		state = s7 : FALSE;
-	 	TRUE : wantp;
+	 	TRUE : want_me;
 	  esac;
