@@ -411,6 +411,10 @@ Sono state verificate le seguenti formule LTL:
 \begin{center}\includegraphics[width=1\textwidth]{3.10.png}\end{center}
 L'algoritmo in figura risolve il problema della starvation dell'algoritmo 3.9 \ref{SEC:3.9} sfruttando l'idea dell'algoritmo 3.2 \ref{SEC:3.2} di inserire una variabile turn per decidere quale processo entrerà in sezione critica.
 A differenza del 3.2 però il controllo del turno viene effettuato solamente se c'è effettivamente qualcun'altro in attesa di entrare in sezione critica
+
+per ogni operazione effettuabile sulle variabili è stata aggiunta una nuova transizione alle stesse.
+Quindi la variabile \textit{wantP} avrà due transizioni atte al settarla vera o falsa, una usata fuori dal ciclo interno ed una all'interno (transizione \texttt{set\_truep}).
+Stesso discorso vale per la variabile turn. A differenza di quella presentata in sezione \ref{SEC:3.2}
 \subsection{Rete di Petri}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{WantP.png}
