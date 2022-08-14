@@ -11,6 +11,13 @@ ASSIGN
 	init(turn) := 1;
 
 SPEC !EF( p.state = s8 & q.state = s8);
+SPEC AG (( p.state = s3 ) -> (AF p.state = s8 ))
+SPEC AG (( q.state = s3 ) -> (AF q.state = s8 ))
+SPEC AG AF (( p.state = s1 ) | ( q.state = s1 ))
+LTLSPEC G !(p.state = s8 & q.state = s8)
+LTLSPEC G (( p.state = s3 ) -> (F p.state = s8 ))
+LTLSPEC G F( ( p.state  = s1) |  ( q.state  = s1))
+LTLSPEC G F(( p.running) | ( q.running ) )
 
 MODULE proc(wantp, wantq,turn,my_turn,other_turn)
 VAR
@@ -46,3 +53,4 @@ ASSIGN
 		state = s9 : other_turn;
 		TRUE : turn;
 	  esac;
+FAIRNESS running;
