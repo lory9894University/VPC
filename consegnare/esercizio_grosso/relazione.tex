@@ -168,9 +168,9 @@ Il reachability graph, in figura \ref{FIG:3.6RG}, è composto da 25 stati raggiu
 \end{figure*}
 \newpage
 \subsubsection{Analisi strutturale}
-Il calcolo dei \textit{semiflow} fornisce 4 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, gli 8 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.
-Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale. %TODO:
-%\includegraphics[width=1\textwidth]{3.2T.png}
+\label{SEC:3_8_strutturale}
+Il calcolo dei \textit{semiflow} fornisce 4 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, gli 8 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.//
+I \textit{P-semiflow} garantiscono che le due variabili \texttt{falseq \texttt{e} faslep} non assumono mai contemporaneamente il valore di vero e di falso e che ogni processo è sempre in esattamente un solo valore di program counter.//
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
@@ -278,6 +278,10 @@ Il reachability graph, in figura \ref{FIG:3.8RG}, è composto 21 stati, di cui u
 \end{figure*}
 \newpage
 \subsubsection{Analisi strutturale}
+Il calcolo dei \textit{semiflow} è sostanzialmente identico a quello effettuato in sezione \ref{SEC:3_8_strutturale} in quanto la struttura della rete non è cambiata molto.
+Lo studio dei \textit{P-invarianti} rivela che tutti i posti sono 1-bound, che le variabili assumono un solo valore di verità alla volta e che i token che rappresentano il program counter si trovano in un solo posto alla volta per ogni processo.
+Anche lo studio dei \textit{T-semiflow} è pressochè identico.
+Nonostante il sistema abbia uno stato di deadlock una \textit{firing sequence} che riporta il sistema nella marcatura iniziale esiste, quindi il sistema possiede la proprietà di \textit{liveness}.\\
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
@@ -355,7 +359,10 @@ Il reachability graph, in figura \ref{FIG:3.9RG}, è composto da 45 stati, di cu
 \caption{Reachability graph 3.9} \label{FIG:3.9RG}
 \end{figure*}
 \newpage
-\subsubsection{Analisi strutturale}
+\subsubsection{Analisi strutturale} %TODO: placeholder
+Il calcolo dei \textit{semiflow} fornisce 3 \textit{T-semiflow} minimali e 3 \textit{P-semiflow} minimali, i 3 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.
+Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.
+
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
@@ -459,7 +466,8 @@ Sono state verificate le seguenti formule LTL:
 	\item assenza di starvation: \textit{G F (\#P3==1) -> G F(\#P8 == 1)} ed anche \textit{G F (\#Q3==1) -> G F(\#Q8 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
 	In questo caso si verifica starvation, anche se non dovrebbe succedere. Ciò è dovuto ai \textit{fairness constraint}.Non è infatti vero che se un processo richiede l'accesso in sezione critica, poichè potrebbe avvenire una computazione non fair in cui il processo che richiede l'accesso rimane bloccato su uno qualsiasi dei posti \textit{3, ..., 8} mentre l'altro processo prosegue in sezione non critica.
 	\item assenza di starvation: \textit{G F ( \#P1 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
-		Un modo di imporre una computazione fair è garantire il progresso del processo di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#P1 ==1 )} ad esempio garantisce che il proceso \textit{P} in futuro tornerà nel posto \textit{P1}. In tal modo nessuno dei due processi è obbligato al progresso in sezione non critica ma perchè la proposione sia vera se \textit{P} esce dalla \textit{ncs} è garantito che riuscirà a completare la sua esecuzione e tornare allo stato \textit{P1}.
+		Un modo di imporre una computazione fair è garantire il progresso del processo di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#P1 ==1 )} ad esempio garantisce che il proceso \textit{P} in futuro tornerà nel posto \textit{P1}. In tal modo nessuno dei due processi è obbligato al progresso in sezione non critica ma perchè la proposione sia vera se \textit{P} esce dalla \textit{ncs} è garantito che riuscirà a completare la sua esecuzione e tornare allo stato \textit{P1}.\\
+		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
 
