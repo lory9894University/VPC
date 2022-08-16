@@ -69,7 +69,8 @@ Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 30 stati raggiu
 \newpage
 \subsubsection{Analisi strutturale}
 Il calcolo dei \textit{semiflow} fornisce 3 \textit{T-semiflow} minimali e 3 \textit{P-semiflow} minimali, i 3 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.
-Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.
+Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.\\
+2 \textit{T-semiflow} interessanti sono quelli che interessano il posto $P_1$ ed il posto  $Q_1$ in quanto rappresentano una completa esecuzione della $ncs$.
 \includegraphics[width=1\textwidth]{3.2T.png}
 
 \subsubsection{Model Checking GreatSPN}
@@ -359,9 +360,10 @@ Il reachability graph, in figura \ref{FIG:3.9RG}, è composto da 45 stati, di cu
 \caption{Reachability graph 3.9} \label{FIG:3.9RG}
 \end{figure*}
 \newpage
-\subsubsection{Analisi strutturale} %TODO: placeholder
-Il calcolo dei \textit{semiflow} fornisce 3 \textit{T-semiflow} minimali e 3 \textit{P-semiflow} minimali, i 3 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.
-Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.
+\subsubsection{Analisi strutturale} 
+\label{SEC:3_9_strutturale}
+Il calcolo dei \textit{semiflow} fornisce 6 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, lo studio dei P-invarianti rivela che tutti i posti sono 1-bound come negli altri casi e permette di affermare che le variabili p e q assumono un solo valore di verità.
+Invece dallo studio dei \textit{T-semiflow} non emerge solo la \textit{liveness} (come prevedibile) ma è interessante notare la presenza dei \textit{T-semiflow} che interessano i posti [P3, P4, P5] e [Q3, Q4, Q5] cioè le esecuzioni del ciclo di \textit{P \textit{e} Q}.
 
 
 \subsubsection{Model Checking GreatSPN}
@@ -452,6 +454,12 @@ Il reachability graph, in figura \ref{FIG:3.10RG}, è composto da 172 stati, di 
 \end{figure*}
 \newpage
 \subsubsection{Analisi strutturale}
+In quest'ultimo caso possiamo identificare 9 \textit{P-semiflow} minimali e 7 \textit{T-semiflow} minimali. 
+Le variabili $P$ e $Q$ possono assumere un solo valore di verità ed la marcatura della varibile $Turn $ può essere solamente nel posto $Turn_1$ o alternativamente nel posto $Turn_2$. 
+Come negli altri casi il sistema è 1-bound.\\
+L'analisi dei \textit{T-semiflow} mostra che il sistema possiede la proprietà di \textit{liveness} ed è interessante analizzarne 3.
+Come nel caso precendete (sezione \ref{SEC:3_9_strutturale}) sono presenti due semiflow che corrispondono ai cicli ma a differenza di tutti i casi precedenti sono assenti i semiflow che coinvolgono separatamente tutti i posti di $P$ e tutti i posti di $Q$.
+Vi è invece un unico flow che interessa tutti i posti di entrambi i processi, è quindi possibile attraverso una esecuzione dei due processi ritornare allo stato iniziale.
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
