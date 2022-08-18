@@ -70,7 +70,7 @@ Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 30 stati raggiu
 \subsubsection{Analisi strutturale}
 Il calcolo dei \textit{semiflow} fornisce 3 \textit{T-semiflow} minimali e 3 \textit{P-semiflow} minimali, i 3 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.
 Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.\\
-2 \textit{T-semiflow} interessanti sono quelli che interessano il posto $P_1$ ed il posto  $Q_1$ in quanto rappresentano una completa esecuzione della $ncs$.
+2 \textit{T-semiflow} interessanti sono quelli che interessano il posto $P_1$ ed il posto  $Q_1$ in quanto rappresentano una completa esecuzione della $ncs$.\\
 \includegraphics[width=1\textwidth]{3.2T.png}
 
 \subsubsection{Model Checking GreatSPN}
@@ -215,7 +215,6 @@ Da cui segue il seguente derivation graph.\\
 \includegraphics[width=1.5\textwidth]{3_6CCS}}\\
 Come si può notare il \textit{DG} è composto da 25 stati, esattamente il numero di stati raggiungibili del Reachability Graph, questo è un risultato aspettato in linea con quanto analizzato nelle corrispondenti parti dell'esercizio produttore-consumatore.
 
-%TODO: fare l'equivalenza tra le 2 soluzioni in PA
 \subsection{NuSMV}
 \label{SUBSEC:3.6NuSMV}
 L'implementazione del sistema tramite il linguaggio di NuSMV sfrutta la similarità che c'è tra il processo P ed il processo Q, come nel caso precedente.
@@ -245,7 +244,46 @@ Sono state verificate le seguenti formule LTL:
         \item deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{red}{false}. 
 		Come in sezione \ref{SEC:3.2} si pone di nuovo il problema di fare riferimento al modulo main dall'interno del modulo stesso. Viene sfruttato di nuovo \textit{FAIRNESS running} per ottenere un risultato coerente con l'analisi.
 \end{itemize}
-
+\section{Confronto tramite bisimulazione tra 3.2 e 3.6}
+%TODO: fare equivalenze a tracce, fallimento e simulazione?
+Per maggior leggibilità ho modificato i derivation graph dei due algoritmi, identificando con X oppure Y seguiti da un apice lo stato.\\
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=1\textwidth]{3_2Eq}}
+\caption{Derivation graph 3.2, Y} \label{FIG:3.2Eq}
+\end{figure*}\\
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=1.6\textwidth]{3_6Eq}}
+\caption{Derivation graph 3.6, X} \label{FIG:3.6Eq}
+\end{figure*}\\
+\newpage
+Su questi due \textit{DG} si può eseguire l'algoritmo di bisimulazione.
+\begin{align*}
+	&A : \{X_1,X_2,X_3,X_4,X_5,X_6,X_7,X_8,X_9,X_{10},X_{11},X_{12},X_{13},X_{14},X_{15},X_{16},X_{17},X_{18},X_{19},
+     \\ &X_{20},X_{21},X_{22},X_{23},X_{24},X_{25},Y_1,Y_2,Y_3,Y_4,Y_5,Y_6,Y_7,Y_8,Y_9,Y_{10},Y_{11},Y_{12},Y_{13},Y_{14},Y_{15},Y_{16}\}\\
+     \intertext{Divido l'insieme A sull'azione $ncsQ$}
+	&A: \{X_1,X_2,X_4,X_7,X_{11},Y_1,Y_2,Y_5,Y_7,Y_9,Y_{11}\}\\
+	&B: \{X_3,X_5,X_6,X_8,X_9,X_{10},X_{12},X_{13},X_{14},X_{15},X_{16},X_{17},X_{18},X_{19},\\&X_{20},X_{21},X_{22},X_{23},X_{24},X_{25},Y_3,Y_4,Y_6,Y_8,Y_{10},Y_{12},Y_{13},Y_{14},Y_{15},Y_{16}\}\\
+     \intertext{Divido l'insieme B sull'azione $ncsP$ usando come insieme di destinazione B}
+	&A: \{X_1,X_2,X_4,X_7,X_{11},Y_1,Y_2,Y_5,Y_7,Y_9,Y_{11}\}\\
+	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
+	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
+     \intertext{Divido l'insieme A sull'azione $\tau$ usando come insieme di destinazione A}
+	&A: \{X_1,X_7,X_{11},Y_1,Y_5,Y_9,Y_{11}\}\\
+	&D: \{X_2,X_4,Y_2,Y_7\}\\
+	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
+	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
+     \intertext{Divido l'insieme A sull'azione $ncsQ$ usando come stato di destinazione D}
+	&A: \{X_7,X_{11},Y_1,Y_5,Y_9,Y_{11}\}\\
+	&E: \{X_1\}
+	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
+	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
+	&D: \{X_2,X_4,Y_2,Y_7\}\\
+\end{align*}
+Dato che $X_1$ e $Y_1$ si trovano rispettivamente in $A$ e $E$ quindi non sono in relazione di bisimulazione tra loro.
 \newpage
 \section{Algoritmo 3.8}
 \label{SEC:3.8}
@@ -474,7 +512,7 @@ Sono state verificate le seguenti formule LTL:
 	\item assenza di starvation: \textit{G F (\#P3==1) -> G F(\#P8 == 1)} ed anche \textit{G F (\#Q3==1) -> G F(\#Q8 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
 	In questo caso si verifica starvation, anche se non dovrebbe succedere. Ciò è dovuto ai \textit{fairness constraint}.Non è infatti vero che se un processo richiede l'accesso in sezione critica, poichè potrebbe avvenire una computazione non fair in cui il processo che richiede l'accesso rimane bloccato su uno qualsiasi dei posti \textit{3, ..., 8} mentre l'altro processo prosegue in sezione non critica.
 	\item assenza di starvation: \textit{G F ( \#P1 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
-		Un modo di imporre una computazione fair è garantire il progresso del processo di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#P1 ==1 )} ad esempio garantisce che il proceso \textit{P} in futuro tornerà nel posto \textit{P1}. In tal modo nessuno dei due processi è obbligato al progresso in sezione non critica ma perchè la proposione sia vera se \textit{P} esce dalla \textit{ncs} è garantito che riuscirà a completare la sua esecuzione e tornare allo stato \textit{P1}.\\
+Un modo di imporre una computazione fair è garantire il progresso del processo di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#P1 ==1 )} ad esempio garantisce che il proceso \textit{P} in futuro tornerà nel posto \textit{P1}. In tal modo nessuno dei due processi è obbligato al progresso in sezione non critica ma perchè la proposione sia vera se \textit{P} esce dalla \textit{ncs} è garantito che riuscirà a completare la sua esecuzione e tornare allo stato \textit{P1}.\\ %todo : errore, palesemente se metto che P torna in P1 questo sarà sempre vero, se il processo si conclude è passato sicuramente dalla regione critica, non è ciò che voglio dimostrare.	bisogna cambiare i fairness constraint.
 		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
