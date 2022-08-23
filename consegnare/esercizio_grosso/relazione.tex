@@ -247,18 +247,19 @@ Sono state verificate le seguenti formule LTL:
 \section{Confronto tramite bisimulazione tra 3.2 e 3.6}
 %TODO: fare equivalenze a tracce, fallimento e simulazione?
 Per maggior leggibilità ho modificato i derivation graph dei due algoritmi, identificando con X oppure Y seguiti da un apice lo stato.\\
-\begin{figure*}[!ht]
-\centering
-\makebox[\textwidth][c]{
-\includegraphics[width=1\textwidth]{3_2Eq}}
-\caption{Derivation graph 3.2, Y} \label{FIG:3.2Eq}
-\end{figure*}\\
-\begin{figure*}[!ht]
-\centering
-\makebox[\textwidth][c]{
-\includegraphics[width=1.6\textwidth]{3_6Eq}}
-\caption{Derivation graph 3.6, X} \label{FIG:3.6Eq}
-\end{figure*}\\
+%TODO: decommentare, le due immagini sono sul portatile.
+%\begin{figure*}[!ht]
+%\centering
+%\makebox[\textwidth][c]{
+%\includegraphics[width=1\textwidth]{3_2Eq}}
+%\caption{Derivation graph 3.2, Y} \label{FIG:3.2Eq}
+%\end{figure*}\\
+%\begin{figure*}[!ht]
+%\centering
+%\makebox[\textwidth][c]{
+%\includegraphics[width=1.6\textwidth]{3_6Eq}}
+%\caption{Derivation graph 3.6, X} \label{FIG:3.6Eq}
+%\end{figure*}\\
 \newpage
 Su questi due \textit{DG} si può eseguire l'algoritmo di bisimulazione.
 \begin{align*}
@@ -276,9 +277,9 @@ Su questi due \textit{DG} si può eseguire l'algoritmo di bisimulazione.
 	&D: \{X_2,X_4,Y_2,Y_7\}\\
 	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
 	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
-     \intertext{Divido l'insieme A sull'azione $ncsQ$ usando come stato di destinazione D}
+     \intertext{Divido l'insieme A sull'azione $ncsQ$ usando come insieme di destinazione D}
 	&A: \{X_7,X_{11},Y_1,Y_5,Y_9,Y_{11}\}\\
-	&E: \{X_1\}
+	&E: \{X_1\}\\
 	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
 	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
 	&D: \{X_2,X_4,Y_2,Y_7\}\\
@@ -339,8 +340,6 @@ Sono state verificate le seguenti formule LTL:
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{red}{false}.
 \end{itemize}
 
-\subsubsection{Riduzione}
-
 \subsection{NuSMV}
 L'implementazione del sistema tramite il linguaggio di NuSMV è pressochè identica a quella della sezione \ref{SUBSEC:3.6NuSMV}, l'unica differenza sta nella posizione del controllo \texttt{!want\_other} che questa volta viene effettuato dopo aver impostato la variabile \textit{want\_me} a true.
 \lstinputlisting{figures/3_8_code.smv}
@@ -366,6 +365,38 @@ Sono state verificate le seguenti formule LTL:
 		Essendoci deadlock c'è sempre la possibilità di starvation. Se il sistema va in deadlock dopo l'esecuzione presentata precedente entrambi i processi presentano starvation.
 		L'esempio presentato dal Model Checker è lo stesso del caso di deadlock.
 \end{itemize}
+
+\section{Confronto e riduzione di 3.6 e 3.8}
+
+\subsection{Riduzione Algoritmo 3.6}
+Per prima cosa con l'operazione \textit{RC2} è possibile eliminare i due self-loop \textit{nCrit\_p \textit{e} nCrit\_q}.
+I posti $P_4,P_5$ e $Q_4,Q_5$ possono essere ridotti tramite \textit{RA1}.
+Le transizioni $access\_crit\_p$ e $access\_crit\_q$ possono essere rimosse tramite l'utilizzo di \textit{RA1}.
+Si può infine unire $is\_falseq$ con $set\_truep$ e $is\_falsep$ con $set\_trueq$ grazie a \textit{RA2}.
+La rete risultate è visibile in figura \ref{FIG:3.6Red}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{3.6Red}
+\caption{Rete algoritmo 3.6 ridotta} \label{FIG:3.6Red}
+\end{figure*}
+
+\subsection{Riduzione Algoritmo 3.8}
+Per prima cosa con l'operazione \textit{RC2} è possibile eliminare i due self-loop \textit{nCrit\_p \textit{e} nCrit\_q}.
+Le transizioni $access\_crit\_p$ e $access\_crit\_q$ possono essere rimosse tramite l'utilizzo di \textit{RA1}, unendo i posti $P_1,P_2$ e $Q_1, Q_2$.
+I posti $P_4,P_5$ e $Q_4,Q_5$ possono essere ridotti tramite \textit{RA1}.
+La rete risultate è visibile in figura \ref{FIG:3.8Red}
+\begin{figure*}[!ht]
+\centering
+\includegraphics[width=1\textwidth]{3.8Red}
+\caption{Rete algoritmo 3.8 ridotta} \label{FIG:3.8Red}
+\end{figure*}
+
+\subsection{Confronto}
+\includegraphics[width=1\textwidth]{3.6RedRG}
+\includegraphics[width=1\textwidth]{3.8RedRG}
+%TODO: la non equivalenza alle tracce basta ad affermare che non sono bisimili?
+I due sistemi non sono equivalenti alle tracce, come prova si può prendere la sequenza $[set\_truep,set\_trueq]$ che può essere eseguita solo dall'algoritmo 3.8 e non dal 3.6.
+Non essendo equivalenti alle tracce sicuramente non sono equivalenti ai fallimenti, alla simulazione ed alla bisimulazione.
 
 \newpage
 \section{Algoritmo 3.9}
