@@ -59,7 +59,7 @@ In questo particolare caso è stato possibile effettuare una composizione Name-b
 \end{figure*}
 \newpage
 \subsubsection{RG}
-Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 30 stati raggiungibili e non presenta alcun deadlock.
+Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 16 stati raggiungibili e non presenta alcun deadlock.
 \begin{figure*}[!ht]
 \centering
 \makebox[\textwidth][c]{
@@ -514,7 +514,7 @@ Processi \textit{P \textit{e} Q}
 \end{figure*}
 \newpage
 \subsubsection{RG}
-Il reachability graph, in figura \ref{FIG:3.10RG}, è composto da 172 stati, di cui nessuno rappresentante una situazione di Deadlock.
+Il reachability graph, in figura \ref{FIG:3.10RG}, è composto da 134 stati, di cui nessuno rappresentante una situazione di Deadlock.
 \begin{figure*}[!ht]
 \centering
 \makebox[\textwidth][c]{
@@ -542,8 +542,8 @@ Sono state verificate le seguenti formule LTL:
 	\item mutua esclusione: \textit{G !(\#P8==1 \&\& \#Q8==1)} \textcolor{green}{true}.
 	\item assenza di starvation: \textit{G F (\#P3==1) -> G F(\#P8 == 1)} ed anche \textit{G F (\#Q3==1) -> G F(\#Q8 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
 	In questo caso si verifica starvation, anche se non dovrebbe succedere. Ciò è dovuto ai \textit{fairness constraint}.Non è infatti vero che se un processo richiede l'accesso in sezione critica, poichè potrebbe avvenire una computazione non fair in cui il processo che richiede l'accesso rimane bloccato su uno qualsiasi dei posti \textit{3, ..., 8} mentre l'altro processo prosegue in sezione non critica.
-	\item assenza di starvation: \textit{G F ( \#P1 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
-Un modo di imporre una computazione fair è garantire il progresso del processo di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#P1 ==1 )} ad esempio garantisce che il proceso \textit{P} in futuro tornerà nel posto \textit{P1}. In tal modo nessuno dei due processi è obbligato al progresso in sezione non critica ma perchè la proposione sia vera se \textit{P} esce dalla \textit{ncs} è garantito che riuscirà a completare la sua esecuzione e tornare allo stato \textit{P1}.\\ %todo : errore, palesemente se metto che P torna in P1 questo sarà sempre vero, se il processo si conclude è passato sicuramente dalla regione critica, non è ciò che voglio dimostrare.	bisogna cambiare i fairness constraint.
+	\item assenza di starvation: \textit{G F ( \#Q2 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
+Un modo di imporre una computazione fair è garantire il progresso del processo opposto a quello di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#Q2 ==1 )} ad esempio garantisce che il proceso \textit{Q} uscirà dalla sezione criticà. In tal modo però i processi sono obbligati al progresso in sezione non critica.
 		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
@@ -568,6 +568,20 @@ Sono state verificate le seguenti formule LTL:
         \item assenza di deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{green}{true}. \\
 \end{itemize}
 
-
-
+\section{Confronto}
+Come si può notare dalla seguente tabella non è presente alcuna differenza tra le implementazioni effettuate con GreatSPN e le implementazioni in NuSMV.
+\begin{center}
+\makebox[\textwidth][c]{
+\begin{tabular}{c|ccc|ccc|}
+\cline{2-7}
+		       & &  GreatSPN                                   &  & &                NuSMV                        &  \\ \cline{2-7}
+		       & \multicolumn{1}{l|}{Stati raggiungibili} & \multicolumn{1}{l|}{Assenza di deadlock} & Mutua esclusione & \multicolumn{1}{l|}{Stati raggiungibili} & \multicolumn{1}{l|}{Assenza di deadlock} & Mutua esclusione  \\ \hline
+	\multicolumn{1}{|l|}{3.2} & \multicolumn{1}{l|}{16} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{green}{true} & \multicolumn{1}{l|}{16} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{green}{true}\\ \hline
+	\multicolumn{1}{|l|}{3.6} & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{red}{false}  & \multicolumn{1}{l|}{25} & \multicolumn{1}{l|}{ \textcolor{green}{true}} &  \textcolor{red}{false} \\ \hline
+\multicolumn{1}{|l|}{3.8} & \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{\textcolor{red}{false} } &  \textcolor{green}{true}& \multicolumn{1}{l|}{21} & \multicolumn{1}{l|}{\textcolor{red}{false} } &  \textcolor{green}{true}\\ \hline
+\multicolumn{1}{|l|}{3.9} & \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{\textcolor{green}{true}} &  \textcolor{green}{true}& \multicolumn{1}{l|}{45} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{green}{true} \\ \hline
+\multicolumn{1}{|l|}{3.10} & \multicolumn{1}{l|}{134} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{green}{true} & \multicolumn{1}{l|}{134} & \multicolumn{1}{l|}{\textcolor{green}{true}} & \textcolor{green}{true} \\ \hline
+\end{tabular}
+}
+\end{center}
 \end{document}
