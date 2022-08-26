@@ -42,10 +42,10 @@ Le 3 proprietà da verificare sono:
 Questo primo algoritmo propone la mutua esclusione tramite una singola variabile \textit{turn} che identifica quale processo tra \textit{p} e \textit{q} può accedere alla regione critica.
 \newpage
 \subsection{Rete di Petri}
-In questo particolare caso è stato possibile effettuare una composizione Name-based \ref{FIG:3.2PN}.
+In questo particolare caso è stato possibile effettuare una composizione Name-based (Figura \ref{FIG:3.2PN}).
 \begin{figure*}[!ht]
 \centering
-\makebox[\textwidth][c]{
+\makebox[0.95\textwidth][c]{
 \includegraphics[width=0.5\textwidth]{p3.2.png}
 \includegraphics[width=0.5\textwidth]{q3.2.png}
 \includegraphics[width=0.5\textwidth]{variable3.2.png}}
@@ -54,16 +54,16 @@ In questo particolare caso è stato possibile effettuare una composizione Name-b
 \begin{figure*}[!ht]
 \centering
 \makebox[\textwidth][c]{
-\includegraphics[width=1\textwidth]{3.2PN.png}}
+\includegraphics[width=1.5\textwidth]{3.2PN.png}}
 \caption{Rete di petri composta} \label{FIG:3.2PN}
-\end{figure*}
+\end{figure*}\\
 \newpage
 \subsubsection{RG}
-Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 16 stati raggiungibili e non presenta alcun deadlock.
+Il reachability graph, in figura \ref{FIG:3.2RG}, è composto da 16 stati raggiungibili e non presenta alcuno stato di deadlock.
 \begin{figure*}[!ht]
 \centering
 \makebox[\textwidth][c]{
-\includegraphics[width=1\textwidth]{3.2RG}}
+\includegraphics[width=1.5\textwidth]{3.2RG}}
 \caption{Reachability graph 3.2} \label{FIG:3.2RG}
 \end{figure*}
 \newpage
@@ -72,20 +72,20 @@ Il calcolo dei \textit{semiflow} fornisce 3 \textit{T-semiflow} minimali e 3 \te
 Invece dallo studio dei \textit{T-semiflow} si può affermare che il sistema possiede la proprietà di \textit{liveness} in quanto è possibile individuare una \textit{ﬁring sequence} attivabile dalla marcatura iniziale che riporta ad una situazione analoga alla situazione iniziale.\\
 2 \textit{T-semiflow} interessanti sono quelli che interessano il posto $P_1$ ed il posto  $Q_1$ in quanto rappresentano una completa esecuzione della $ncs$.\\
 \includegraphics[width=1\textwidth]{3.2T.png}
-
+\newpage
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{AG !(\#P3==1 \&\& \#Q3==1)} \textcolor{green}{true}.
 	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF i\#P3>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF i\#P3>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
-		Anche inserendo i fairness constrain \textit{\#P1 >0 \textit{e} \#Q1 >0} non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui p è fermo al posto 2, la variabile turn vale 2 e q cicla all'infinito in sezione non critica.\\
-		L'unico constrain che garantirebbe l'assenza di starvation sarebbe \textit{\#P2 >0 \textit{e} \#Q2 >0} cioè l'imposizione di progresso in regione non critica.
+		Anche inserendo i fairness constrain \textit{\#P1 >0 \textit{e} \#Q1 >0} non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui \textit{P} è fermo al posto 2, la variabile \textit{turn} vale 2 e \textit{Q} cicla all'infinito in sezione non critica.\\
+		L'unico constrain che garantirebbe l'assenza di starvation sarebbe \textit{\#P2 >0 \textit{e} \#Q2 >0} cioè l'imposizione di progresso in regione non critica, in quanto obbligherebbe il processo \textit{Q} a richiedere la sezione critica e modificare il valore della variabile turn.
 	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{green}{true}. Come ci aspettavamo dalle analisi strutturali e dal DG il sistema non va in deadlock.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{G !(\#P3==1 \&\& \#Q3==1)} \textcolor{green}{true}.
-	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P3 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q3 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P3 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q3 == 1)}. Entrambe risultano \textcolor{red}{false}.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
 
@@ -119,6 +119,7 @@ Operazione simile viene effettuata quando P va ad impostare il valore della vari
 Il comando \texttt{print\_reachable\_states} mostra 16 stati raggiungibili di 32 possibili, in linea con la dimensione del Derivation Graph e del Reachability Graph.
 Tra tutti gli stati raggiungibili non è presente alcuno stato di Deadlock.
 
+\newpage
 \subsubsection{Model Checking NuSMV}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
@@ -170,24 +171,24 @@ Il reachability graph, in figura \ref{FIG:3.6RG}, è composto da 25 stati raggiu
 \newpage
 \subsubsection{Analisi strutturale}
 \label{SEC:3_8_strutturale}
-Il calcolo dei \textit{semiflow} fornisce 4 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, gli 8 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.//
-I \textit{P-semiflow} garantiscono che le due variabili \texttt{falseq \texttt{e} faslep} non assumono mai contemporaneamente il valore di vero e di falso e che ogni processo è sempre in esattamente un solo valore di program counter.//
+Il calcolo dei \textit{semiflow} fornisce 4 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, gli 8 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.\\
+I \textit{P-semiflow} garantiscono che le due variabili \texttt{falseq \texttt{e} faslep} non assumono mai contemporaneamente il valore di vero e di falso e che ogni processo è sempre in esattamente un solo valore di program counter.
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{AG !(\#P4==1 \&\& \#Q4==1)} \textcolor{red}{false}.\\
-		Il model checker fornisce come controesempio lesecuzione $\{P_1 Q_1,P_1 Q_2,P_2 Q_2,P_2 Q_3,P_3 Q_3,P_3 Q_4,P_4 Q_4\}$.
+		Il model checker fornisce come controesempio l'esecuzione \\$\{P_1 Q_1,P_1 Q_2,P_2 Q_2,P_2 Q_3,P_3 Q_3,P_3 Q_4,P_4 Q_4\}$.
 	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
 		In questo caso risulta più complicato inserire dei \textit{fairness constraint} sensati. Infatti l'assenza di starvation dipende moltissimo dallo scheduling utilizzato.  
-		Inserendo il fairness constrain più "elmentare", \textit{\#P1 >0 \textit{e} \#Q1 >0} cioè "viene quantomeno fornito tempo di CPU al processo p" , non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui p è fermo al posto 2, e viene solo eseguito q che cicla all'infinito in sezione non critica.\\ %TODO: non sono per nulla sicuro di questa affermazione.
+		Inserendo il fairness constrain più "elmentare", \textit{\#P1 >0 \textit{e} \#Q1 >0} cioè "viene quantomeno fornito tempo di CPU al processo p" , non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui \textit{P} è fermo al posto 2, e viene solo eseguito \textit{Q} che cicla all'infinito in sezione non critica.\\
 		Un altro constrain che garantirebbe l'assenza di starvation sarebbe \textit{\#P2 >0 \textit{e} \#Q2 >0} cioè l'imposizione di progresso in regione non critica.%TODO: non è vero e non capisco perchè
 	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{green}{true}. Come ci aspettavamo dalle analisi strutturali e dal DG il sistema non va in deadlock.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{G !(\#P4==1 \&\& \#Q4==1)} \textcolor{red}{false}.
-	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P4 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q4 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P4 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q4 == 1)}. Entrambe risultano \textcolor{red}{false}.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
 
@@ -244,22 +245,22 @@ Sono state verificate le seguenti formule LTL:
         \item deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{red}{false}. 
 		Come in sezione \ref{SEC:3.2} si pone di nuovo il problema di fare riferimento al modulo main dall'interno del modulo stesso. Viene sfruttato di nuovo \textit{FAIRNESS running} per ottenere un risultato coerente con l'analisi.
 \end{itemize}
+\newpage
 \section{Confronto tramite bisimulazione tra 3.2 e 3.6}
 %TODO: fare equivalenze a tracce, fallimento e simulazione?
 Per maggior leggibilità ho modificato i derivation graph dei due algoritmi, identificando con X oppure Y seguiti da un apice lo stato.\\
-%TODO: decommentare, le due immagini sono sul portatile.
-%\begin{figure*}[!ht]
-%\centering
-%\makebox[\textwidth][c]{
-%\includegraphics[width=1\textwidth]{3_2Eq}}
-%\caption{Derivation graph 3.2, Y} \label{FIG:3.2Eq}
-%\end{figure*}\\
-%\begin{figure*}[!ht]
-%\centering
-%\makebox[\textwidth][c]{
-%\includegraphics[width=1.6\textwidth]{3_6Eq}}
-%\caption{Derivation graph 3.6, X} \label{FIG:3.6Eq}
-%\end{figure*}\\
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=0.5\textwidth]{3_2Eq}}
+\caption{Derivation graph 3.2, Y} \label{FIG:3.2Eq}
+\end{figure*}\\
+\begin{figure*}[!ht]
+\centering
+\makebox[\textwidth][c]{
+\includegraphics[width=1.6\textwidth]{3_6Eq}}
+\caption{Derivation graph 3.6, X} \label{FIG:3.6Eq}
+\end{figure*}\\
 \newpage
 Su questi due \textit{DG} si può eseguire l'algoritmo di bisimulazione.
 \begin{align*}
@@ -289,7 +290,7 @@ Dato che $X_1$ e $Y_1$ si trovano rispettivamente in $A$ e $E$ quindi non sono i
 \section{Algoritmo 3.8}
 \label{SEC:3.8}
 \begin{center}\includegraphics[width=1\textwidth]{3.8.png}\end{center}
-Questo algoritmo cerca di risolvere il problema del 3.6 \ref{SEC:3.6} andando ad invertire l'operazione di setting della variabile che si riferisce al voler entrare in sezione critica e l'operazione di attesa sulla variabile che indica l'intenzione dell'altro processo
+Questo algoritmo cerca di risolvere il problema del 3.6 (sezione \ref{SEC:3.6}) andando ad invertire l'operazione di setting della variabile che si riferisce al voler entrare in sezione critica e l'operazione di attesa sulla variabile che indica l'intenzione dell'altro processo
 \subsection{Rete di Petri}
 In questo caso è stata anche effettuata una modifica alle variabili rimuovendo le transizioni \texttt{is\_true}, in quanto nell'algoritmo 3.8 non viene mai controllato se una variabile è vera.
 \newpage
@@ -331,15 +332,15 @@ Sono state verificate le seguenti formule CTL:
 	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{red}{false}.\\
 		Il sistema va in deadlock, il controesempio presentato dal Model Checker è l'esecuzione $\{P_1Q_1 \rightarrow P_1Q_2 \rightarrow P_2Q_2\}$.
 	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
-		Essendoci deadlock c'è sempre la possibilità di starvation. Se il sistema va in deadlock dopo l'esecuzione del punto precedente entrambi i processi presentano starvation.
+		Essendoci deadlock c'è sempre la possibilità di starvation. Se il sistema va in deadlock dopo l'esecuzione presentata nel punto precedente entrambi i processi presentano starvation.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{G !(\#P4==1 \&\& \#Q4==1)} \textcolor{green}{true}.
-	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P4 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q4 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P4 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q4 == 1)}. Entrambe risultano \textcolor{red}{false}.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{red}{false}.
 \end{itemize}
-
+\newpage
 \subsection{NuSMV}
 L'implementazione del sistema tramite il linguaggio di NuSMV è pressochè identica a quella della sezione \ref{SUBSEC:3.6NuSMV}, l'unica differenza sta nella posizione del controllo \texttt{!want\_other} che questa volta viene effettuato dopo aver impostato la variabile \textit{want\_me} a true.
 \lstinputlisting{figures/3_8_code.smv}
@@ -358,7 +359,7 @@ Sono state verificate le seguenti formule CTL:
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
-        \item mutua esclusione: \textit{G !(p.state = s4 \& q.state = s4)} \textcolor{green}{true}.\\
+        \item mutua esclusione: \textit{G !(p.state = s4 \& q.state = s4)} \textcolor{green}{true}.
         \item deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{red}{false}. \\
 		Il sistema va in deadlock, il controesempio presentato dal Model Checker è una esecuzione che fa eseguire tutti gli stati di q tornando a q.state= s1 e poi esegue $\{P_1Q_1 \rightarrow P_1Q_2 \rightarrow P_2Q_2\}$ che lo porta in deadlock.
         \item assenza di starvation: \textit{G (p.state = s2 ->  F p.state = s3)} ed anche \textit{G (p.state = s2 ->  F p.state = s3)}. Entrambe risultano \textcolor{red}{false}.\\
@@ -451,31 +452,31 @@ Sono state verificate le seguenti formule CTL:
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{G !(\#P4==1 \&\& \#Q4==1)} \textcolor{green}{true}.
-	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P6 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q6 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{G F (\#P2==1) -> G F(\#P6 == 1)} ed anche \textit{G F (\#Q2==1) -> G F(\#Q6 == 1)}. Entrambe risultano \textcolor{red}{false}.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{red}{false}.
 	\item deadlock corretto: \textit{G F ( (\#P1==1) || (\#Q1 == 1) ) || G F ((\#P4==1) || (\#Q4 == 1)))} \textcolor{green}{true}.\\
 \end{itemize}
-
+\newpage
 \subsection{NuSMV}
 L'implementazione del sistema tramite il linguaggio di NuSMV non presenta particolari differenze rispetto allo pseudocodice 3.9. Allo stato 5 vi è il salto che permette di creare il ciclo interno e si può uscire da questo ciclo solamente se la variabile \textit{want\_other} è falsa quando il processo è nello stato s3.
 \lstinputlisting{figures/3_9_code.smv}
 Il comando \texttt{print\_reachable\_states} mostra 45 stati raggiungibili di 196 possibili, in linea con la dimensione del Reachability Graph.
 Non è presente alcuno stato di deadlock.
+\newpage
 \subsubsection{Model Checking NuSMV}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
         \item mutua esclusione: \textit{AG !(( p.state = s6 ) \& (q.state = s6 ))} \textcolor{green}{true}.
         \item deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{red}{false}.\\
 		Si verifica di nuovo la stesso situazione presentata in GreatSPN, la formula è incorretta per verificare l'assenza di deadlock. Va quindi riscritta.
-
-        \item deadlock corretto: \textit{AG AF ((( p.state = s1 ) | ( q.state = s1 ) ) | (( p.state = s4 ) | ( q.state = s4 ) ))} \textcolor{green}{true}.\\
+        \item deadlock corretto: \textit{AG AF ((( p.state = s1 ) | ( q.state = s1 ) ) | (( p.state = s4 ) | ( q.state = s4 ) ))} \textcolor{green}{true}.
         \item assenza di starvation: \textit{AG (( p.state = s2 ) -> (AF p.state = s3 ))} ed anche \textit{AG (( q.state = s2 ) -> (AF q.state = s3 ))}. Entrambe risultano \textcolor{red}{false}.\\
 		Come visto nel Model Checking in GreatSPN si può verificare starvation sia perchè un processo blocca l'altro e va solo lui in critical section ma anche perchè entrambi si bloccano l'accesso a vicenda.
 		Il controesempio fornito dal MC è una istanza del secondo tipo.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
-        \item mutua esclusione: \textit{G !(p.state = s4 \& q.state = s4)} \textcolor{green}{true}.\\
+        \item mutua esclusione: \textit{G !(p.state = s4 \& q.state = s4)} \textcolor{green}{true}.
         \item deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{green}{true}. \\
 		In questo caso il problema di definizione della formula logica "il processo può essere eseguito" non si pone, in quanto NuSMV permette di utilizzare la clausola \texttt{running} per stabilire se un processo sta venendo eseguito o no (questo solo in LTL).\\
 		Quindi il Model Checker mostra correttamente l'assenza di Deadlock.
@@ -488,9 +489,9 @@ Sono state verificate le seguenti formule LTL:
 \label{SEC:3.10}
 \begin{center}\includegraphics[width=1\textwidth]{3.10.png}\end{center}
 L'algoritmo in figura risolve il problema della starvation dell'algoritmo 3.9 \ref{SEC:3.9} sfruttando l'idea dell'algoritmo 3.2 \ref{SEC:3.2} di inserire una variabile turn per decidere quale processo entrerà in sezione critica.
-A differenza del 3.2 però il controllo del turno viene effettuato solamente se c'è effettivamente qualcun'altro in attesa di entrare in sezione critica
+A differenza del 3.2 però il controllo del turno viene effettuato solamente se c'è effettivamente qualcun'altro in attesa di entrare in sezione critica.\\
 
-per ogni operazione effettuabile sulle variabili è stata aggiunta una nuova transizione alle stesse.
+Per ogni operazione effettuabile sulle variabili è stata aggiunta una nuova transizione alle stesse.
 Quindi la variabile \textit{wantP} avrà due transizioni atte al settarla vera o falsa, una usata fuori dal ciclo interno ed una all'interno (transizione \texttt{set\_truep}).
 Stesso discorso vale per la variabile turn. A differenza di quella presentata in sezione \ref{SEC:3.2}
 \subsection{Rete di Petri}
@@ -533,21 +534,25 @@ Vi è invece un unico flow che interessa tutti i posti di entrambi i processi, �
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
-	\item mutua esclusione: \textit{AG !(\#P8==1 \&\& \#Q8==1)} \textcolor{green}{true}.\\
-	\item assenza di starvation: \textit{AG((\#P3 >0 ) -> (AF \#P8>0 ))} ed anche \textit{AG((\#Q3 >0 ) -> (AF \#Q6>0 ))}. Entrambe risultano \textcolor{green}{true}.\\
-	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{green}{true}.\\
+	\item mutua esclusione: \textit{AG !(\#P8==1 \&\& \#Q8==1)} \textcolor{green}{true}.
+	\item assenza di starvation: \textit{AG((\#P3 >0 ) -> (AF \#P8>0 ))} ed anche \textit{AG((\#Q3 >0 ) -> (AF \#Q6>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
+		Il motivo di questa incongruenza è dovuto ad un errore nei fairness constraint (\textit{\#P2 > 0 || \#Q2 > 0}).Infatti questi non escludono la possibilità che un processo rimanga in uno stato relativo alla richiesta della sezione critica e l'esecuzione viene concessa solo all'altro processo che cicla in sezione non critica.Questa computazione non fair deve essere gestita in altro modo.
+	\item assenza di starvation imponendo progresso in regione non critica: Fairness constraint \textit{\#P2 > 0 || \#Q2 > 0}. Entrambe risultano \textcolor{green}{true}.
+		Un modo di imporre una computazione fair è garantire il progresso del processo opposto a quello di cui si vuole verificare l'assenza di starvation. La proposizione \textit{(\#Q2 ==1 )} ad esempio garantisce che il proceso \textit{Q} uscirà dalla sezione non critica e tenterà l'accesso in \textit{cs}, riuscendo ad acceddere o permettendo l'esecuzione di \textit{P}. In tal modo però i processi sono obbligati al progresso in sezione non critica.
+		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
+	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{green}{true}.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{G !(\#P8==1 \&\& \#Q8==1)} \textcolor{green}{true}.
 	\item assenza di starvation: \textit{G F (\#P3==1) -> G F(\#P8 == 1)} ed anche \textit{G F (\#Q3==1) -> G F(\#Q8 == 1)}. Entrambe risultano \textcolor{red}{false}.\\
 	In questo caso si verifica starvation, anche se non dovrebbe succedere. Ciò è dovuto ai \textit{fairness constraint}.Non è infatti vero che se un processo richiede l'accesso in sezione critica, poichè potrebbe avvenire una computazione non fair in cui il processo che richiede l'accesso rimane bloccato su uno qualsiasi dei posti \textit{3, ..., 8} mentre l'altro processo prosegue in sezione non critica.
-	\item assenza di starvation: \textit{G F ( \#Q2 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
-Un modo di imporre una computazione fair è garantire il progresso del processo opposto a quello di cui si vuole verificare l'assenza di starvation. La proposizione \textit{G F ( \#Q2 ==1 )} ad esempio garantisce che il proceso \textit{Q} uscirà dalla sezione criticà. In tal modo però i processi sono obbligati al progresso in sezione non critica.
+	\item assenza di starvation imponendo progresso in regione non critica: \textit{G F ( \#Q2 ==1 ) -> (G F (\#Q3==1) -> G F(\#Q8 == 1))} E la proposizione corrispondente per Q risultano \textcolor{green}{true}.\\
+		Un modo di imporre una computazione fair è garantire il progresso del processo opposto a quello di cui si vuole verificare l'assenza di starvation. La proposizione \textit{(\#Q2 ==1 )} ad esempio garantisce che il proceso \textit{Q} uscirà dalla sezione non critica e tenterà l'accesso in \textit{cs}, riuscendo ad acceddere o permettendo l'esecuzione di \textit{P}. In tal modo però i processi sono obbligati al progresso in sezione non critica.
 		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
 	\item deadlock: \textit{G F( (\#P1 ==1) ||  (\#Q1 ==1))} \textcolor{green}{true}.
 \end{itemize}
-
+\newpage
 \subsection{NuSMV}
 \lstinputlisting{figures/3_10_code.smv}
 Il comando \texttt{print\_reachable\_states} mostra 134 stati raggiungibili di 800 possibili, in linea con la dimensione del Reachability Graph.
@@ -557,19 +562,19 @@ Non è presente alcuno stato di deadlock.\\
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
         \item mutua esclusione: \textit{AG !(( p.state = s8 ) \& (q.state = s8 ))} \textcolor{green}{true}.
-        \item assenza di starvation: \textit{AG (( p.state = s3 ) -> (AF p.state = s8 ))} ed anche \textit{AG (( q.state = s3 ) -> (AF q.state = s8 ))}. Entrambe risultano \textcolor{green}{true}.\\
-        \item assenza di deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{green}{true}.\\
+        \item assenza di starvation: \textit{AG (( p.state = s3 ) -> (AF p.state = s8 ))} ed anche \textit{AG (( q.state = s3 ) -> (AF q.state = s8 ))}. Entrambe risultano \textcolor{green}{true}.
+        \item assenza di deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{green}{true}.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
 \begin{itemize}
         \item mutua esclusione: \textit{G !(p.state = s8 \& q.state = s8)} \textcolor{green}{true}.\\
         \item assenza di starvation: \textit{G (p.state = s3 ->  F p.state = s8)} ed anche \textit{G (p.state = s3 ->  F p.state = s8)}. Entrambe risultano \textcolor{green}{true}.\\
 		A differenza del model checker di \textit{GreatSPN, NuSMV} implementa la possibilità di selezionare uno scheduler fair tramite il comando \texttt{FAIRNESS running}, non vi è quindi necessità di inserire constraint nella proposizione.
-        \item assenza di deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{green}{true}. \\
+        \item assenza di deadlock: \textit{G F(( p.running) | ( q.running ) )} \textcolor{green}{true}. 
 \end{itemize}
 
 \section{Confronto}
-Come si può notare dalla seguente tabella non è presente alcuna differenza tra le implementazioni effettuate con GreatSPN e le implementazioni in NuSMV.
+Come si può notare dalla seguente tabella non è presente nessuna differenza tra le implementazioni effettuate con GreatSPN e le implementazioni in NuSMV.
 \begin{center}
 \makebox[\textwidth][c]{
 \begin{tabular}{c|ccc|ccc|}
@@ -584,4 +589,10 @@ Come si può notare dalla seguente tabella non è presente alcuna differenza tra
 \end{tabular}
 }
 \end{center}
+L'unica differenza riguarda la starvation dell'algoritmo 3.10, non rappresentata in tabella.\\
+L'implementazione con GreatSPN soffre infatti di starvation, quella con NuSMV invece no. Come appurato in precedenza la causa di ciò è la differenza nella definizione dei fairness constraint.\\
+Mentre NuSMV offre uno scheduler fair implicito GreatSPN richiede che questi sia esplicito.Non essendo stato in grado di esprimere una politica di scheduling con il solo utilizzo di formule CTL e LTL non ho potuto dimostrare che l'algoritmo 3.10 senza obbligo di progresso in sezione non critica garantisce l'assenza di starvation.
+
+Come affermato in precedenza una possibile soluzione sarebbe stata quella di costruire un arbitro, ciò mi avrebbe permesso di implementare una politica di scheduling e di impostare dei fairness constraint.\\
+Non ho seguito questa strada in quanto l'implementazione con l'arbitro si sarebbe discostata dal modello di partenza.Ho preferito rimanere il più aderente possibile al codice degli algoritmi perchè suppongo sia meglio verificare formalmente un modello il più simile possibile al modello iniziale ed anche perchè l'implementazione dello scheduling avrebbe causato discrepanze tra il modello fatto con GreatSPN e quello fatto con NuSMV.
 \end{document}
