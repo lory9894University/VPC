@@ -111,7 +111,7 @@ Come si può notare il \textit{DG} è composto da 16 stati, esattamente il numer
 \subsection{NuSMV}
 L'implementazione del sistema tramite il linguaggio di NuSMV sfrutta la similarità che c'è tra il processo P ed il processo Q.
 Infatti i due programmi svolgono le stesse identiche operazioni, ma su variabili differenti, quindi basta dichiare i processi andando ad inserire correttamente i parametri.
-Quindi ad esempio il processo p avrà 4 stati: lo stato s1 da cui potrà proseguire richiedendo la sezione critica, oppure rimanendo in s1, lo stato s3 che corrisponde alla sezione critica e lo stato s4 che corrisponde all'uscita dalla sezione critica ed la ripetizione del programma completo.\\
+Ad esempio il processo p avrà 4 stati: lo stato s1 da cui potrà proseguire richiedendo la sezione critica, oppure rimanendo in s1, lo stato s3 che corrisponde alla sezione critica e lo stato s4 che corrisponde all'uscita dalla sezione critica ed la ripetizione del programma completo.\\
 Più interessante è lo stato s4, dove si nota il riuso del codice. 
 Per poter accede alla sezione critica il turno deve essere 1, quindi il processo P va a confrontare il valore della variabile \textit{turn} con lo il valore della variabile \textit{var\_wait} che in questo caso è 1, se corrispondono il programma prosegue in s3.
 Operazione simile viene effettuata quando P va ad impostare il valore della variabile \textit{turn} in uscita dalla sezione critica.
@@ -125,8 +125,7 @@ Sono state verificate le seguenti formule CTL:
 \begin{itemize}
         \item mutua esclusione: \textit{AG !(( p.state = s3 ) \& (q.state = s3 ))} \textcolor{green}{true}.
         \item assenza di starvation: \textit{AG (( p.state = s2 ) -> (AF p.state = s3 ))} ed anche \textit{AG (( q.state = s2 ) -> (AF q.state = s3 ))}. Entrambe risultano \textcolor{red}{false}.\\
-                Anche inserendo il fairness constrain \textit{FAIRNESS running} non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui p è fermo allo stato s2, la variabile turn v
-ale 2 e q cicla all'infinito in sezione non critica.
+                Anche inserendo il fairness constrain \textit{FAIRNESS running} non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui p è fermo allo stato s2, la variabile turn vale 2 e q cicla all'infinito in sezione non critica. Viene data la possibilità al processo p di eseguire il suo codice, ma essendo $turn = 2$ questi non può entrare in regione critica.
         \item deadlock: \textit{AG AF (( p.state = s1 )| ( q.state = s1 ))} \textcolor{green}{true}. Come ci aspettavamo dalle analisi strutturali e dal DG il sistema non va in deadlock.
 \end{itemize}
 Sono state verificate le seguenti formule LTL:
@@ -172,14 +171,14 @@ Il reachability graph, in figura \ref{FIG:3.6RG}, è composto da 25 stati raggiu
 \subsubsection{Analisi strutturale}
 \label{SEC:3_8_strutturale}
 Il calcolo dei \textit{semiflow} fornisce 4 \textit{T-semiflow} minimali e 8 \textit{P-semiflow} minimali, gli 8 \textit{P-semiflow} permettono di produrre dei P-invarianti e di studiare la boundedness, che in questo caso rivela che tutti i posti sono 1-bound.\\
-I \textit{P-semiflow} garantiscono che le due variabili \texttt{falseq \texttt{e} faslep} non assumono mai contemporaneamente il valore di vero e di falso e che ogni processo è sempre in esattamente un solo valore di program counter.
+I \textit{T-semiflow} garantiscono che le due variabili \texttt{falseq \texttt{e} faslep} non assumono mai contemporaneamente il valore di vero e di falso e che ogni processo è sempre in esattamente un solo valore di program counter.
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
 \begin{itemize}
 	\item mutua esclusione: \textit{AG !(\#P4==1 \&\& \#Q4==1)} \textcolor{red}{false}.\\
 		Il model checker fornisce come controesempio l'esecuzione \\$\{P_1 Q_1,P_1 Q_2,P_2 Q_2,P_2 Q_3,P_3 Q_3,P_3 Q_4,P_4 Q_4\}$.
-	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF i\#P4>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
+	\item assenza di starvation: \textit{AG((\#P2 >0 ) -> (AF \#P4>0 ))} ed anche \textit{AG((\#P2 >0 ) -> (AF \#P4>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
 		In questo caso risulta più complicato inserire dei \textit{fairness constraint} sensati. Infatti l'assenza di starvation dipende moltissimo dallo scheduling utilizzato.  
 		Inserendo il fairness constrain più "elmentare", \textit{\#P1 >0 \textit{e} \#Q1 >0} cioè "viene quantomeno fornito tempo di CPU al processo p" , non è garantita l'assenza di starvation. Il model checker fornisce come controprova il caso in cui \textit{P} è fermo al posto 2, e viene solo eseguito \textit{Q} che cicla all'infinito in sezione non critica.\\
 		Un altro constrain che garantirebbe l'assenza di starvation sarebbe \textit{\#P2 >0 \textit{e} \#Q2 >0} cioè l'imposizione di progresso in regione non critica.%TODO: non è vero e non capisco perchè
@@ -380,7 +379,7 @@ Sono state verificate le seguenti formule LTL:
 		Il sistema va in deadlock, il controesempio presentato dal Model Checker è una esecuzione che fa eseguire tutti gli stati di q tornando a q.state= s1 e poi esegue $\{P_1Q_1 \rightarrow P_1Q_2 \rightarrow P_2Q_2\}$ che lo porta in deadlock.
         \item assenza di starvation: \textit{G (p.state = s2 ->  F p.state = s3)} ed anche \textit{G (p.state = s2 ->  F p.state = s3)}. Entrambe risultano \textcolor{red}{false}.\\
 		Essendoci deadlock c'è sempre la possibilità di starvation. Se il sistema va in deadlock dopo l'esecuzione presentata precedente entrambi i processi presentano starvation.
-		L'esempio presentato dal Model Checker è lo stesso del caso di deadlock.
+		L'esempio presentato dal Model Checker è lo stesso del caso di deadlock in CTL.
 \end{itemize}
 
 \section{Confronto e riduzione di 3.6 e 3.8}
@@ -553,7 +552,7 @@ Sono state verificate le seguenti formule CTL:
 	\item mutua esclusione: \textit{AG !(\#P8==1 \&\& \#Q8==1)} \textcolor{green}{true}.
 	\item assenza di starvation: \textit{AG((\#P3 >0 ) -> (AF \#P8>0 ))} ed anche \textit{AG((\#Q3 >0 ) -> (AF \#Q6>0 ))}. Entrambe risultano \textcolor{red}{false}.\\
 		Il motivo di questa incongruenza è dovuto ad un errore nei fairness constraint (\textit{\#P2 > 0 || \#Q2 > 0}).Infatti questi non escludono la possibilità che un processo rimanga in uno stato relativo alla richiesta della sezione critica e l'esecuzione viene concessa solo all'altro processo che cicla in sezione non critica.Questa computazione non fair deve essere gestita in altro modo.
-	\item assenza di starvation imponendo progresso in regione non critica: Fairness constraint \textit{\#P2 > 0 || \#Q2 > 0}. Entrambe risultano \textcolor{green}{true}.
+	\item assenza di starvation imponendo progresso in regione non critica: Fairness constraint \textit{\#P2 > 0 || \#Q2 > 0}. Entrambe risultano \textcolor{green}{true}.\\
 		Un modo di imporre una computazione fair è garantire il progresso del processo opposto a quello di cui si vuole verificare l'assenza di starvation. La proposizione \textit{(\#Q2 ==1 )} ad esempio garantisce che il proceso \textit{Q} uscirà dalla sezione non critica e tenterà l'accesso in \textit{cs}, riuscendo ad acceddere o permettendo l'esecuzione di \textit{P}. In tal modo però i processi sono obbligati al progresso in sezione non critica.
 		Un' implementazione alternativa consiste nella creazione di un arbitro che assegni il \textit{quanto} di tempo di esecuzione ai processi a seconda di come viene costruito, di fatto specificando la politica di scheduling.
 	\item deadlock: \textit{AG AF ((\#P1==1) || (\#Q1 == 1))} \textcolor{green}{true}.
@@ -607,8 +606,10 @@ Come si può notare dalla seguente tabella non è presente nessuna differenza tr
 \end{center}
 L'unica differenza riguarda la starvation dell'algoritmo 3.10, non rappresentata in tabella.\\
 L'implementazione con GreatSPN soffre infatti di starvation, quella con NuSMV invece no. Come appurato in precedenza la causa di ciò è la differenza nella definizione dei fairness constraint.\\
-Mentre NuSMV offre uno scheduler fair implicito GreatSPN richiede che questi sia esplicito.Non essendo stato in grado di esprimere una politica di scheduling con il solo utilizzo di formule CTL e LTL non ho potuto dimostrare che l'algoritmo 3.10 senza obbligo di progresso in sezione non critica garantisce l'assenza di starvation.
+Mentre NuSMV offre uno scheduler fair implicito, GreatSPN richiede che questi sia esplicito.
+Non essendo stato in grado di esprimere una politica di scheduling con il solo utilizzo di formule CTL e LTL non ho potuto dimostrare che l'algoritmo 3.10 senza obbligo di progresso in sezione non critica garantisce l'assenza di starvation.
 
 Come affermato in precedenza una possibile soluzione sarebbe stata quella di costruire un arbitro, ciò mi avrebbe permesso di implementare una politica di scheduling e di impostare dei fairness constraint.\\
-Non ho seguito questa strada in quanto l'implementazione con l'arbitro si sarebbe discostata dal modello di partenza.Ho preferito rimanere il più aderente possibile al codice degli algoritmi perchè suppongo sia meglio verificare formalmente un modello il più simile possibile al modello iniziale ed anche perchè l'implementazione dello scheduling avrebbe causato discrepanze tra il modello fatto con GreatSPN e quello fatto con NuSMV.
+Non ho seguito questa strada in quanto l'implementazione con l'arbitro si sarebbe discostata dal modello di partenza.
+Ho preferito rimanere il più aderente possibile al codice degli algoritmi perchè suppongo sia meglio verificare formalmente un modello il più simile possibile al modello iniziale ed anche perchè l'implementazione dello scheduling avrebbe causato discrepanze tra il modello fatto con GreatSPN e quello fatto con NuSMV.
 \end{document}

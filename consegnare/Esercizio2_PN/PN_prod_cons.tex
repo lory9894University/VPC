@@ -71,7 +71,8 @@
 \subsection{Primo setting:}
 La Petri Net in Figura \ref{FIG:setting1} mostra una basilare rete "producer-consumer" divisibile in 3 sezioni.
 \begin{itemize}
-	\item Buffer: il buffer ad accesso casuale ad N posizioni è implementato tramite due posti, \emph{buffer} e \emph{buffer\_capacity}.Il primo svolge il ruolo di limite minimo, quanti prodotti sono presenti all'interno del buffer; il secondo fa da limite massimo, impedendo che il produttore inserisca più di N elementi.
+	\item Buffer: il buffer ad accesso casuale ad N posizioni è implementato tramite due posti, \emph{buffer} e \emph{buffer\_capacity}.
+		Il primo svolge il ruolo di limite minimo, quanti prodotti sono presenti all'interno del buffer; il secondo fa da limite massimo, impedendo che il produttore inserisca più di N elementi.
 	\item Producer: Il produttore genera l'elemtento e lo inserisce nel buffer tramite la transizione \emph{place}, tale transizione non è abilitata se non sono presenti token nel posto \emph{buffer\_capacity}, cioè il buffer è pieno
 	\item Consumer: Il consumatore preleva un elemento dal buffer (solo se è presente un token nel posto \emph{buffer}) e lo "consuma".
 \end{itemize}
@@ -89,14 +90,18 @@ La rappresentazione tramite rete di petri colorata si rivela praticamente identi
 \includegraphics[width=0.8\textwidth]{./Esercizio2_img/setting_1_CPN.png}
 \caption{Setting 1 CPN} \label{FIG:setting1_CPN}
 \end{figure*}\\
-Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.Perfettamente in linea con quanto rileato nel caso precendente.
+Il reachability graph mostra un totale di 8 markings quando $N =1$, il numero di markings aumenta linearmente rispetto al valore $N$.
+Perfettamente in linea con quanto rileato nel caso precendente.
 $$markings = 4*(N + 1)$$
-Non vi è alcuna differenza tra il RG ed il SRG, essendoci un singolo token nel consumatore ed un singolo token nel produttore non viene generata alcun marking "simbolico".Una eventuale rete unfolded sarebbe identica a questa rete
+Non vi è alcuna differenza tra il RG ed il SRG, essendoci un singolo token nel consumatore ed un singolo token nel produttore non viene generata alcun marking "simbolico".
+Una eventuale rete unfolded sarebbe identica a questa rete.
 \newpage
 \section{Secondo  setting: 1 produttore, 2 consumatori,  1 buffer a N posizioni}\label{SEC:secondo}
 \subsection{Secondo  setting: scalatura di marcatura}\label{SEC:secondo-marking}
 La soluzione con la scalatura di marcatura richiede di modificare la marcatura del posto \emph{Think\_C}, portando il numero di token a due.\\
-L'implementazione è triviale ed il numero di markings mantiene una relazione di linearità rispetto ad $N$. per quanto la costante di proporzionalità sia superiore rispetto al caso precedente non vi è un eccessivo incremento di markings anche con valori di $N$ alti. Ad esempio con $N = 1$ il reachability graph presenta 12 markings mentre con $N = 30$ ne sono presenti 182.\\
+L'implementazione è triviale ed il numero di markings mantiene una relazione di linearità rispetto ad $N$.
+Per quanto la costante di proporzionalità sia superiore rispetto al caso precedente non vi è un eccessivo incremento di markings anche con valori di $N$ alti.
+Ad esempio con $N = 1$ il reachability graph presenta 12 markings mentre con $N = 30$ ne sono presenti 182.\\
 La figura \ref{FIG:setting2_markdown} mostra la rete di Petri risultante, praticametente identica alla rete tratta nella sezione precendente (setting \ref{FIG:setting1}). 
 $$ markings = 6*(N + 1) $$
 \begin{figure*}[!ht]
@@ -108,8 +113,9 @@ $$ markings = 6*(N + 1) $$
 \newpage
 \subsection{Secondo  setting: replicazione di sottoreti}\label{SEC:secondo-replica}
 La soluzione tramite la replicazione della sottorete consumatore presenta una implementazione più complessa e più "scomoda", la rete risultate per quanto meno chiara è ancora di facile comprensione.\\
-Il reachability graph è più esteso, con un solo posto nel buffer si ottengono 16 markings e, a differenza dell secondo setting (sezione \ref{SEC:secondo-marking}), la costante di proporzionalità è $8*(N+1)$.
+Il reachability graph è più esteso, con un solo posto nel buffer si ottengono 16 markings e, a differenza dell secondo setting (sezione \ref{SEC:secondo-marking}), la costante di proporzionalità è 8.
 Questo porta ad un totale di 248 markings, contro i 182 del caso precedente, quando $N = 30$
+$$markings = 8*(N+1)$$.
 \begin{figure*}[!ht]
 \centering
 \includegraphics[width=\textwidth]{./Esercizio2_img/setting2_scale.png}
@@ -132,7 +138,7 @@ Questo senza però dover ricorrere alla scomoda costruzione della sezione~\ref{S
 La dimensione del Reachability Graph è aumentata di conseguenza,con due soli posti nel buffer sono presenti $24$ markings, con 3 posti $32$ markings e con 4 posti $40$. Esattamente come nel caso~\ref{SEC:secondo-replica}
 $$markings = 8 * (N + 1)$$
 Questo poichè grazie alla colorazione dei posti è possibile trattare ogni consumatore come se fosse una rete differente, portando il numero di stati del reachability graph allo stesso valore ottenuto separando fisicamente le due reti.
-Facendo l'unfolding di questa rete si ottiene la rete ottenuta tramite replicazione di sottoretti
+Facendo l'unfolding di questa rete si ottiene la rete ottenuta tramite replicazione di sottoretti.
 
 
 \newpage
@@ -144,14 +150,16 @@ Anche questo setting è di semplice implementazione, come si può vedere in Figu
 \includegraphics[width=\textwidth]{./Esercizio2_img/setting3_markdown.png}
 \caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:setting3_markdown}
 \end{figure*}\\
-Calcolare come varia esattamente il numero di markings rispetto ai valori $P$, $C$ ed $N$ è complesso, l'equazione corrispondente è\begin{center}$markings = (2N + 2P + (N-1) * (P-1)) * (C+1)$\end{center}
-Ma analizzando l'equazione si può notare che nessuno dei tre parametri ha un influenza maggiore degli altri due.
-Al crescere di $P$, $C$ e $N$ il numero di markings cresce linearmente ed in maniera bilanciata: che sia $P$, $C$ o $N$ ad incrementare non c'è molta differenza nell'incremento dei markings.
-La crescita è comunque limitata, ad esempio impostando un buffer di 4 posti, 4 consumatori e 4 produttori vengono generati 125 markings
+Calcolare come varia esattamente il numero di markings rispetto ai valori $P$, $C$ ed $N$ è complesso, ma al crescere di uno qualsiasi dei parametri l'aumento del numero di markings è comunque limitato, ad esempio impostando un buffer di 4 posti, 4 consumatori e 4 produttori vengono generati 125 markings
+
+%l'equazione corrispondente è\begin{center}$markings = (2N + 2P + (N-1) * (P-1)) * (C+1)$\end{center}
+%Ma analizzando l'equazione si può notare che nessuno dei tre parametri ha un influenza maggiore degli altri due.
+%Al crescere di $P$, $C$ e $N$ il numero di markings cresce linearmente ed in maniera bilanciata: che sia $P$, $C$ o $N$ ad incrementare non c'è molta differenza nell'incremento dei markings.
 \newpage
 \subsection{Terzo  setting: replicazione di sottoreti}\label{SEC:terzo-replica}
 La metodologia di replicazione delle sottoreti è inadatta a implementare un sistema a $P$ produttori e $C$ consumatori, in quanto se il numero di produttori e consumatori non è noto è impossibile generare manualmente il numero corretto di sottoreti.\\
-Una implementazione teorica può essere vista in Figura \ref{FIG:setting3_scale}, ma è appunto solo teorica.Dato che non ci sono \textbf{realmente} $P$ produttori e $C$ consumatori non si possono usare i tool di analisi di \greatspn 
+Una implementazione teorica può essere vista in Figura \ref{FIG:setting3_scale}, ma è appunto solo teorica.
+Dato che non ci sono \textbf{realmente} $P$ produttori e $C$ consumatori non si possono usare i tool di analisi di \greatspn.
 \begin{figure*}[!ht]
 \centering
 \centerline{\includegraphics[scale=0.2]{./Esercizio2_img/setting3_scale.png}}
@@ -165,7 +173,7 @@ In questo caso la differenza è notevole, il numero di markings aumenta molto ut
 \caption{Setting 3 tramite la scalatura di marcatura} \label{FIG:confronto}
 \end{figure*}\\Da questi dati si può concludere che la strategia di replicazione di sottoreti non è vantagggiosa nel dal punto di vista implementativo, ne dal punto di vista della dimensione del reachability graph.
 \subsection{Terzo setting: rete di Petri colorata}
-Come nel caso precendete (sezione~\ref{SEC:secondo}, l'implentazione tramite rete di Petri colorata combina il vantaggio implementativo della scalatura tramite incremento di marcatura con la distinguibilità della replicazione di sottoreti.\\
+Come nel caso precendete (sezione~\ref{SEC:secondo}), l'implentazione tramite rete di Petri colorata combina il vantaggio implementativo della scalatura tramite incremento di marcatura con la distinguibilità della replicazione di sottoreti.\\
 Tutti i consumatori sono identificati da un valore $<c_i> \; con \; i \in [1,C]$ ed i produttori dal valore $<p_i> \; con \; i \in [1,P]$ ed è quindi possibile seguirne lo sviluppo e le scelte.
 Questo pur mantenendo la raffigurazione chiara e pulita della strategia si scalatura tramite incremento di marking.
 
