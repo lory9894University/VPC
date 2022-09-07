@@ -269,21 +269,37 @@ Su questi due \textit{DG} si può eseguire l'algoritmo di bisimulazione.
      \intertext{Divido l'insieme A sull'azione $ncsQ$}
 	&A: \{X_1,X_2,X_4,X_7,X_{11},Y_1,Y_2,Y_5,Y_7,Y_9,Y_{11}\}\\
 	&B: \{X_3,X_5,X_6,X_8,X_9,X_{10},X_{12},X_{13},X_{14},X_{15},X_{16},X_{17},X_{18},X_{19},\\&X_{20},X_{21},X_{22},X_{23},X_{24},X_{25},Y_3,Y_4,Y_6,Y_8,Y_{10},Y_{12},Y_{13},Y_{14},Y_{15},Y_{16}\}\\
-     \intertext{Divido l'insieme B sull'azione $ncsP$ usando come insieme di destinazione B}
+     \intertext{Divido l'insieme B sull'azione $ncsP$ }
 	&A: \{X_1,X_2,X_4,X_7,X_{11},Y_1,Y_2,Y_5,Y_7,Y_9,Y_{11}\}\\
 	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
 	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
-     \intertext{Divido l'insieme A sull'azione $\tau$ usando come insieme di destinazione A}
-	&A: \{X_1,X_7,X_{11},Y_1,Y_5,Y_9,Y_{11}\}\\
-	&D: \{X_2,X_4,Y_2,Y_7\}\\
+     \intertext{Divido l'insieme A sull'azione $\tau$ }
+	&A: \{X_1,X_7,Y_1,Y_5,Y_9,Y_{11}\}\\
+	&D: \{X_2,X_4,X_{11},Y_2,Y_7\}\\
 	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
 	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
-     \intertext{Divido l'insieme A sull'azione $ncsQ$ usando come insieme di destinazione D}
-	&A: \{X_7,X_{11},Y_1,Y_5,Y_9,Y_{11}\}\\
-	&E: \{X_1\}\\
+     \intertext{Divido l'insieme A sull'azione $ncsP$ }
+	&A: \{X_1,Y_1,Y_9\}\\
+	&E: \{X_7,Y_5,Y_{11}\}\\
 	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
 	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
-	&D: \{X_2,X_4,Y_2,Y_7\}\\
+	&D: \{X_2,X_4,X_{11},Y_2,Y_7\}\\
+     \intertext{Divido l'insieme D sull'azione $ncsP$ }
+	&A: \{X_1,Y_1,Y_9\}\\
+	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
+	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
+	&D: \{X_2,X_4\}\\
+	&F: \{X_{11},Y_2,Y_7\}\\
+	&E: \{X_7,Y_5,Y_{11}\}\\
+     \intertext{Divido l'insieme A sull'azione $ncsP$ }
+	&A: \{X_1,Y_9\}\\
+	&G: \{Y_1\}\\
+	&B: \{X_5,X_8,X_9,X_{12},X_{13},X_{14},X_{16},X_{17},X_{18},X_{19},X_{20},\\& \qquad X_{21},X_{22},X_{23},X_{24},X_{25},Y_4,Y_6,Y_8,Y_{12},Y_{14},Y_{16}\}\\
+	&C: \{X_3,X_6,X_{10},X_{15},Y_3,Y_{10},Y_{13},Y_{15} \}\\
+	&D: \{X_2,X_4\}\\
+	&E: \{X_7,Y_5,Y_{11}\}\\
+	&F: \{X_{11},Y_2,Y_7\}\\
+
 \end{align*}
 Dato che $X_1$ e $Y_1$ si trovano rispettivamente in $A$ e $E$ quindi non sono in relazione di bisimulazione tra loro.
 \newpage
@@ -529,7 +545,7 @@ Le variabili $P$ e $Q$ possono assumere un solo valore di verità ed la marcatur
 Come negli altri casi il sistema è 1-bound.\\
 L'analisi dei \textit{T-semiflow} mostra che il sistema possiede la proprietà di \textit{liveness} ed è interessante analizzarne 3.
 Come nel caso precendete (sezione \ref{SEC:3_9_strutturale}) sono presenti due semiflow che corrispondono ai cicli ma a differenza di tutti i casi precedenti sono assenti i semiflow che coinvolgono separatamente tutti i posti di $P$ e tutti i posti di $Q$.
-Vi è invece un unico flow che interessa tutti i posti di entrambi i processi, è quindi possibile attraverso una esecuzione dei due processi ritornare allo stato iniziale.
+Vi è invece un unico flow che interessa tutti i posti di entrambi i processi, è quindi possibile attraverso una esecuzione dei due processi ritornare allo stato iniziale, questo rende la rete una rete \textbf{consistente}.
 
 \subsubsection{Model Checking GreatSPN}
 Sono state verificate le seguenti formule CTL:
