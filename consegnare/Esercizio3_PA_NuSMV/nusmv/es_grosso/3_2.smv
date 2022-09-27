@@ -7,6 +7,9 @@ ASSIGN
 	init(turn) := 1; 
 
 
+LTLSPEC G F(( p.state = s1) | ( q.state = s1 ) )
+SPEC AG AF(( p.state = s1) | ( q.state = s1 ) )
+
 MODULE proc(turn,var_wait,var_set)
 VAR
 	state : {s1, s2, s3, s4};
@@ -25,5 +28,6 @@ ASSIGN
 		state = s4 : var_set;
 	 	TRUE : turn;
 	  esac;
+FAIRNESS running
 
 

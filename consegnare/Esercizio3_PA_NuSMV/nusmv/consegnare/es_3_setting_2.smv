@@ -1,7 +1,8 @@
 MODULE main
 VAR
 	buffer : 0 .. 3;
-	prod : process producer(buffer);
+	prod1 : process producer(buffer);
+	prod2 : process producer(buffer);
 	cons1 : process consumer(buffer);
 	cons2 : process consumer(buffer);
 ASSIGN

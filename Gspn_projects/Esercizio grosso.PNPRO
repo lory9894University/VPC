@@ -566,7 +566,7 @@
       <transition label-x="4.5" label-y="0.0" name="is_wantq_false" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.5" superpos-y="1.0" superposition-tags="setWantpTrue" type="EXP" x="7.55" y="19.0"/>
       <transition label-x="5.0" label-y="0.0" name="set_wantp_false" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="4.5" superpos-y="1.5" superposition-tags="setWantpFalse" type="EXP" x="7.55" y="42.0"/>
       <transition label-x="3.0" label-y="0.0" name="enter_cs_p" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="3.5" superpos-y="1.0" superposition-tags="isWantqFalse" type="EXP" x="7.55" y="27.0"/>
-      <place label-x="2.0" label-y="0.0" name="P4" superposition-tags="cs" x="7.0" y="31.0"/>
+      <place label-x="2.0" label-y="0.0" name="P4" superpos-x="2.0" superpos-y="1.5" superposition-tags="cs" x="7.0" y="31.0"/>
       <place label-x="2.5" label-y="0.0" name="P5" x="7.0" y="39.0"/>
       <transition label-x="2.5" label-y="0.0" name="crit_p" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="7.55" y="35.0"/>
     </nodes>
@@ -741,6 +741,56 @@
       <arc head="Q2" kind="OUTPUT" tail="exit_ncsQ"/>
     </edges>
   </gspn>
+  <gspn name="CSPvariables_noTrue" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <nodes>
+      <place label-x="-2.0" label-y="0.0" name="truep" x="10.0" y="9.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falsep" x="10.0" y="16.0"/>
+      <place label-x="-2.0" label-y="0.0" name="trueq" x="30.0" y="9.0"/>
+      <place label-x="2.5" label-y="0.0" marking="1" name="falseq" x="30.0" y="16.0"/>
+      <transition label-y="2.0" name="is_falsep" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantpFalse?" type="EXP" x="10.55" y="20.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falsep" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantpFalse?" type="EXP" x="7.55" y="12.0"/>
+      <transition label-x="3.0" name="set_truep" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantpTrue?" type="EXP" x="12.55" y="12.0"/>
+      <transition label-y="2.0" name="is_falseq" nservers-x="0.5" superpos-y="3.0" superposition-tags="isWantqFalse?" type="EXP" x="30.55" y="20.0"/>
+      <transition label-x="-2.5" label-y="1.5" name="set_falseq" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="-2.5" superpos-y="2.5" superposition-tags="setWantqFalse?" type="EXP" x="27.55" y="12.0"/>
+      <transition label-x="3.0" name="set_trueq" nservers-x="0.5" rotation="1.5707963267948966" superpos-x="3.5" superpos-y="-0.5" superposition-tags="setWantqTrue?" type="EXP" x="32.55" y="12.0"/>
+    </nodes>
+    <edges>
+      <arc head="trueq" kind="OUTPUT" tail="set_trueq"/>
+      <arc head="is_falsep" kind="INPUT" tail="falsep">
+        <point x="9.5" y="19.0"/>
+      </arc>
+      <arc head="set_falseq" kind="INPUT" tail="trueq"/>
+      <arc head="is_falseq" kind="INPUT" tail="falseq">
+        <point x="29.5" y="19.0"/>
+      </arc>
+      <arc head="falsep" kind="OUTPUT" tail="is_falsep">
+        <point x="12.5" y="19.0"/>
+      </arc>
+      <arc head="truep" kind="OUTPUT" tail="set_truep"/>
+      <arc head="falsep" kind="OUTPUT" tail="set_falsep"/>
+      <arc head="falseq" kind="OUTPUT" tail="set_falseq"/>
+      <arc head="falseq" kind="OUTPUT" tail="is_falseq">
+        <point x="32.5" y="19.0"/>
+      </arc>
+      <arc head="set_trueq" kind="INPUT" tail="falseq"/>
+      <arc head="set_falsep" kind="INPUT" tail="truep"/>
+      <arc head="set_truep" kind="INPUT" tail="falsep"/>
+    </edges>
+  </gspn>
+  <algebra2 alignment="HORIZONTAL" name="CSP3.8" policy="UNARY_CONJUGATED_ALL" restriction="true" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
+    <bindings-list/>
+    <place-tags/>
+    <transition-tags>
+      <tag name="isWantqFalse"/>
+      <tag name="setWantqFalse"/>
+      <tag name="setWantpFalse"/>
+      <tag name="setWantpTrue"/>
+      <tag name="isWantpFalse"/>
+      <tag name="setWantqTrue"/>
+    </transition-tags>
+    <subnet netname="CSPvariables_noTrue"/>
+    <subnet netname="3.8_novar"/>
+  </algebra2>
   <measures gspn-name="3.8" log-uuid="8982324c-5967-4a62-b401-2c6729c58d33" name="Measures 3.8" simplified-UI="false">
     <assignments/>
     <rgmedd2/>
