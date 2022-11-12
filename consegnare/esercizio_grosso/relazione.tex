@@ -20,6 +20,7 @@
 \usepackage{thmtools}
 \graphicspath{{figures/}}
 \usepackage{xcolor}
+\newcommand{\disclaimer}[1]{\textcolor{red}{#1}}
 
 \begin{document}
 
@@ -27,7 +28,12 @@
 \title{Esercizio finale}
 \maketitle
 
-\subsection{Introduzione}
+\section{Discaimer}
+\disclaimer{Il progetto in se è stato ben valutato dalla professoressa, qualche piccola imprecisone sulla parte delle definizioni. C'è un solo grande enorme errore che mi è costato due punti all'esame. Non ho intenzione di correggerlo perchè ormai ho dato l' esame, però mi sembra doveroso dichiararlo.}\\
+\disclaimer{La proprietà di assenza di deadlock che la prof vuole venga verificata NON è la proprietà che ho verificato io. Non so come mi sia sfuggito ma io ho proprio cercato di dimostrare un'altra proprietà (in effetti più difficile da dimostrare con i tools forniti), cioè : "uno dei due processi è in grado di progredire". La prof non chiede questa proprietà.}
+
+\disclaimer{C'è poi un commento nell'ultima sezione (3.10)}
+\section{Introduzione}
 L’esercizio consiste nella verifica di 3 proprietà in diverse varianti di un algoritmo di mutua esclusione presentato sul libro a partire dall’algoritmo 3.2 fino all’algoritmo 3.10 denominato Algoritmo di Dekker.
 Le 3 proprietà da verificare sono:
 \begin{itemize}
@@ -508,6 +514,9 @@ A differenza del 3.2 però il controllo del turno viene effettuato solamente se 
 Per ogni operazione effettuabile sulle variabili è stata aggiunta una nuova transizione alle stesse.
 Quindi la variabile \textit{wantP} avrà due transizioni atte al settarla vera o falsa, una usata fuori dal ciclo interno ed una all'interno (transizione \texttt{set\_truep}).
 Stesso discorso vale per la variabile turn. A differenza di quella presentata in sezione \ref{SEC:3.2}
+\subsection{Disclaimer}
+\disclaimer{Questo algoritmo non dovrebbe soffrire di starvarion, invece la sua implementazione in Petri net ne soffre. Questo è effettivamente un \textit{tranello} della prof. Vuole che vi rendiate conto della cosa e, per quanto non sia impossibile generare un PN con un arbitraggio che rende fair il modello, basta che all'esame le dite ciò.\\
+Insomma quello che ho fatto io è andato bene, le ho spiegato che non avevo trovato il modo e lei mi ha risposto qualcosa sulla falsa riga di "non mi aspettavo lo trovaste, mi aspettavo mi chiedeste aiuto"}
 \subsection{Rete di Petri}
 \begin{center}
 \includegraphics[width=0.7\textwidth]{WantP.png}
