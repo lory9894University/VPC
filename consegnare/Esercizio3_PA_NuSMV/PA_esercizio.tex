@@ -42,7 +42,7 @@ Il sistema è organizzato come segue:
 	&E=PUT.F&&\\
 	&F=GET.E&&
 \end{flalign*}
-Le operazioni $put,get$ sono inserite in una restrizione, in modo che sia possibile inserire e rimuovere oggetti dal buffer solamente tramite $\tau$-operazioni che coinvolgono una "cella" del buffer ed uno tra il consuamtore ed il produttore.\\
+Le operazioni $put,get$ sono inserite in una restrizione, in modo che sia possibile inserire e rimuovere oggetti dal buffer solamente tramite $\tau$-operazioni che coinvolgono una "cella" del buffer ed uno tra il consumatore ed il produttore.\\
 Non è possibile indicare un buffer a $N$ posizioni in maniera generica quindi ho costruito il buffer come una composizione di $N$ buffer ad 1 posizione, dato che l'esercizio richiede che non il buffer sia un unico oggetto e non sia possibile inserire elementi in differenti "celle" di questo ho definito tre funzioni di relabeling ed una nuova operazione $passa_n$ anche essa inserita nella restrizione.
 \newpage
 \begin{itemize}
@@ -124,7 +124,7 @@ Il \textit{Consumer} non può effettuare l'operazione \textit{get} se il buffer 
 
 Invece il buffer viene incrementato o decrementato solo quando un processo effettua una operazione su di esso (righe 24 e 41), la sintassi di \textit{NuSMV} obbliga l'inserimento di una clausola che impedisca al buffer di superare il valore 3 o scendere sotto il valore 0.
 
-Lanciando il comando \texttt{print\_reachable\_states} risulta che il numero di stati raggiungibili è $36 ; out ; of ; 36$, e varia a seconda della dimensione del buffer in maniera linearmente proporzionale, in accordo con quanto ottenuto dallo studio del reachability graph nelle PN.
+Lanciando il comando \texttt{print\_reachable\_states} risulta che il numero di stati raggiungibili è $36 \; out \; of \; 36$, e varia a seconda della dimensione del buffer in maniera linearmente proporzionale, in accordo con quanto ottenuto dallo studio del reachability graph nelle PN.
 Ci sono invece molti più stati di quanti siano i marking del \textit{Reachability Graph}, probabilmente perchè il numero di posti non è equivalente al numero di "stati" dei processi producer,consumer e buffer.
 Ad esempio il processo producer ha 3 stati: "think, produce, place" ma la mia implementazione in PN ha solo 2 posti "ThinkP e PlaceInBuffer", se avessi mantenuto una implementazione cooerente tra i due strumenti avrei ottenuto lo stesso valore sia calcolando gli stati raggiungibili in NuSMV che calcolando il numero di markings nel reachability graph.
 %ormai l'ho consegnato, non posso cambiare il vecchio file
