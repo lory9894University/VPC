@@ -379,37 +379,41 @@
       <place marking="1" name="think_P" x="2.0" y="9.0"/>
       <place name="placeInBuffer" x="14.0" y="9.0"/>
       <place label-x="0.5" label-y="-1.5" marking="1" name="think_C" x="21.0" y="26.0"/>
-      <place name="consume" x="9.0" y="22.0"/>
+      <place name="take" x="9.0" y="22.0"/>
       <place label-x="2.0" label-y="0.0" name="buffer" x="21.0" y="14.0"/>
       <place label-x="-4.0" label-y="0.0" marking="n" name="buffer_capacity" x="10.0" y="15.0"/>
       <transition name="produce" nservers-x="0.5" type="EXP" x="6.55" y="9.0"/>
       <transition name="place" nservers-x="0.5" type="EXP" x="21.55" y="9.0"/>
       <transition label-y="1.5" name="getProduct" nservers-x="0.5" type="EXP" x="15.55" y="22.0"/>
       <transition label-y="2.0" name="goToThink" nservers-x="0.5" type="EXP" x="15.55" y="26.0"/>
+      <place name="consume" x="9.0" y="29.0"/>
+      <transition name="T0" nservers-x="0.5" rotation="1.5707963267948966" type="EXP" x="9.55" y="26.0"/>
+      <place name="produce1" x="23.0" y="3.0"/>
+      <transition name="T1" nservers-x="0.5" type="EXP" x="10.55" y="3.0"/>
     </nodes>
     <edges>
       <arc head="buffer" kind="OUTPUT" tail="place">
         <point x="22.0" y="11.0"/>
       </arc>
-      <arc head="think_P" kind="OUTPUT" tail="place">
-        <point x="25.5" y="10.0"/>
-        <point x="25.5" y="2.0"/>
-        <point x="3.0" y="2.0"/>
-      </arc>
       <arc head="getProduct" kind="INPUT" tail="think_C">
         <point x="22.0" y="23.0"/>
       </arc>
       <arc head="placeInBuffer" kind="OUTPUT" tail="produce"/>
-      <arc head="consume" kind="OUTPUT" tail="getProduct"/>
+      <arc head="take" kind="OUTPUT" tail="getProduct"/>
       <arc head="think_C" kind="OUTPUT" tail="goToThink"/>
       <arc head="place" kind="INPUT" tail="placeInBuffer"/>
       <arc head="produce" kind="INPUT" tail="think_P"/>
       <arc head="place" kind="INPUT" tail="buffer_capacity"/>
-      <arc head="goToThink" kind="INPUT" tail="consume">
-        <point x="10.0" y="27.0"/>
-      </arc>
       <arc head="buffer_capacity" kind="OUTPUT" tail="getProduct"/>
       <arc head="getProduct" kind="INPUT" tail="buffer"/>
+      <arc head="T0" kind="INPUT" tail="take"/>
+      <arc head="consume" kind="OUTPUT" tail="T0"/>
+      <arc head="goToThink" kind="INPUT" tail="consume"/>
+      <arc head="produce1" kind="OUTPUT" tail="place">
+        <point x="27.0" y="7.0"/>
+      </arc>
+      <arc head="T1" kind="INPUT" tail="produce1"/>
+      <arc head="think_P" kind="OUTPUT" tail="T1"/>
     </edges>
   </gspn>
   <gspn name="setting2_markdown" show-color-cmd="false" show-fluid-cmd="false" show-timed-cmd="false" view-rates="false">
